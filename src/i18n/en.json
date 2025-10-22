@@ -1,0 +1,5 @@
+{
+  "app": { "title": "Mesa de Juego" },
+  "nav": { "grimoire": "Grimoire", "characters": "Characters", "encounters": "Encounters", "config": "Config" },
+  "language": { "en": "English", "es": "Spanish" }
+}
