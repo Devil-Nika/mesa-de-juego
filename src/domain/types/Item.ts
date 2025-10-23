@@ -1,4 +1,4 @@
-import type { SystemId } from "../systems";
+import type { SystemId } from "../../systems";
 
 export interface Item {
     pk: string;               // "${system}:${id}"

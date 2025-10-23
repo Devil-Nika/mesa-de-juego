@@ -1,7 +1,7 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../services/db";
 import { useSystem } from "../contexts/SystemContext";
-import type { Spell } from "../types/Spell";
+import type { Spell } from "../domain/types/Spell";
 
 type Filters = { q?: string; level?: number; ritual?: boolean; concentration?: boolean; };
 

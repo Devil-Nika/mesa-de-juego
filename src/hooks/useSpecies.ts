@@ -1,7 +1,7 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../services/db";
 import { useSystem } from "../contexts/SystemContext";
-import type { Species } from "../types/Species";
+import type { Species } from "../domain/types/Species";
 
 export function useSpecies(q?: string) {
     const { system } = useSystem();

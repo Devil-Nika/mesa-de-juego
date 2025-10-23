@@ -1,7 +1,7 @@
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../services/db";
 import { useSystem } from "../contexts/SystemContext";
-import type { Item } from "../types/Item";
+import type { Item } from "../domain/types/Item";
 
 export function useItems(q?: string, type?: string) {
     const { system } = useSystem();

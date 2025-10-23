@@ -1,7 +1,7 @@
 import Dexie, { type Table } from "dexie";
-import type { Spell } from "../types/Spell";
-import type { Species } from "../types/Species";
-import type { Item } from "../types/Item";
+import type { Spell } from "../domain/types/Spell";
+import type { Species } from "../domain/types/Species";
+import type { Item } from "../domain/types/Item";
 
 type Migratable = {
     pk?: string;
