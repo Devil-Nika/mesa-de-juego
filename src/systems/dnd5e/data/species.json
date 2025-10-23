@@ -1,0 +1,11 @@
+[
+  {
+    "id": "human",
+    "name": "Human",
+    "size": "Medium",
+    "speed": "30 ft",
+    "languages": ["common"],
+    "traits": ["Versatile, adaptable."],
+    "source": "SRD"
+  }
+]
