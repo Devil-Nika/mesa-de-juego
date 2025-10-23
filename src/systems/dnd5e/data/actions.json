@@ -1,0 +1,18 @@
+[
+  {
+    "id": "multiattack",
+    "name": "Multiattack",
+    "type": "feature",
+    "description": "The creature makes two attacks."
+  },
+  {
+    "id": "claw",
+    "name": "Claw",
+    "type": "attack",
+    "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (2d4+2) slashing damage.",
+    "attack_bonus": 4,
+    "damage": "2d4+2 slashing",
+    "reach": "5 ft.",
+    "targets": "one target"
+  }
+]

@@ -1,6 +1,15 @@
-export type SystemId = "dnd5e" | "pf2e" | "sf2e";
-export const SYSTEMS: Record<SystemId, { label: string }> = {
-    dnd5e: { label: "D&D 5e" },
-    pf2e:  { label: "Pathfinder 2e" },
-    sf2e:  { label: "Starfinder 2e" },
+export type SystemId = "dnd5e"; // por ahora solo 5e. Si agregás más, extendé este union.
+
+export interface SystemDescriptor {
+    id: SystemId;
+    label: string;
+    enabled: boolean;
+}
+
+export const systems: Record<SystemId, SystemDescriptor> = {
+    dnd5e: { id: "dnd5e", label: "D&D 5e", enabled: true },
 };
+
+export function isSystemId(x: string): x is SystemId {
+    return x === "dnd5e";
+}

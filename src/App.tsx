@@ -1,43 +1,34 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useSystem } from "./contexts/SystemContext";
-import { seedIfNeeded } from "./services/seed";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Layout } from "./components/Layout";
+import SystemGuard from "./routes/SystemGuard";
+import GrimorioLayout from "./pages/grimorio/GrimorioLayout";
 
-import SystemGuard from "./pages/SystemGuard";
-import GrimorioLayout from "./pages/grimoire/Layout";
-import GrimorioSpells from "./pages/grimoire/Spells";
-import GrimorioSpecies from "./pages/grimoire/Species";
-import GrimorioItems from "./pages/grimoire/Items";
+import Spells from "./pages/grimorio/Spells";
+import Species from "./pages/grimorio/Species";
+import Items from "./pages/grimorio/Items";
+import Monsters from "./pages/grimorio/Monsters";
+
+function Home() {
+    return <p className="opacity-80">Elegí un sistema con el conmutador de arriba.</p>;
+}
 
 export default function App() {
-    const { system } = useSystem();
-    const [ready, setReady] = useState(false);
-
-    useEffect(() => {
-        (async () => {
-            await seedIfNeeded(system);
-            setReady(true);
-        })();
-    }, [system]);
-
-    if (!ready) return <p className="p-6 opacity-70">Inicializando base local…</p>;
-
     return (
-        <BrowserRouter>
-            <header className="bg-white shadow p-4">
-                <h1 className="text-xl font-semibold">Mesa de Juego</h1>
-            </header>
-
+        <Layout>
             <Routes>
-                <Route path="/" element={<Navigate to="/dnd5e/grimoire/spells" replace />} />
-                <Route path="/:system/grimoire" element={<SystemGuard><GrimorioLayout /></SystemGuard>}>
-                    <Route index element={<Navigate to="spells" replace />} />
-                    <Route path="spells" element={<GrimorioSpells />} />
-                    <Route path="species" element={<GrimorioSpecies />} />
-                    <Route path="items" element={<GrimorioItems />} />
+                <Route path="/" element={<Navigate to="/dnd5e" replace />} />
+                <Route path="/:system" element={<SystemGuard />}>
+                    <Route index element={<Home />} />
+                    <Route path="grimoire" element={<GrimorioLayout />}>
+                        <Route index element={<Navigate to="spells" replace />} />
+                        <Route path="spells" element={<Spells />} />
+                        <Route path="species" element={<Species />} />
+                        <Route path="items" element={<Items />} />
+                        <Route path="monsters" element={<Monsters />} />
+                    </Route>
                 </Route>
-                <Route path="*" element={<Navigate to="/dnd5e/grimoire/spells" replace />} />
+                <Route path="*" element={<Navigate to="/dnd5e" replace />} />
             </Routes>
-        </BrowserRouter>
+        </Layout>
     );
 }

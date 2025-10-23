@@ -1,21 +1,36 @@
-import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "../services/db";
+import { useEffect, useMemo, useState } from "react";
 import { useSystem } from "../contexts/SystemContext";
-import type { Item } from "../domain/types/Item";
 
-export function useItems(q?: string, type?: string) {
+export interface UseItemsOptions {
+    search?: string;
+    category?: "weapon" | "armor" | "gear" | "tool" | "consumable" | "other";
+}
+
+type ItemSummary = { pk: string; name: string; category?: string };
+
+export function useItems(options: UseItemsOptions = {}) {
     const { system } = useSystem();
+    const [data, setData] = useState<ItemSummary[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<unknown>(null);
 
-    const data = useLiveQuery(async () => {
-        let list: Item[] = await db.items.where("system").equals(system).toArray();
-        if (type) list = list.filter((i: Item) => i.type === type);
-        if (q?.trim()) {
-            const ql = q.toLowerCase();
-            list = list.filter((i: Item) => i.name.toLowerCase().includes(ql));
-        }
-        list.sort((a, b) => a.name.localeCompare(b.name));
-        return list;
-    }, [system, q, type]);
+    useEffect(() => {
+        setIsLoading(true);
+        setError(null);
+        // TODO: cargar items según `system`
+        setData([]); // placeholder
+        setIsLoading(false);
+    }, [system]);
 
-    return { items: data ?? [], loading: data === undefined };
+    const items = useMemo(() => {
+        const term = (options.search ?? "").toLowerCase();
+        const cat = options.category;
+        return data.filter((i) => {
+            const byText = !term || i.name.toLowerCase().includes(term);
+            const byCat = !cat || i.category === cat;
+            return byText && byCat;
+        });
+    }, [data, options.search, options.category]);
+
+    return { system, items, isLoading, error };
 }

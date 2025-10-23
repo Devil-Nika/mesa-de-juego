@@ -1,5 +1,2 @@
-export * from "./Spell";
-export * from "./Species";
-export * from "./Item";
-export * from "./Actions";
-export * from "./Monster";
+// Se exportaran sistemas futuros.
+export * from "../dnd5e";

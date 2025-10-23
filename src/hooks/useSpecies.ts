@@ -1,20 +1,30 @@
-import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "../services/db";
+import { useEffect, useMemo, useState } from "react";
 import { useSystem } from "../contexts/SystemContext";
-import type { Species } from "../domain/types/Species";
 
-export function useSpecies(q?: string) {
+export interface UseSpeciesOptions {
+    search?: string;
+}
+
+type SpeciesSummary = { pk: string; name: string };
+
+export function useSpecies(options: UseSpeciesOptions = {}) {
     const { system } = useSystem();
+    const [data, setData] = useState<SpeciesSummary[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<unknown>(null);
 
-    const data = useLiveQuery(async () => {
-        let list: Species[] = await db.species.where("system").equals(system).toArray();
-        if (q?.trim()) {
-            const ql = q.toLowerCase();
-            list = list.filter((s: Species) => s.name.toLowerCase().includes(ql));
-        }
-        list.sort((a, b) => a.name.localeCompare(b.name));
-        return list;
-    }, [system, q]);
+    useEffect(() => {
+        setIsLoading(true);
+        setError(null);
+        // TODO: cargar species según `system`
+        setData([]); // placeholder
+        setIsLoading(false);
+    }, [system]);
 
-    return { species: data ?? [], loading: data === undefined };
+    const species = useMemo(() => {
+        const term = (options.search ?? "").toLowerCase();
+        return data.filter((s) => !term || s.name.toLowerCase().includes(term));
+    }, [data, options.search]);
+
+    return { system, species, isLoading, error };
 }

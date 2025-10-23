@@ -1,6 +1,6 @@
 import type { SystemId } from "../../systems";
 
-export interface Item {
+export interface Items {
     pk: string;               // "${system}:${id}"
     id: string;
     system: SystemId;

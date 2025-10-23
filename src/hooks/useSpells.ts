@@ -1,36 +1,36 @@
-import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "../services/db";
+import { useEffect, useMemo, useState } from "react";
 import { useSystem } from "../contexts/SystemContext";
-import type { Spell } from "../domain/types/Spell";
 
-type Filters = { q?: string; level?: number; ritual?: boolean; concentration?: boolean; };
+export interface UseSpellsOptions {
+    search?: string;
+    level?: number; // opcional, para cuando tengas niveles
+}
 
-export function useSpells(filters: Filters) {
+type SpellSummary = { pk: string; name: string; level?: number };
+
+export function useSpells(options: UseSpellsOptions = {}) {
     const { system } = useSystem();
+    const [data, setData] = useState<SpellSummary[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<unknown>(null);
 
-    const data = useLiveQuery(async () => {
-        // Partimos de los del sistema activo
-        let list: Spell[] = await db.spells.where("system").equals(system).toArray();
+    useEffect(() => {
+        setIsLoading(true);
+        setError(null);
+        // TODO: cuando tengas data real, cargala según `system`
+        setData([]); // placeholder
+        setIsLoading(false);
+    }, [system]);
 
-        // Filtros en memoria (sencillos y tip-safe)
-        if (typeof filters.level === "number") {
-            list = list.filter((s: Spell) => s.level === filters.level);
-        }
-        if (typeof filters.ritual === "boolean") {
-            list = list.filter((s: Spell) => s.ritual === filters.ritual);
-        }
-        if (typeof filters.concentration === "boolean") {
-            list = list.filter((s: Spell) => s.concentration === filters.concentration);
-        }
-        if (filters.q?.trim()) {
-            const ql = filters.q.toLowerCase();
-            list = list.filter((s: Spell) => s.name.toLowerCase().includes(ql));
-        }
+    const spells = useMemo(() => {
+        const term = (options.search ?? "").toLowerCase();
+        const lvl = options.level;
+        return data.filter((s) => {
+            const byText = !term || s.name.toLowerCase().includes(term);
+            const byLvl = lvl == null || s.level === lvl;
+            return byText && byLvl;
+        });
+    }, [data, options.search, options.level]);
 
-        // Orden por nombre
-        list.sort((a, b) => a.name.localeCompare(b.name));
-        return list;
-    }, [system, filters.q, filters.level, filters.ritual, filters.concentration]);
-
-    return { spells: data ?? [], loading: data === undefined };
+    return { system, spells, isLoading, error };
 }

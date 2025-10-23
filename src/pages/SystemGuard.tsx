@@ -1,26 +1,23 @@
-import { useEffect } from "react";
-import { useParams, Navigate } from "react-router-dom";
-import { useSystem } from "../contexts/SystemContext";
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useState } from "react";
+import type { ReactNode } from "react";            // <- type-only import (TS1484 OK)
 import type { SystemId } from "../systems";
 
-const VALID: SystemId[] = ["dnd5e","pf2e","sf2e"];
+export type Ctx = { system: SystemId; setSystem: (s: SystemId) => void };
 
-export default function SystemGuard({ children }: { children: React.ReactNode }) {
-    const { system, setSystem } = useSystem();
-    const params = useParams();
-    const sys = params.system as SystemId | undefined;
+const SystemContext = createContext<Ctx | null>(null);
 
-    // Hook SIEMPRE se ejecuta
-    useEffect(() => {
-        if (sys && VALID.includes(sys) && sys !== system) {
-            setSystem(sys);
-        }
-    }, [sys, system, setSystem]);
+export function SystemProvider({ children }: { children: ReactNode }) {
+    const [system, setSystem] = useState<SystemId>("dnd5e");
+    return (
+        <SystemContext.Provider value={{ system, setSystem }}>
+            {children}
+        </SystemContext.Provider>
+    );
+}
 
-    // Luego validamos
-    if (!sys || !VALID.includes(sys)) {
-        return <Navigate to="/dnd5e/grimoire/spells" replace />;
-    }
-
-    return <>{children}</>;
+export function useSystem(): Ctx {
+    const ctx = useContext(SystemContext);
+    if (!ctx) throw new Error("SystemContext not found");
+    return ctx;
 }
