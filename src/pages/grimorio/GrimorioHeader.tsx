@@ -1,6 +1,5 @@
-// src/pages/grimorio/GrimorioHeader.tsx
 import type { ChangeEvent } from "react";
-import { useSystem } from "../../contexts/SystemContext"; // <- esta ruta es correcta
+import { useSystem } from "../../contexts/SystemContext"; // ✅ ruta correcta
 
 interface GrimorioHeaderProps {
     title: string;
@@ -17,7 +16,9 @@ export default function GrimorioHeader({ title, search = "", onSearchChange }: G
 
     return (
         <div className="mb-4 flex items-center gap-3">
-            <h2 className="text-lg font-semibold">{title} ({system})</h2>
+            <h2 className="text-lg font-semibold">
+                {title} ({system})
+            </h2>
             <input
                 type="text"
                 value={search}
