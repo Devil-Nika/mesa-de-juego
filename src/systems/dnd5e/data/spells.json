@@ -1,19 +1,4 @@
 [
-  {
-    "id": "magic-missile",
-    "name": "Magic Missile",
-    "level": 1,
-    "school": "Evocation",
-    "casting_time": "1 action",
-    "range": "120 feet",
-    "components": { "verbal": true, "somatic": true, "material": { "hasM": true, "text": "a bit of phosphorus or wolfsbane" } },
-    "duration": "Instantaneous",
-    "ritual": false,
-    "concentration": false,
-    "description": "You create three glowing darts of magical force...",
-    "higher_level": "One more dart for each slot level above 1st.",
-    "classes": ["wizard", "sorcerer"],
-    "tags": ["damage", "force"],
-    "source": "SRD"
-  }
+  { "pk": "dnd5e:spell:fireball", "id": "fireball", "system": "dnd5e", "name": "Fireball", "level": 3 },
+  { "pk": "dnd5e:spell:mage-hand", "id": "mage-hand", "system": "dnd5e", "name": "Mage Hand", "level": 0 }
 ]

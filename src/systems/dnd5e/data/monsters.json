@@ -1,21 +1,4 @@
 [
-  {
-    "id": "black-bear",
-    "name": "Black Bear",
-    "size": "Medium",
-    "type": "beast",
-    "alignment": "unaligned",
-    "armor_class": 11,
-    "hit_points": 19,
-    "hit_dice": "3d8+6",
-    "speed": "40 ft., climb 30 ft.",
-    "str": 15, "dex": 10, "con": 14, "int": 2, "wis": 12, "cha": 7,
-    "senses": "passive Perception 13",
-    "languages": "-",
-    "challenge": "1/2",
-    "actions": [
-      { "actionId": "multiattack", "count": 1 },
-      { "actionId": "claw", "count": 1 }
-    ]
-  }
+  { "pk": "dnd5e:monster:goblin", "id": "goblin", "system": "dnd5e", "name": "Goblin", "cr": 0.25 },
+  { "pk": "dnd5e:monster:ogre", "id": "ogre", "system": "dnd5e", "name": "Ogre", "cr": 2 }
 ]

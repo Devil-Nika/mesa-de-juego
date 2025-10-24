@@ -1,36 +1,39 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSystem } from "../contexts/SystemContext";
+import { db } from "../services/db";
 
-export interface UseItemsOptions {
-    search?: string;
-    category?: "weapon" | "armor" | "gear" | "tool" | "consumable" | "other";
+interface ItemRow {
+    pk: string;
+    id: string;
+    system: "dnd5e";
+    name: string;
+    category?: string;
 }
 
-type ItemSummary = { pk: string; name: string; category?: string };
-
-export function useItems(options: UseItemsOptions = {}) {
+export function useItems() {
     const { system } = useSystem();
-    const [data, setData] = useState<ItemSummary[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [items, setItems] = useState<ItemRow[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<unknown>(null);
 
     useEffect(() => {
-        setIsLoading(true);
-        setError(null);
-        // TODO: cargar items según `system`
-        setData([]); // placeholder
-        setIsLoading(false);
+        let alive = true;
+        (async () => {
+            try {
+                setIsLoading(true);
+                setError(null);
+                const rows = await db.items.where("system").equals(system).toArray();
+                if (alive) setItems(rows);
+            } catch (e) {
+                if (alive) setError(e);
+            } finally {
+                if (alive) setIsLoading(false);
+            }
+        })();
+        return () => {
+            alive = false;
+        };
     }, [system]);
-
-    const items = useMemo(() => {
-        const term = (options.search ?? "").toLowerCase();
-        const cat = options.category;
-        return data.filter((i) => {
-            const byText = !term || i.name.toLowerCase().includes(term);
-            const byCat = !cat || i.category === cat;
-            return byText && byCat;
-        });
-    }, [data, options.search, options.category]);
 
     return { system, items, isLoading, error };
 }

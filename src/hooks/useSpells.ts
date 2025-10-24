@@ -1,36 +1,39 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSystem } from "../contexts/SystemContext";
+import { db } from "../services/db";
 
-export interface UseSpellsOptions {
-    search?: string;
-    level?: number; // opcional, para cuando tengas niveles
+interface SpellRow {
+    pk: string;
+    id: string;
+    system: "dnd5e";
+    name: string;
+    level?: number;
 }
 
-type SpellSummary = { pk: string; name: string; level?: number };
-
-export function useSpells(options: UseSpellsOptions = {}) {
+export function useSpells() {
     const { system } = useSystem();
-    const [data, setData] = useState<SpellSummary[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [spells, setSpells] = useState<SpellRow[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<unknown>(null);
 
     useEffect(() => {
-        setIsLoading(true);
-        setError(null);
-        // TODO: cuando tengas data real, cargala según `system`
-        setData([]); // placeholder
-        setIsLoading(false);
+        let alive = true;
+        (async () => {
+            try {
+                setIsLoading(true);
+                setError(null);
+                const rows = await db.spells.where("system").equals(system).toArray();
+                if (alive) setSpells(rows);
+            } catch (e) {
+                if (alive) setError(e);
+            } finally {
+                if (alive) setIsLoading(false);
+            }
+        })();
+        return () => {
+            alive = false;
+        };
     }, [system]);
-
-    const spells = useMemo(() => {
-        const term = (options.search ?? "").toLowerCase();
-        const lvl = options.level;
-        return data.filter((s) => {
-            const byText = !term || s.name.toLowerCase().includes(term);
-            const byLvl = lvl == null || s.level === lvl;
-            return byText && byLvl;
-        });
-    }, [data, options.search, options.level]);
 
     return { system, spells, isLoading, error };
 }

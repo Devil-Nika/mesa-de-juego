@@ -1,41 +1,42 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSystem } from "../contexts/SystemContext";
+import { db } from "../services/db";
 
-export interface UseActionsOptions {
-    search?: string;
-    category?: "attack" | "feature" | "spell" | "utility" | "other";
+interface ActionRow {
+    pk: string;
+    id: string;
+    system: "dnd5e";
+    name: string;
+    category?: string; // "attack" | "feature" | "utility" | ...
 }
 
-type ActionSummary = { pk: string; name: string; category?: string };
-
-export function useActions(options: UseActionsOptions = {}) {
+export function useActions() {
     const { system } = useSystem();
-    const [data, setData] = useState<ActionSummary[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [actions, setActions] = useState<ActionRow[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<unknown>(null);
 
     useEffect(() => {
-        setIsLoading(true);
-        setError(null);
-        // TODO: cargar acciones según `system`
-        setData([]); // placeholder
-        setIsLoading(false);
+        let alive = true;
+        (async () => {
+            try {
+                setIsLoading(true);
+                setError(null);
+                const rows = await db.actions.where("system").equals(system).toArray();
+                if (alive) setActions(rows);
+            } catch (e) {
+                if (alive) setError(e);
+            } finally {
+                if (alive) setIsLoading(false);
+            }
+        })();
+        return () => { alive = false; };
     }, [system]);
-
-    const actions = useMemo(() => {
-        const term = (options.search ?? "").toLowerCase();
-        const cat = options.category;
-        return data.filter((a) => {
-            const byText = !term || a.name.toLowerCase().includes(term);
-            const byCat = !cat || a.category === cat;
-            return byText && byCat;
-        });
-    }, [data, options.search, options.category]);
 
     return { system, actions, isLoading, error };
 }
 
-/** Stub por compatibilidad con código previo que importaba useActionsMap */
+// (Si antes exportabas useActionsMap, puedes ofrecer un stub opcional)
 export function useActionsMap() {
     return new Map<string, unknown>();
 }

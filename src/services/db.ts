@@ -1,35 +1,28 @@
-import Dexie, { type Table } from "dexie";
-import type { Spell, Species, Items, Monster, Actions } from "../domain/dnd5e";
+import Dexie, { type EntityTable } from "dexie";
 
-type Migratable = { pk?: string; id?: string; system?: string; name?: string };
+// 🔧 Alineamos los tipos con lo que consumen los hooks (incluye 'id')
+export interface RowBasic {
+    pk: string;
+    id: string;
+    system: "dnd5e";
+    name: string;
+}
 
 export class GameDB extends Dexie {
-    spells!: Table<Spell, string>;
-    species!: Table<Species, string>;
-    items!: Table<Items, string>;
-    monsters!: Table<Monster, string>;
-    actions!: Table<Actions, string>;
+    items!: EntityTable<RowBasic & { category?: string }, "pk">;
+    spells!: EntityTable<RowBasic & { level?: number }, "pk">;
+    species!: EntityTable<RowBasic, "pk">;
+    monsters!: EntityTable<RowBasic & { cr?: number }, "pk">;
+    actions!: EntityTable<RowBasic & { category?: string }, "pk">; // ✅ nueva
 
     constructor() {
         super("MesaDeJuegoDB");
-        this.version(4).stores({
-            spells:   "&pk, system, name, level, ritual, concentration",
+        this.version(1).stores({
+            items:    "&pk, system, name, category",
+            spells:   "&pk, system, name, level",
             species:  "&pk, system, name",
-            items:    "&pk, system, name, type",
-            monsters: "&pk, system, name, type, challenge",
-            actions:  "&pk, system, name, type",
-        }).upgrade(async (tx) => {
-            // normaliza pk/system en tablas antiguas (spells/species/items)
-            for (const name of ["spells","species","items"] as const) {
-                const table = tx.table(name) as Table<Migratable, string>;
-                await table.toCollection().modify((obj) => {
-                    const system = obj.system ?? "dnd5e";
-                    const id = obj.id ?? (obj.name?.toLowerCase().replace(/\s+/g, "-") || crypto.randomUUID());
-                    obj.system = system;
-                    obj.id = id;
-                    obj.pk = `${system}:${id}`;
-                });
-            }
+            monsters: "&pk, system, name, cr",
+            actions:  "&pk, system, name, category" // ✅ nueva
         });
     }
 }

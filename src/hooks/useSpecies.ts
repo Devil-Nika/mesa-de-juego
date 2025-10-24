@@ -1,30 +1,31 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSystem } from "../contexts/SystemContext";
+import { db } from "../services/db";
 
-export interface UseSpeciesOptions {
-    search?: string;
-}
+interface SpeciesRow { pk: string; id: string; system: "dnd5e"; name: string; }
 
-type SpeciesSummary = { pk: string; name: string };
-
-export function useSpecies(options: UseSpeciesOptions = {}) {
+export function useSpecies() {
     const { system } = useSystem();
-    const [data, setData] = useState<SpeciesSummary[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [species, setSpecies] = useState<SpeciesRow[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<unknown>(null);
 
     useEffect(() => {
-        setIsLoading(true);
-        setError(null);
-        // TODO: cargar species según `system`
-        setData([]); // placeholder
-        setIsLoading(false);
+        let alive = true;
+        (async () => {
+            try {
+                setIsLoading(true);
+                setError(null);
+                const rows = await db.species.where("system").equals(system).toArray();
+                if (alive) setSpecies(rows);
+            } catch (e) {
+                if (alive) setError(e);
+            } finally {
+                if (alive) setIsLoading(false);
+            }
+        })();
+        return () => { alive = false; };
     }, [system]);
-
-    const species = useMemo(() => {
-        const term = (options.search ?? "").toLowerCase();
-        return data.filter((s) => !term || s.name.toLowerCase().includes(term));
-    }, [data, options.search]);
 
     return { system, species, isLoading, error };
 }

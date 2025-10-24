@@ -1,11 +1,4 @@
 [
-  {
-    "id": "human",
-    "name": "Human",
-    "size": "Medium",
-    "speed": "30 ft",
-    "languages": ["common"],
-    "traits": ["Versatile, adaptable."],
-    "source": "SRD"
-  }
+  { "pk": "dnd5e:species:human", "id": "human", "system": "dnd5e", "name": "Human" },
+  { "pk": "dnd5e:species:dwarf", "id": "dwarf", "system": "dnd5e", "name": "Dwarf" }
 ]

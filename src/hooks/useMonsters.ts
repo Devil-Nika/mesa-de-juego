@@ -1,40 +1,39 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSystem } from "../contexts/SystemContext";
+import { db } from "../services/db";
 
-export interface UseMonstersOptions {
-    search?: string;
-    crMin?: number;
-    crMax?: number;
+interface MonsterRow {
+    pk: string;
+    id: string;
+    system: "dnd5e";
+    name: string;
+    cr?: number;
 }
 
-type MonsterSummary = { pk: string; name: string; cr?: number };
-
-export function useMonsters(options: UseMonstersOptions = {}) {
+export function useMonsters() {
     const { system } = useSystem();
-    const [data, setData] = useState<MonsterSummary[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [monsters, setMonsters] = useState<MonsterRow[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<unknown>(null);
 
     useEffect(() => {
-        setIsLoading(true);
-        setError(null);
-        // TODO: cargar monstruos según `system`
-        setData([]); // placeholder
-        setIsLoading(false);
+        let alive = true;
+        (async () => {
+            try {
+                setIsLoading(true);
+                setError(null);
+                const rows = await db.monsters.where("system").equals(system).toArray();
+                if (alive) setMonsters(rows);
+            } catch (e) {
+                if (alive) setError(e);
+            } finally {
+                if (alive) setIsLoading(false);
+            }
+        })();
+        return () => {
+            alive = false;
+        };
     }, [system]);
-
-    const monsters = useMemo(() => {
-        const term = (options.search ?? "").toLowerCase();
-        const min = options.crMin ?? -Infinity;
-        const max = options.crMax ?? Infinity;
-        return data.filter((m) => {
-            const byText = !term || m.name.toLowerCase().includes(term);
-            const byCr =
-                m.cr == null ||
-                (typeof m.cr === "number" && m.cr >= min && m.cr <= max);
-            return byText && byCr;
-        });
-    }, [data, options.search, options.crMin, options.crMax]);
 
     return { system, monsters, isLoading, error };
 }

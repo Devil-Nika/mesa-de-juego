@@ -1,5 +1,6 @@
-export * from "./useActions";
-export * from "./useItems";
-export * from "./useMonsters";
-export * from "./useSpecies";
-export * from "./useSpells";
+// src/hooks/index.ts
+export { useItems } from "./useItems";
+export { useSpells } from "./useSpells";
+export { useSpecies } from "./useSpecies";
+export { useMonsters } from "./useMonsters";
+export { useActions, useActionsMap } from "./useActions";
