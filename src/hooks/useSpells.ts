@@ -1,39 +1,15 @@
-import { useEffect, useState } from "react";
-import { useSystem } from "../contexts/SystemContext";
+import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../services/db";
-
-interface SpellRow {
-    pk: string;
-    id: string;
-    system: "dnd5e";
-    name: string;
-    level?: number;
-}
+import { useSystem } from "../contexts/SystemContext";
+import type { Spells } from "../domain/types";
 
 export function useSpells() {
     const { system } = useSystem();
-    const [spells, setSpells] = useState<SpellRow[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<unknown>(null);
-
-    useEffect(() => {
-        let alive = true;
-        (async () => {
-            try {
-                setIsLoading(true);
-                setError(null);
-                const rows = await db.spells.where("system").equals(system).toArray();
-                if (alive) setSpells(rows);
-            } catch (e) {
-                if (alive) setError(e);
-            } finally {
-                if (alive) setIsLoading(false);
-            }
-        })();
-        return () => {
-            alive = false;
-        };
-    }, [system]);
-
-    return { system, spells, isLoading, error };
+    const rows = useLiveQuery(
+        async () => await db.spells.where("system").equals(system).toArray(),
+        [system]
+    );
+    const isLoading = rows === undefined;
+    const error: unknown = null;
+    return { system, spells: (rows ?? []) as Spells[], isLoading, error };
 }

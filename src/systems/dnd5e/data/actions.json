@@ -1,7 +1,18 @@
 [
-  { "pk": "dnd5e:action:attack",     "id": "attack",     "system": "dnd5e", "name": "Attack",     "category": "attack" },
-  { "pk": "dnd5e:action:dodge",      "id": "dodge",      "system": "dnd5e", "name": "Dodge",      "category": "utility" },
-  { "pk": "dnd5e:action:disengage",  "id": "disengage",  "system": "dnd5e", "name": "Disengage",  "category": "utility" },
-  { "pk": "dnd5e:action:dash",       "id": "dash",       "system": "dnd5e", "name": "Dash",       "category": "utility" },
-  { "pk": "dnd5e:action:help",       "id": "help",       "system": "dnd5e", "name": "Help",       "category": "utility" }
+  {
+    "id": "multiattack",
+    "name": "Multiattack",
+    "type": "feature",
+    "description": "The creature makes two attacks."
+  },
+  {
+    "id": "claw",
+    "name": "Claw",
+    "type": "attack",
+    "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (2d4+2) slashing damage.",
+    "attack_bonus": 4,
+    "damage": "2d4+2 slashing",
+    "reach": "5 ft.",
+    "targets": "one target"
+  }
 ]

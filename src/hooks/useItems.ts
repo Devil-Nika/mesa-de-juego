@@ -1,39 +1,15 @@
-import { useEffect, useState } from "react";
-import { useSystem } from "../contexts/SystemContext";
+import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../services/db";
-
-interface ItemRow {
-    pk: string;
-    id: string;
-    system: "dnd5e";
-    name: string;
-    category?: string;
-}
+import { useSystem } from "../contexts/SystemContext";
+import type { Items } from "../domain/types";
 
 export function useItems() {
     const { system } = useSystem();
-    const [items, setItems] = useState<ItemRow[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<unknown>(null);
-
-    useEffect(() => {
-        let alive = true;
-        (async () => {
-            try {
-                setIsLoading(true);
-                setError(null);
-                const rows = await db.items.where("system").equals(system).toArray();
-                if (alive) setItems(rows);
-            } catch (e) {
-                if (alive) setError(e);
-            } finally {
-                if (alive) setIsLoading(false);
-            }
-        })();
-        return () => {
-            alive = false;
-        };
-    }, [system]);
-
-    return { system, items, isLoading, error };
+    const rows = useLiveQuery(
+        async () => await db.items.where("system").equals(system).toArray(),
+        [system]
+    );
+    const isLoading = rows === undefined;
+    const error: unknown = null;
+    return { system, items: (rows ?? []) as Items[], isLoading, error };
 }

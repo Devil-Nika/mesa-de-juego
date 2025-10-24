@@ -12,10 +12,6 @@ import Actions from "./pages/grimorio/Actions";
 
 import { ensureSeeded } from "./services/seed";
 
-function Home() {
-    return <p className="opacity-80">Elegí un sistema con el conmutador de arriba.</p>;
-}
-
 export default function App() {
     // Ejecuta el seed al iniciar la app
     useEffect(() => {
@@ -27,17 +23,17 @@ export default function App() {
             <Routes>
                 <Route path="/" element={<Navigate to="/dnd5e" replace />} />
                 <Route path="/:system" element={<SystemGuard />}>
-                    <Route index element={<Home />} />
-                    <Route path="grimoire" element={<GrimorioLayout />}>
+                    <Route index element={<Navigate to="grimorio/spells" replace />} />
+                    <Route path="grimorio" element={<GrimorioLayout />}>
                         <Route index element={<Navigate to="spells" replace />} />
                         <Route path="spells" element={<Spells />} />
                         <Route path="species" element={<Species />} />
                         <Route path="items" element={<Items />} />
                         <Route path="monsters" element={<Monsters />} />
-                        <Route path="actions" element={<Actions />} /> {/* opcional */}
+                        <Route path="actions" element={<Actions />} />
                     </Route>
                 </Route>
-                <Route path="*" element={<Navigate to="/dnd5e" replace />} />
+                <Route path="*" element={<Navigate to="/dnd5e/grimoire/spells" replace />} />
             </Routes>
         </Layout>
     );

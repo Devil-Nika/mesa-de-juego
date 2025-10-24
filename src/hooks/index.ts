@@ -1,4 +1,3 @@
-// src/hooks/index.ts
 export { useItems } from "./useItems";
 export { useSpells } from "./useSpells";
 export { useSpecies } from "./useSpecies";

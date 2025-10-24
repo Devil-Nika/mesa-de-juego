@@ -1,4 +1,9 @@
 [
-  { "pk": "dnd5e:species:human", "id": "human", "system": "dnd5e", "name": "Human" },
-  { "pk": "dnd5e:species:dwarf", "id": "dwarf", "system": "dnd5e", "name": "Dwarf" }
+  {
+    "id": "human",
+    "name": "Human",
+    "size": "Medium",
+    "speed": "30 ft.",
+    "description": "Humans are the most adaptable and ambitious people among the common races."
+  }
 ]

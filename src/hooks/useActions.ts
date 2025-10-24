@@ -1,42 +1,22 @@
-import { useEffect, useState } from "react";
-import { useSystem } from "../contexts/SystemContext";
+import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../services/db";
-
-interface ActionRow {
-    pk: string;
-    id: string;
-    system: "dnd5e";
-    name: string;
-    category?: string; // "attack" | "feature" | "utility" | ...
-}
+import { useSystem } from "../contexts/SystemContext";
+import type { Actions } from "../domain/types";
 
 export function useActions() {
     const { system } = useSystem();
-    const [actions, setActions] = useState<ActionRow[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<unknown>(null);
-
-    useEffect(() => {
-        let alive = true;
-        (async () => {
-            try {
-                setIsLoading(true);
-                setError(null);
-                const rows = await db.actions.where("system").equals(system).toArray();
-                if (alive) setActions(rows);
-            } catch (e) {
-                if (alive) setError(e);
-            } finally {
-                if (alive) setIsLoading(false);
-            }
-        })();
-        return () => { alive = false; };
-    }, [system]);
-
-    return { system, actions, isLoading, error };
+    const rows = useLiveQuery(
+        async () => await db.actions.where("system").equals(system).toArray(),
+        [system]
+    );
+    const isLoading = rows === undefined;
+    const error: unknown = null;
+    return { system, actions: (rows ?? []) as Actions[], isLoading, error };
 }
 
-// (Si antes exportabas useActionsMap, puedes ofrecer un stub opcional)
+// Si algún código usa useActionsMap, podés dejar este stub:
 export function useActionsMap() {
-    return new Map<string, unknown>();
+    const { actions, isLoading, error } = useActions();
+    const map = Object.fromEntries(actions.map(a => [a.pk, a]));
+    return { actionsByPk: map as Record<string, Actions>, isLoading, error };
 }

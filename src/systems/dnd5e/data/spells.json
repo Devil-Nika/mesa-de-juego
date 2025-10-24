@@ -1,4 +1,15 @@
 [
-  { "pk": "dnd5e:spell:fireball", "id": "fireball", "system": "dnd5e", "name": "Fireball", "level": 3 },
-  { "pk": "dnd5e:spell:mage-hand", "id": "mage-hand", "system": "dnd5e", "name": "Mage Hand", "level": 0 }
+  {
+    "id": "magic-missile",
+    "name": "Magic Missile",
+    "level": 1,
+    "school": "evocation",
+    "casting_time": "1 action",
+    "range": "120 feet",
+    "components": ["V", "S"],
+    "duration": "Instantaneous",
+    "ritual": false,
+    "concentration": false,
+    "description": "You create three glowing darts of magical force. Each dart hits a creature of your choice that you can see within range."
+  }
 ]
