@@ -4,6 +4,20 @@
     "name": "Human",
     "size": "Medium",
     "speed": "30 ft.",
-    "description": "Humans are the most adaptable and ambitious people among the common races."
+    "description": "Adaptable y ambiciosos; pueden sobresalir en cualquier rol."
+  },
+  {
+    "id": "elf",
+    "name": "Elf",
+    "size": "Medium",
+    "speed": "30 ft.",
+    "description": "Gráciles y longevos; afinidad natural con la magia."
+  },
+  {
+    "id": "dwarf",
+    "name": "Dwarf",
+    "size": "Medium",
+    "speed": "25 ft.",
+    "description": "Resistentes y tenaces; expertos mineros y artesanos."
   }
 ]

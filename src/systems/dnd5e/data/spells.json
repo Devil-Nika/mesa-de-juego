@@ -10,6 +10,58 @@
     "duration": "Instantaneous",
     "ritual": false,
     "concentration": false,
-    "description": "You create three glowing darts of magical force. Each dart hits a creature of your choice that you can see within range."
+    "description": "You create three glowing darts of magical force. Each dart automatically hits a creature of your choice that you can see within range."
+  },
+  {
+    "id": "mage-hand",
+    "name": "Mage Hand",
+    "level": 0,
+    "school": "conjuration",
+    "casting_time": "1 action",
+    "range": "30 feet",
+    "components": ["V", "S"],
+    "duration": "1 minute",
+    "ritual": false,
+    "concentration": false,
+    "description": "A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it."
+  },
+  {
+    "id": "fireball",
+    "name": "Fireball",
+    "level": 3,
+    "school": "evocation",
+    "casting_time": "1 action",
+    "range": "150 feet",
+    "components": ["V", "S", "M"],
+    "duration": "Instantaneous",
+    "ritual": false,
+    "concentration": false,
+    "description": "A bright streak flashes from your pointing finger to a point you choose within range and then blossoms with a low roar into an explosion of flame."
+  },
+  {
+    "id": "cure-wounds",
+    "name": "Cure Wounds",
+    "level": 1,
+    "school": "evocation",
+    "casting_time": "1 action",
+    "range": "Touch",
+    "components": ["V", "S"],
+    "duration": "Instantaneous",
+    "ritual": false,
+    "concentration": false,
+    "description": "A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier."
+  },
+  {
+    "id": "shield",
+    "name": "Shield",
+    "level": 1,
+    "school": "abjuration",
+    "casting_time": "1 reaction",
+    "range": "Self",
+    "components": ["V", "S"],
+    "duration": "1 round",
+    "ritual": false,
+    "concentration": false,
+    "description": "An invisible barrier of magical force appears and protects you. Until the start of your next turn, you have a +5 bonus to AC."
   }
 ]

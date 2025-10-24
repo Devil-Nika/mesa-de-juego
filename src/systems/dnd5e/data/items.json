@@ -8,5 +8,25 @@
     "properties": ["finesse", "light", "thrown (20/60)"],
     "description": "A simple melee weapon usable by most classes.",
     "source": "SRD"
+  },
+  {
+    "id": "longsword",
+    "name": "Longsword",
+    "type": "weapon.melee",
+    "cost": "15 gp",
+    "weight": "3 lb",
+    "properties": ["versatile (1d10)"],
+    "description": "A versatile blade favored by many knights and adventurers.",
+    "source": "SRD"
+  },
+  {
+    "id": "shield",
+    "name": "Shield",
+    "type": "armor.shield",
+    "cost": "10 gp",
+    "weight": "6 lb",
+    "properties": ["+2 AC while wielded"],
+    "description": "A sturdy shield offering increased protection to its bearer.",
+    "source": "SRD"
   }
 ]

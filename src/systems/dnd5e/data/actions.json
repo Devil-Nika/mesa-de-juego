@@ -6,12 +6,42 @@
     "description": "The creature makes two attacks."
   },
   {
+    "id": "bite",
+    "name": "Bite",
+    "type": "attack",
+    "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 6 (1d8+2) piercing damage.",
+    "attack_bonus": 4,
+    "damage": "1d8+2 piercing",
+    "reach": "5 ft.",
+    "targets": "one target"
+  },
+  {
     "id": "claw",
     "name": "Claw",
     "type": "attack",
     "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (2d4+2) slashing damage.",
     "attack_bonus": 4,
     "damage": "2d4+2 slashing",
+    "reach": "5 ft.",
+    "targets": "one target"
+  },
+  {
+    "id": "scimitar",
+    "name": "Scimitar",
+    "type": "attack",
+    "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) slashing damage.",
+    "attack_bonus": 4,
+    "damage": "1d6+2 slashing",
+    "reach": "5 ft.",
+    "targets": "one target"
+  },
+  {
+    "id": "greatclub",
+    "name": "Greatclub",
+    "type": "attack",
+    "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8+4) bludgeoning damage.",
+    "attack_bonus": 6,
+    "damage": "2d8+4 bludgeoning",
     "reach": "5 ft.",
     "targets": "one target"
   }
