@@ -1,5 +1,5 @@
 import type { SystemId } from "../../systems";
-export interface Spell {
+export interface Spells {
     pk: string;
     id: string;
     system: SystemId;
