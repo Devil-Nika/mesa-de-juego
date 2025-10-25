@@ -1,48 +1,14 @@
 [
-  {
-    "id": "multiattack",
-    "name": "Multiattack",
-    "type": "feature",
-    "description": "The creature makes two attacks."
-  },
-  {
-    "id": "bite",
-    "name": "Bite",
-    "type": "attack",
-    "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 6 (1d8+2) piercing damage.",
-    "attack_bonus": 4,
-    "damage": "1d8+2 piercing",
-    "reach": "5 ft.",
-    "targets": "one target"
-  },
-  {
-    "id": "claw",
-    "name": "Claw",
-    "type": "attack",
-    "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (2d4+2) slashing damage.",
-    "attack_bonus": 4,
-    "damage": "2d4+2 slashing",
-    "reach": "5 ft.",
-    "targets": "one target"
-  },
-  {
-    "id": "scimitar",
-    "name": "Scimitar",
-    "type": "attack",
-    "description": "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6+2) slashing damage.",
-    "attack_bonus": 4,
-    "damage": "1d6+2 slashing",
-    "reach": "5 ft.",
-    "targets": "one target"
-  },
-  {
-    "id": "greatclub",
-    "name": "Greatclub",
-    "type": "attack",
-    "description": "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8+4) bludgeoning damage.",
-    "attack_bonus": 6,
-    "damage": "2d8+4 bludgeoning",
-    "reach": "5 ft.",
-    "targets": "one target"
-  }
+  { "pk":"dnd5e:act-attack","id":"act-attack","system":"dnd5e","name":"Attack","source":"SRD 5.2.1","kind":"Action","key":"attack","rules":"Hacé un ataque con arma o Golpe Desarmado. Podés equipar o desequipar un arma antes o después del ataque." },
+  { "pk":"dnd5e:act-dash","id":"act-dash","system":"dnd5e","name":"Dash","source":"SRD 5.2.1","kind":"Action","key":"dash","rules":"Ganás movimiento adicional igual a tu Speed (podés usar velocidades especiales)."},
+  { "pk":"dnd5e:act-disengage","id":"act-disengage","system":"dnd5e","name":"Disengage","source":"SRD 5.2.1","kind":"Action","key":"disengage","rules":"Tu movimiento no provoca Opportunity Attacks este turno."},
+  { "pk":"dnd5e:act-dodge","id":"act-dodge","system":"dnd5e","name":"Dodge","source":"SRD 5.2.1","kind":"Action","key":"dodge","rules":"Hasta tu próximo turno, ataques contra vos tienen Disadvantage si ves al atacante; tirás Dex saves con Advantage; se pierde si estás Incapacitated o Speed 0."},
+  { "pk":"dnd5e:act-help","id":"act-help","system":"dnd5e","name":"Help","source":"SRD 5.2.1","kind":"Action","key":"help","rules":"Elegí skill/herramienta y un aliado cercano: le das Advantage al próximo check. O distraé a un enemigo a 5 ft. para dar Advantage al próximo ataque de un aliado."},
+  { "pk":"dnd5e:act-hide","id":"act-hide","system":"dnd5e","name":"Hide","source":"SRD 5.2.1","kind":"Action","key":"hide","rules":"DC 15 Dex (Stealth) estando fuertemente oculto/cubierto y fuera de la vista. Si tenés éxito, estás Invisible mientras estés hidden."},
+  { "pk":"dnd5e:act-influence","id":"act-influence","system":"dnd5e","name":"Influence","source":"SRD 5.2.1","kind":"Action","key":"influence","rules":"Urge a un monstruo; el GM decide si está dispuesto, no dispuesto u dudoso. Si es dudoso, hacé un check según actitud y tabla de Interacción."},
+  { "pk":"dnd5e:act-magic","id":"act-magic","system":"dnd5e","name":"Magic","source":"SRD 5.2.1","kind":"Action","key":"magic","rules":"Lanzá un conjuro de 1 acción o usá una característica/ítem que requiere Magic. Lanzamientos de 1+ minuto requieren mantener Concentration entre turnos."},
+  { "pk":"dnd5e:act-ready","id":"act-ready","system":"dnd5e","name":"Ready","source":"SRD 5.2.1","kind":"Action","key":"ready","rules":"Definí disparador percibible y la reacción (acción o movimiento hasta tu Speed). Conjurar con Ready exige Concentration hasta tu próximo turno."},
+  { "pk":"dnd5e:act-search","id":"act-search","system":"dnd5e","name":"Search","source":"SRD 5.2.1","kind":"Action","key":"search","rules":"Hacé un check de Sabiduría con skill sugerida según lo que buscas (Perception/Insight/Medicine/Survival)."},
+  { "pk":"dnd5e:act-study","id":"act-study","system":"dnd5e","name":"Study","source":"SRD 5.2.1","kind":"Action","key":"study","rules":"Check de Inteligencia para estudiar memoria/libro/pista/tema y recordar info clave."},
+  { "pk":"dnd5e:act-utilize","id":"act-utilize","system":"dnd5e","name":"Utilize","source":"SRD 5.2.1","kind":"Action","key":"utilize","rules":"Usá un objeto que requiera acción. Interacciones simples se hacen 'gratis' mientras actuás."}
 ]

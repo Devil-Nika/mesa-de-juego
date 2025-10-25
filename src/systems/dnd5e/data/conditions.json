@@ -1,0 +1,4 @@
+[
+  { "pk":"dnd5e:cond-blinded","id":"cond-blinded","system":"dnd5e","name":"Blinded","source":"SRD 5.2.1","key":"blinded","effects":["No ves y fallás chequeos que requieran vista.","Ataques contra vos tienen Advantage; tus ataques tienen Disadvantage."] },
+  { "pk":"dnd5e:cond-prone","id":"cond-prone","system":"dnd5e","name":"Prone","source":"SRD 5.2.1","key":"prone","effects":["Solo podés gatear o gastar 1/2 de tu Speed para levantarte.","Tus ataques tienen Disadvantage; ataques contra vos a 5 ft. tienen Advantage; si no, Disadvantage."] }
+]

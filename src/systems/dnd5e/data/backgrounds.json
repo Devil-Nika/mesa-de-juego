@@ -1,0 +1,26 @@
+[
+  {
+    "pk":"dnd5e:bg-acolyte",
+    "id":"bg-acolyte",
+    "system":"dnd5e",
+    "name":"Acolyte",
+    "source":"SRD 5.2.1",
+    "abilityIncreases":"Int/Wis/Cha (+2/+1 o +1/+1/+1)",
+    "feat":"magic-initiate-cleric",
+    "skillProficiencies":["Insight","Religion"],
+    "toolProficiency":"Calligrapher’s Supplies",
+    "equipment":"Paquete A (prayers, holy symbol, robe, 8 gp) o 50 gp"
+  },
+  {
+    "pk":"dnd5e:bg-criminal",
+    "id":"bg-criminal",
+    "system":"dnd5e",
+    "name":"Criminal",
+    "source":"SRD 5.2.1",
+    "abilityIncreases":"Dex/Con/Int (+2/+1 o +1/+1/+1)",
+    "feat":"alert",
+    "skillProficiencies":["Sleight of Hand","Stealth"],
+    "toolProficiency":"Thieves’ Tools",
+    "equipment":"Paquete A (2 Daggers, Thieves’ Tools, etc.) o 50 gp"
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "pk":"dnd5e:blessing-example",
+    "id":"blessing-example",
+    "system":"dnd5e",
+    "name":"Blessing (Ejemplo)",
+    "source":"SRD 5.2.1",
+    "text":"Placeholder de bendición. Reemplazar por bendiciones reales del SRD 5.2.1 que uses."
+  }
+]

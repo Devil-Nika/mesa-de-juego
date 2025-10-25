@@ -1,5 +1,13 @@
-export * from "./Spells.ts";
-export * from "./Species.ts";
-export * from "./Items.ts";
-export * from "./Actions.ts";
-export * from "./Monster.ts";
+export type { Actions } from "./Actions";
+export type { Items } from "./Items";
+export type { Monster } from "./Monsters";
+export type { Species } from "./Species";
+export type { Spells } from "./Spells";
+export type { Classes } from "./Classes";
+export type { Subclasses } from "./Subclasses";
+export type { Background } from "./Backgrounds";
+export type { Feat } from "./Feats";
+export type { MagicItem } from "./MagicItems";
+export type { Blessing } from "./Blessings";
+export type { Gift } from "./Gifts";
+export type { Rule } from "./Rules";

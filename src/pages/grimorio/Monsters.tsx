@@ -1,71 +1,74 @@
-// src/pages/grimorio/Monsters.tsx
-import { useMemo } from "react";
-import { useMonsters, useActions } from "../../hooks";
-import type { Monster, Actions } from "../../domain/types";
+import type { Monster as MonsterType } from "../../domain/dnd5e";
+import { useMonsters } from "../../hooks";
 
 export default function Monsters() {
     const { system, monsters, isLoading, error } = useMonsters();
-    const { actions } = useActions();
-
-    // Mapa pk->acción (si ya tenés useActionsMap podés usarlo en su lugar)
-    const actionsByPk = useMemo(() => {
-        const map: Record<string, Actions> = {};
-        for (const a of actions) map[a.pk] = a;
-        return map;
-    }, [actions]);
 
     if (isLoading) return <p className="opacity-70">Cargando monstruos…</p>;
     if (error) return <p className="text-red-600">Error cargando monstruos</p>;
 
     return (
-        <div className="space-y-4">
-            <h2 className="text-lg font-semibold">Monstruos ({system})</h2>
-
+        <>
+            <h2 className="text-lg font-semibold mb-3">Monstruos ({system})</h2>
             {monsters.length === 0 ? (
                 <p className="opacity-70">No hay monstruos cargados.</p>
             ) : (
-                <ul className="grid gap-4 md:grid-cols-2">
-                    {monsters.map((m: Monster) => (
-                        <li key={m.pk} className="rounded border bg-white shadow-sm p-4">
-                            <div className="flex items-start justify-between gap-3">
-                                <div>
-                                    <h3 className="font-semibold">{m.name}</h3>
-                                    <p className="text-sm opacity-80">{m.size} {m.type}</p>
-                                </div>
-                                <span className="text-xs px-2 py-0.5 rounded bg-neutral-100 border">
-                  CR {m.challenge ?? "-"}
-                </span>
+                <ul className="space-y-3">
+                    {monsters.map((m: MonsterType) => (
+                        <li key={m.pk} className="border rounded p-3">
+                            <div className="font-medium">{m.name}</div>
+                            <div className="text-sm opacity-80">
+                                {[m.size, m.type].filter(Boolean).join(" ") || "—"}
                             </div>
 
-                            <div className="mt-2 text-sm grid gap-1">
-                                <div><span className="opacity-70">AC:</span> {m.armor_class}</div>
-                                <div><span className="opacity-70">HP:</span> {m.hit_points} <span className="opacity-70">({m.hit_dice})</span></div>
-                                {m.speed && <div><span className="opacity-70">Velocidad:</span> {m.speed}</div>}
-                                {m.senses && <div><span className="opacity-70">Sentidos:</span> {m.senses}</div>}
-                                {m.languages && <div><span className="opacity-70">Idiomas:</span> {m.languages}</div>}
+                            <div className="mt-2 grid grid-cols-2 sm:grid-cols-5 gap-2 text-sm">
+                                {"cr" in m && m.cr ? <div>CR: {m.cr}</div> : null}
+                                {"ac" in m && m.ac ? <div>AC: {m.ac}</div> : null}
+                                {"hp" in m && m.hp ? <div>HP: {m.hp}</div> : null}
+                                {"speed" in m && m.speed ? <div>Velocidad: {m.speed}</div> : null}
+                                {"senses" in m && m.senses ? <div>Sentidos: {m.senses}</div> : null}
+                                {"languages" in m && m.languages ? (
+                                    <div className="sm:col-span-2">Idiomas: {m.languages}</div>
+                                ) : null}
                             </div>
 
-                            {m.actions?.length ? (
-                                <details className="mt-3">
-                                    <summary className="cursor-pointer text-sm underline">Acciones</summary>
-                                    <ul className="mt-2 text-sm list-disc pl-5">
-                                        {m.actions.map((a, idx) => {
-                                            const pk = `${m.system}:${a.actionId}`;
-                                            const action = actionsByPk[pk];
-                                            return (
-                                                <li key={idx}>
-                                                    <strong>{action?.name ?? a.actionId}</strong>
-                                                    {a.count ? ` ×${a.count}` : ""}{action?.description ? ` — ${action.description}` : ""}
-                                                </li>
-                                            );
-                                        })}
+                            {"traits" in m && Array.isArray(m.traits) && m.traits.length ? (
+                                <>
+                                    <div className="mt-2 font-semibold">Rasgos</div>
+                                    <ul className="list-disc pl-6 text-sm">
+                                        {m.traits.map((t: string, idx: number) => (
+                                            <li key={`${m.id}-trait-${idx}`}>{t}</li>
+                                        ))}
                                     </ul>
-                                </details>
+                                </>
                             ) : null}
+
+                            {"actions" in m && Array.isArray(m.actions) && m.actions.length ? (
+                                <>
+                                    <div className="mt-2 font-semibold">Acciones</div>
+                                    <ul className="list-disc pl-6 text-sm">
+                                        {m.actions.map(
+                                            (a: { name: string; text?: string } | string, idx: number
+                                            ) => {
+                                                if (typeof a === "string") {
+                                                    return <li key={`${m.id}-action-${idx}`}>{a}</li>;
+                                                }
+                                                return (
+                                                    <li key={`${m.id}-action-${idx}`}>
+                                                        <span className="font-medium">{a.name}.</span>{" "}
+                                                        {a.text ?? ""}
+                                                    </li>
+                                                );
+                                            })}
+                                    </ul>
+                                </>
+                            ) : null}
+
+                            <div className="mt-2 text-xs opacity-60">{m.source ?? "SRD"}</div>
                         </li>
                     ))}
                 </ul>
             )}
-        </div>
+        </>
     );
 }

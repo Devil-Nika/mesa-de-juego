@@ -1,0 +1,13 @@
+[
+  {
+    "pk":"dnd5e:mi-wand-of-sparks",
+    "id":"mi-wand-of-sparks",
+    "system":"dnd5e",
+    "name":"Wand of Sparks",
+    "source":"SRD 5.2.1",
+    "rarity":"Uncommon",
+    "attunement":false,
+    "category":"Wand",
+    "text":"Ejemplo de ítem mágico para pruebas. Ajustá o reemplazá cuando cargues los reales."
+  }
+]

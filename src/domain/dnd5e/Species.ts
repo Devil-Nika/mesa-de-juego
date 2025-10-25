@@ -1,13 +1,7 @@
-import type { SystemId } from "../../systems";
+import type { BaseRow } from "./Base";
 
-export interface Species {
-    pk: string;               // "${system}:${id}"
-    id: string;
-    system: SystemId;
-    name: string;
-    size: "Small" | "Medium" | "Large" | string;
-    speed: string;            // "30 ft"
-    languages: string[];      // ["common", "elvish"]
-    traits: string[];         // ["Versatile", "Darkvision", ...]
-    source: "SRD" | string;
+export interface Species extends BaseRow {
+    size: "Small" | "Medium";        // si una especie ofrece Small o Medium, usar union más amplia
+    speed: number;                    // pies
+    traits: Array<{ name: string; text: string }>;
 }

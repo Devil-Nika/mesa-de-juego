@@ -1,23 +1,30 @@
 [
   {
-    "id": "human",
-    "name": "Human",
-    "size": "Medium",
-    "speed": "30 ft.",
-    "description": "Adaptable y ambiciosos; pueden sobresalir en cualquier rol."
+    "pk":"dnd5e:species-human",
+    "id":"species-human",
+    "system":"dnd5e",
+    "name":"Human",
+    "source":"SRD 5.2.1",
+    "size":"Medium",
+    "speed":30,
+    "traits":[
+      {"name":"Resourceful","text":"Ganás Heroic Inspiration al finalizar Long Rest."},
+      {"name":"Skillful","text":"Proficiencia en una skill a tu elección."},
+      {"name":"Versatile","text":"Ganás un Origin feat de tu elección (Sugerido: Skilled)."}
+    ]
   },
   {
-    "id": "elf",
-    "name": "Elf",
-    "size": "Medium",
-    "speed": "30 ft.",
-    "description": "Gráciles y longevos; afinidad natural con la magia."
-  },
-  {
-    "id": "dwarf",
-    "name": "Dwarf",
-    "size": "Medium",
-    "speed": "25 ft.",
-    "description": "Resistentes y tenaces; expertos mineros y artesanos."
+    "pk":"dnd5e:species-dwarf",
+    "id":"species-dwarf",
+    "system":"dnd5e",
+    "name":"Dwarf",
+    "source":"SRD 5.2.1",
+    "size":"Medium",
+    "speed":30,
+    "traits":[
+      {"name":"Darkvision","text":"120 ft."},
+      {"name":"Dwarven Resilience","text":"Resistance a Poison; Advantage en saves para evitar/terminar Poisoned."},
+      {"name":"Dwarven Toughness","text":"+1 HP por nivel."}
+    ]
   }
 ]

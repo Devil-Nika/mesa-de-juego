@@ -1,32 +1,27 @@
 [
   {
-    "id": "dagger",
-    "name": "Dagger",
-    "type": "weapon.melee",
-    "cost": "2 gp",
-    "weight": "1 lb",
-    "properties": ["finesse", "light", "thrown (20/60)"],
-    "description": "A simple melee weapon usable by most classes.",
-    "source": "SRD"
+    "pk":"dnd5e:item-dagger",
+    "id":"item-dagger",
+    "system":"dnd5e",
+    "name":"Dagger",
+    "source":"SRD 5.2.1",
+    "category":"weapon",
+    "subtype":"weapon.melee",
+    "cost":"2 gp",
+    "weight":"1 lb",
+    "properties":["finesse","light","thrown (20/60)"],
+    "text":"Daño 1d4 piercing. Mastery: Nick."
   },
   {
-    "id": "longsword",
-    "name": "Longsword",
-    "type": "weapon.melee",
-    "cost": "15 gp",
-    "weight": "3 lb",
-    "properties": ["versatile (1d10)"],
-    "description": "A versatile blade favored by many knights and adventurers.",
-    "source": "SRD"
-  },
-  {
-    "id": "shield",
-    "name": "Shield",
-    "type": "armor.shield",
-    "cost": "10 gp",
-    "weight": "6 lb",
-    "properties": ["+2 AC while wielded"],
-    "description": "A sturdy shield offering increased protection to its bearer.",
-    "source": "SRD"
+    "pk":"dnd5e:item-shield",
+    "id":"item-shield",
+    "system":"dnd5e",
+    "name":"Shield",
+    "source":"SRD 5.2.1",
+    "category":"armor",
+    "subtype":"shield",
+    "cost":"10 gp",
+    "weight":"6 lb",
+    "properties":["+2 AC (con entrenamiento)"]
   }
 ]

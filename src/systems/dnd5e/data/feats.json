@@ -1,0 +1,24 @@
+[
+  {
+    "pk":"dnd5e:feat-alert",
+    "id":"alert",
+    "system":"dnd5e",
+    "name":"Alert",
+    "source":"SRD 5.2.1",
+    "category":"Origin",
+    "benefits":[
+      "Sumá tu PB al tirar Iniciativa.",
+      "Después de tirar Iniciativa, podés intercambiarla con un aliado dispuesto."
+    ]
+  },
+  {
+    "pk":"dnd5e:feat-skilled",
+    "id":"skilled",
+    "system":"dnd5e",
+    "name":"Skilled",
+    "source":"SRD 5.2.1",
+    "category":"Origin",
+    "benefits":[ "Proficiencia en cualquier combinación de 3 skills o herramientas." ],
+    "repeatable": true
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "pk":"dnd5e:gift-example",
+    "id":"gift-example",
+    "system":"dnd5e",
+    "name":"Supernatural Gift (Ejemplo)",
+    "source":"SRD 5.2.1",
+    "text":"Placeholder de don sobrenatural. Reemplazar por los del SRD 5.2.1."
+  }
+]

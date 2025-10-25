@@ -1,0 +1,20 @@
+[
+  {
+    "pk": "dnd5e:rule-action",
+    "id": "rule-action",
+    "system": "dnd5e",
+    "name": "Action",
+    "source": "SRD 5.2.1",
+    "tag": "General",
+    "text": "En tu turno podés tomar una acción. Elegís entre las acciones del glosario o las de tus rasgos."
+  },
+  {
+    "pk": "dnd5e:rule-advantage",
+    "id": "rule-advantage",
+    "system": "dnd5e",
+    "name": "Advantage",
+    "source": "SRD 5.2.1",
+    "tag": "General",
+    "text": "Tirá 2d20 y usá el mayor. No se acumula con otros Advantage; Advantage y Disadvantage se cancelan."
+  }
+]

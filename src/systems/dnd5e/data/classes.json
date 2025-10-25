@@ -1,0 +1,35 @@
+[
+  {
+    "id": "wizard",
+    "name": "Wizard",
+    "source": "SRD 5.2.1",
+    "hitDie": "d6",
+    "primaryAbility": "intelligence",
+    "saves": ["intelligence", "wisdom"],
+    "proficiencies": {
+      "skills": ["arcana", "history", "insight", "investigation", "medicine", "nature", "religion"],
+      "weapons": ["simple"],
+      "armor": [],
+      "tools": []
+    },
+    "startingEquipment": {
+      "optionA": ["dagger x2", "arcane focus (quarterstaff)", "robe", "spellbook", "scholar's pack", "5 gp"],
+      "optionB": ["55 gp"]
+    },
+    "spellcasting": {
+      "cantripsKnown": 3,
+      "ritualAdept": true,
+      "focus": ["arcane focus", "spellbook"]
+    },
+    "features": [
+      { "level": 1, "name": "Spellcasting" },
+      { "level": 1, "name": "Ritual Adept" },
+      { "level": 1, "name": "Arcane Recovery" },
+      { "level": 2, "name": "Scholar" },
+      { "level": 3, "name": "Wizard Subclass" },
+      { "level": 5, "name": "Memorize Spell" },
+      { "level": 18, "name": "Spell Mastery" },
+      { "level": 20, "name": "Signature Spells" }
+    ]
+  }
+]

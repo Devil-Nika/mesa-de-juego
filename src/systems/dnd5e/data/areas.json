@@ -1,0 +1,4 @@
+[
+  { "pk":"dnd5e:aoe-cone","id":"aoe-cone","system":"dnd5e","name":"Cone","source":"SRD 5.2.1","shape":"Cone","rules":"Se extiende desde un punto de origen; ancho a N pies = distancia a origen. Origen no incluido salvo que el creador decida." },
+  { "pk":"dnd5e:aoe-sphere","id":"aoe-sphere","system":"dnd5e","name":"Sphere","source":"SRD 5.2.1","shape":"Sphere","rules":"Se extiende desde el punto de origen en todas direcciones; el origen está incluido." }
+]
