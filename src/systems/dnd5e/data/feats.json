@@ -1,24 +1,20 @@
 [
   {
-    "pk":"dnd5e:feat-alert",
-    "id":"alert",
-    "system":"dnd5e",
-    "name":"Alert",
-    "source":"SRD 5.2.1",
-    "category":"Origin",
-    "benefits":[
-      "Sumá tu PB al tirar Iniciativa.",
-      "Después de tirar Iniciativa, podés intercambiarla con un aliado dispuesto."
-    ]
+    "id": "great-weapon-master",
+    "name": "Great Weapon Master",
+    "category": "General",
+    "prerequisite": "Proficiency with martial weapons",
+    "repeatable": false,
+    "benefits": ["On your turn, when you score a critical hit or reduce a creature to 0 HP with a melee weapon, you can make one melee weapon attack as a bonus action.", "Before you make a melee attack with a heavy weapon that you are proficient with, you can take a -5 penalty to the attack roll to add +10 to the attack’s damage."],
+    "description": "Dominas el uso de armas pesadas para infligir daño masivo."
   },
   {
-    "pk":"dnd5e:feat-skilled",
-    "id":"skilled",
-    "system":"dnd5e",
-    "name":"Skilled",
-    "source":"SRD 5.2.1",
-    "category":"Origin",
-    "benefits":[ "Proficiencia en cualquier combinación de 3 skills o herramientas." ],
-    "repeatable": true
+    "id": "war-caster",
+    "name": "War Caster",
+    "category": "General",
+    "prerequisite": "Ability to cast at least one spell",
+    "repeatable": false,
+    "benefits": ["You have advantage on Constitution saving throws to maintain concentration on a spell when you take damage.", "You can perform the somatic components of spells even when you have weapons or a shield in one or both hands.", "When a hostile creature's movement provokes an opportunity attack from you, you can use your reaction to cast a spell at the creature."],
+    "description": "Entrenamiento para mantener concentración y conjurar en combate."
   }
 ]

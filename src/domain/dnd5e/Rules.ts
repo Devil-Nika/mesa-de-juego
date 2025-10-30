@@ -1,9 +1,11 @@
-import type { BaseRow } from "./Base";
+import type { RowBase } from "../types";
+import type { RuleTag } from "./Primitives";
 
-export type GlossaryTag = "Action" | "AreaOfEffect" | "Attitude" | "Condition" | "Hazard" | "General";
-
-export interface RuleGlossary extends BaseRow {
-    tag?: GlossaryTag;
-    text: string;           // descripción corta/mediana (resumen fiel)
-    seeAlso?: string[];     // ids de otras entradas relacionadas
+export interface Rule extends RowBase {
+    system: "dnd5e";
+    tag: RuleTag;       // "Action", "Condition", "Hazard", "Area of Effect", etc.
+    summary?: string;
+    text?: string;      // definición SRD
+    srdTag?: string;    // etiqueta del glosario SRD si aplica
+    seeAlso?: string[]; // ids de otras reglas o secciones relacionadas
 }

@@ -1,23 +1,17 @@
-import type { BaseRow } from "./Base";
+import type { RowBase } from "../types";
+import type { SpellSchool } from "./Primitives";
 
-export type SpellSchool =
-    | "Abjuration" | "Conjuration" | "Divination" | "Enchantment"
-    | "Evocation" | "Illusion" | "Necromancy" | "Transmutation";
-
-export interface Components {
-    verbal: boolean;
-    somatic: boolean;
-    material: { hasM: boolean; text: string | null };
-}
-
-export interface Spell extends BaseRow {
-    level: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-    school: SpellSchool;
-    castingTime: string;      // p.ej. "1 action"
-    range: string;            // p.ej. "60 feet"
-    components: Components;
-    duration: string;         // incluye Concentration/Ritual si corresponde
-    ritual?: boolean;
+export interface Spell extends RowBase {
+    system: "dnd5e";
+    level?: number;                   // 0..9
+    school?: SpellSchool | string;    // permitir personalizados
+    castingTime?: string;             // string abierto
+    range?: string;                   // string abierto
+    components?: string[];            // ["V","S","M (a pearl...)"]
+    duration?: string;                // string abierto
     concentration?: boolean;
-    text: string;             // descripción/resumen
+    ritual?: boolean;
+    classes?: string[];               // nombres de clases como string abierto
+    description?: string;
+    srdTag?: string;
 }

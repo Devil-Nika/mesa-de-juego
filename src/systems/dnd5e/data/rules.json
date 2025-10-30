@@ -1,20 +1,33 @@
 [
   {
-    "pk": "dnd5e:rule-action",
-    "id": "rule-action",
-    "system": "dnd5e",
-    "name": "Action",
-    "source": "SRD 5.2.1",
-    "tag": "General",
-    "text": "En tu turno podés tomar una acción. Elegís entre las acciones del glosario o las de tus rasgos."
+    "id": "advantage-and-disadvantage",
+    "name": "Advantage and Disadvantage",
+    "tag": "Condition",
+    "summary": "Tira dos d20 y toma el mejor o el peor.",
+    "text": "Con ventaja tiras 2d20 y tomas el mayor; con desventaja, el menor.",
+    "seeAlso": ["attack-rolls", "ability-checks"]
   },
   {
-    "pk": "dnd5e:rule-advantage",
-    "id": "rule-advantage",
-    "system": "dnd5e",
-    "name": "Advantage",
-    "source": "SRD 5.2.1",
-    "tag": "General",
-    "text": "Tirá 2d20 y usá el mayor. No se acumula con otros Advantage; Advantage y Disadvantage se cancelan."
+    "id": "area-of-effect-cone",
+    "name": "Areas: Cone",
+    "tag": "Area of Effect",
+    "summary": "Área cónica desde un punto de origen.",
+    "text": "Los conos cubren una región en expansión desde el origen; el DM determina cobertura exacta en el mapa."
+  },
+  {
+    "id": "grappled",
+    "name": "Grappled",
+    "tag": "Condition",
+    "summary": "Tu velocidad pasa a 0.",
+    "text": "La condición termina si el agarrador queda incapacitado o te alejas de su alcance.",
+    "seeAlso": ["escape-grapple"]
+  },
+  {
+    "id": "attitude",
+    "name": "Attitude",
+    "tag": "Attitude",
+    "summary": "Hostil, Indiferente, Amistoso.",
+    "text": "La actitud base guía la dificultad de la interacción social.",
+    "seeAlso": ["influence"]
   }
 ]

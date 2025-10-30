@@ -1,7 +1,11 @@
-import type { BaseRow } from "./Base";
+import type { RowBase } from "../types";
+import type { Size, TraitBlock } from "./Primitives";
 
-export interface Species extends BaseRow {
-    size: "Small" | "Medium";        // si una especie ofrece Small o Medium, usar union más amplia
-    speed: number;                    // pies
-    traits: Array<{ name: string; text: string }>;
+export interface Species extends RowBase {
+    system: "dnd5e";
+    size?: Size;
+    speed?: number;          // velocidad base en pies
+    traits?: TraitBlock[];   // rasgos (texto libre)
+    description?: string;
+    srdTag?: string;
 }

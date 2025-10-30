@@ -1,14 +1,100 @@
 [
-  { "pk":"dnd5e:act-attack","id":"act-attack","system":"dnd5e","name":"Attack","source":"SRD 5.2.1","kind":"Action","key":"attack","rules":"Hacé un ataque con arma o Golpe Desarmado. Podés equipar o desequipar un arma antes o después del ataque." },
-  { "pk":"dnd5e:act-dash","id":"act-dash","system":"dnd5e","name":"Dash","source":"SRD 5.2.1","kind":"Action","key":"dash","rules":"Ganás movimiento adicional igual a tu Speed (podés usar velocidades especiales)."},
-  { "pk":"dnd5e:act-disengage","id":"act-disengage","system":"dnd5e","name":"Disengage","source":"SRD 5.2.1","kind":"Action","key":"disengage","rules":"Tu movimiento no provoca Opportunity Attacks este turno."},
-  { "pk":"dnd5e:act-dodge","id":"act-dodge","system":"dnd5e","name":"Dodge","source":"SRD 5.2.1","kind":"Action","key":"dodge","rules":"Hasta tu próximo turno, ataques contra vos tienen Disadvantage si ves al atacante; tirás Dex saves con Advantage; se pierde si estás Incapacitated o Speed 0."},
-  { "pk":"dnd5e:act-help","id":"act-help","system":"dnd5e","name":"Help","source":"SRD 5.2.1","kind":"Action","key":"help","rules":"Elegí skill/herramienta y un aliado cercano: le das Advantage al próximo check. O distraé a un enemigo a 5 ft. para dar Advantage al próximo ataque de un aliado."},
-  { "pk":"dnd5e:act-hide","id":"act-hide","system":"dnd5e","name":"Hide","source":"SRD 5.2.1","kind":"Action","key":"hide","rules":"DC 15 Dex (Stealth) estando fuertemente oculto/cubierto y fuera de la vista. Si tenés éxito, estás Invisible mientras estés hidden."},
-  { "pk":"dnd5e:act-influence","id":"act-influence","system":"dnd5e","name":"Influence","source":"SRD 5.2.1","kind":"Action","key":"influence","rules":"Urge a un monstruo; el GM decide si está dispuesto, no dispuesto u dudoso. Si es dudoso, hacé un check según actitud y tabla de Interacción."},
-  { "pk":"dnd5e:act-magic","id":"act-magic","system":"dnd5e","name":"Magic","source":"SRD 5.2.1","kind":"Action","key":"magic","rules":"Lanzá un conjuro de 1 acción o usá una característica/ítem que requiere Magic. Lanzamientos de 1+ minuto requieren mantener Concentration entre turnos."},
-  { "pk":"dnd5e:act-ready","id":"act-ready","system":"dnd5e","name":"Ready","source":"SRD 5.2.1","kind":"Action","key":"ready","rules":"Definí disparador percibible y la reacción (acción o movimiento hasta tu Speed). Conjurar con Ready exige Concentration hasta tu próximo turno."},
-  { "pk":"dnd5e:act-search","id":"act-search","system":"dnd5e","name":"Search","source":"SRD 5.2.1","kind":"Action","key":"search","rules":"Hacé un check de Sabiduría con skill sugerida según lo que buscas (Perception/Insight/Medicine/Survival)."},
-  { "pk":"dnd5e:act-study","id":"act-study","system":"dnd5e","name":"Study","source":"SRD 5.2.1","kind":"Action","key":"study","rules":"Check de Inteligencia para estudiar memoria/libro/pista/tema y recordar info clave."},
-  { "pk":"dnd5e:act-utilize","id":"act-utilize","system":"dnd5e","name":"Utilize","source":"SRD 5.2.1","kind":"Action","key":"utilize","rules":"Usá un objeto que requiera acción. Interacciones simples se hacen 'gratis' mientras actuás."}
+  {
+    "id": "attack",
+    "name": "Attack",
+    "tag": "Action",
+    "summary": "Haces un ataque con arma o desarmado.",
+    "text": "Cuando realizas la acción de Ataque, haces un ataque cuerpo a cuerpo o a distancia con un arma, o un ataque desarmado. Algunas características permiten múltiples ataques."
+  },
+  {
+    "id": "dash",
+    "name": "Dash",
+    "tag": "Action",
+    "summary": "Duplica tu movimiento este turno.",
+    "text": "Tu velocidad aumenta en una cantidad igual a tu velocidad en este turno, tras aplicar modificadores."
+  },
+  {
+    "id": "disengage",
+    "name": "Disengage",
+    "tag": "Action",
+    "summary": "Te mueves sin provocar ataques de oportunidad.",
+    "text": "Tu movimiento no provoca ataques de oportunidad por el resto del turno."
+  },
+  {
+    "id": "dodge",
+    "name": "Dodge",
+    "tag": "Action",
+    "summary": "Dificultas que te golpeen.",
+    "text": "Hasta el inicio de tu próximo turno, los ataques contra ti tienen desventaja si puedes ver al atacante, y haces tiradas de salvación de Destreza con ventaja."
+  },
+  {
+    "id": "help",
+    "name": "Help",
+    "tag": "Action",
+    "summary": "Concedes ventaja a un aliado.",
+    "text": "El aliado que ayudas obtiene ventaja en su próxima prueba de habilidad para completar la tarea. También puedes ayudar a atacar a una criatura dentro de 5 pies de ti."
+  },
+  {
+    "id": "hide",
+    "name": "Hide",
+    "tag": "Action",
+    "summary": "Intentas esconderte.",
+    "text": "Haces una prueba de Destreza (Sigilo). No puedes esconderte de una criatura que te ve claramente."
+  },
+  {
+    "id": "ready",
+    "name": "Ready",
+    "tag": "Action",
+    "summary": "Preparas una reacción.",
+    "text": "Defines un gatillo y una acción. Cuando ocurra, puedes usar tu reacción para realizar la acción preparada."
+  },
+  {
+    "id": "search",
+    "name": "Search",
+    "tag": "Action",
+    "summary": "Buscas algo cuidadosamente.",
+    "text": "Dedicas tu atención a encontrar algo; el DM puede solicitar pruebas como Sabiduría (Percepción) o Inteligencia (Investigación)."
+  },
+  {
+    "id": "influence",
+    "name": "Influence",
+    "tag": "Action",
+    "summary": "Intentas cambiar la actitud de alguien.",
+    "text": "Usas interacción social para influir; pueden aplicarse Persuasión, Engaño o Intimidación."
+  },
+  {
+    "id": "cast-a-spell",
+    "name": "Cast a Spell",
+    "tag": "Action",
+    "summary": "Conjuras una magia.",
+    "text": "Lanzas un conjuro cuya duración de lanzamiento sea 1 acción. Sigue las reglas de componentes y objetivos."
+  },
+  {
+    "id": "offhand-attack",
+    "name": "Two-Weapon Fighting",
+    "tag": "Bonus Action",
+    "summary": "Atacas con tu segunda arma ligera.",
+    "text": "Si usaste la acción de Ataque con un arma ligera en una mano, puedes usar una acción adicional para atacar con un arma ligera en la otra mano."
+  },
+  {
+    "id": "hide-bonus",
+    "name": "Hide (Bonus)",
+    "tag": "Bonus Action",
+    "summary": "Algunas características permiten esconderse como acción adicional.",
+    "text": "Si una característica lo permite, puedes usar Esconderse como acción adicional."
+  },
+  {
+    "id": "opportunity-attack",
+    "name": "Opportunity Attack",
+    "tag": "Reaction",
+    "summary": "Golpeas cuando una criatura sale de tu alcance.",
+    "text": "Usas tu reacción para hacer un ataque cuerpo a cuerpo cuando una criatura hostil que ves te deja el alcance."
+  },
+  {
+    "id": "ready-trigger",
+    "name": "Ready Trigger",
+    "tag": "Reaction",
+    "summary": "Resuelves tu acción preparada.",
+    "text": "Cuando se cumple el gatillo definido en Preparar, usas tu reacción para realizar la acción preparada."
+  }
 ]

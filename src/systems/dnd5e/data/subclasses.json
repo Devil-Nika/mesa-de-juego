@@ -1,17 +1,16 @@
 [
   {
-    "pk":"dnd5e:subclass-evoker",
-    "id":"evoker",
-    "system":"dnd5e",
-    "name":"Evoker",
-    "source":"SRD 5.2.1",
-    "forClass":"wizard",
-    "features":[
-      {"level":3,"name":"Evocation Savant","text":"Agregá 2 spells de Evocation (≤ nivel 2). A cada nuevo nivel de slots, agregá 1 spell de Evocation gratis."},
-      {"level":3,"name":"Potent Cantrip","text":"Si errás el ataque o el objetivo salva, recibe la mitad del daño del cantrip (sin otros efectos)."},
-      {"level":6,"name":"Sculpt Spells","text":"Elegí criaturas para que auto-salven y tomen 0 en tus evocations que afecten aliados."},
-      {"level":10,"name":"Empowered Evocation","text":"Sumá INT a una tirada de daño de tus spells de Evocation."},
-      {"level":14,"name":"Overchannel","text":"Maximizá daño de un spell de nivel 1–5; repetir antes de Long Rest te da daño necrótico creciente por nivel del slot."}
-    ]
+    "id": "evoker",
+    "name": "School of Evocation",
+    "parentClassId": "wizard",
+    "text": "Especialista en magia de energía elemental.",
+    "source": "SRD 5.2.1"
+  },
+  {
+    "id": "champion",
+    "name": "Champion",
+    "parentClassId": "fighter",
+    "text": "Potencia tu capacidad física y golpes críticos.",
+    "source": "SRD 5.2.1"
   }
 ]

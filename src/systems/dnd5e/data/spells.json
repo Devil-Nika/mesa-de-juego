@@ -1,30 +1,35 @@
 [
   {
-    "pk": "dnd5e:spell-mage-hand",
-    "id": "spell-mage-hand",
-    "system": "dnd5e",
-    "name": "Mage Hand",
-    "source": "SRD 5.2.1",
-    "level": 0,
-    "school": "Conjuration",
-    "castingTime": "1 action",
-    "range": "30 feet",
-    "components": { "verbal": true, "somatic": true, "material": { "hasM": false, "text": null } },
-    "duration": "1 minute",
-    "text": "Creás una mano espectral que manipula objetos a distancia."
-  },
-  {
-    "pk": "dnd5e:spell-magic-missile",
-    "id": "spell-magic-missile",
-    "system": "dnd5e",
+    "id": "magic-missile",
     "name": "Magic Missile",
-    "source": "SRD 5.2.1",
     "level": 1,
     "school": "Evocation",
     "castingTime": "1 action",
     "range": "120 feet",
-    "components": { "verbal": true, "somatic": true, "material": { "hasM": true, "text": "Una flecha de cristal" } },
+    "components": "V,S",
     "duration": "Instantaneous",
-    "text": "Proyectiles de energía que impactan automáticamente y hacen daño de fuerza."
+    "description": "Creas dardos de energía mágica que impactan automáticamente."
+  },
+  {
+    "id": "shield-spell",
+    "name": "Shield",
+    "level": 1,
+    "school": "Abjuration",
+    "castingTime": "1 reaction",
+    "range": "Self",
+    "components": "V,S",
+    "duration": "1 round",
+    "description": "Un campo invisible aumenta tu CA en +5 hasta el comienzo de tu siguiente turno."
+  },
+  {
+    "id": "fireball",
+    "name": "Fireball",
+    "level": 3,
+    "school": "Evocation",
+    "castingTime": "1 action",
+    "range": "150 feet",
+    "components": "V,S,M (a tiny ball of bat guano and sulfur)",
+    "duration": "Instantaneous",
+    "description": "Una explosión ígnea de 20 pies de radio inflige 8d6 de daño de fuego (TS DEX mitad)."
   }
 ]

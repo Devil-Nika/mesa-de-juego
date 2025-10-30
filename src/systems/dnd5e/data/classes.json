@@ -2,34 +2,43 @@
   {
     "id": "wizard",
     "name": "Wizard",
-    "source": "SRD 5.2.1",
+    "primaryAbility": "Int",
     "hitDie": "d6",
-    "primaryAbility": "intelligence",
-    "saves": ["intelligence", "wisdom"],
+    "savingThrows": { "saves": ["Int", "Wis"] },
     "proficiencies": {
-      "skills": ["arcana", "history", "insight", "investigation", "medicine", "nature", "religion"],
-      "weapons": ["simple"],
+      "skillsChoose": 2,
+      "skillsList": ["Arcana", "History", "Insight", "Investigation", "Medicine", "Religion"],
+      "weapons": ["Daggers", "Darts", "Slings", "Quarterstaffs", "Light crossbows"],
       "armor": [],
       "tools": []
     },
-    "startingEquipment": {
-      "optionA": ["dagger x2", "arcane focus (quarterstaff)", "robe", "spellbook", "scholar's pack", "5 gp"],
-      "optionB": ["55 gp"]
-    },
-    "spellcasting": {
-      "cantripsKnown": 3,
-      "ritualAdept": true,
-      "focus": ["arcane focus", "spellbook"]
-    },
+    "spellcasting": { "prepared": true, "castingAbility": "Int", "focusAllowed": ["Arcane Focus"] },
     "features": [
-      { "level": 1, "name": "Spellcasting" },
-      { "level": 1, "name": "Ritual Adept" },
-      { "level": 1, "name": "Arcane Recovery" },
-      { "level": 2, "name": "Scholar" },
-      { "level": 3, "name": "Wizard Subclass" },
-      { "level": 5, "name": "Memorize Spell" },
-      { "level": 18, "name": "Spell Mastery" },
-      { "level": 20, "name": "Signature Spells" }
-    ]
+      { "level": 1, "name": "Spellcasting", "text": "Lanzas hechizos a partir del Libro de Conjuros." },
+      { "level": 2, "name": "Arcane Tradition", "text": "Eliges una escuela de magia que define rasgos." }
+    ],
+    "tables": {},
+    "description": "Maestro del conocimiento arcano."
+  },
+  {
+    "id": "fighter",
+    "name": "Fighter",
+    "primaryAbility": "Str",
+    "hitDie": "d10",
+    "savingThrows": { "saves": ["Str", "Con"] },
+    "proficiencies": {
+      "skillsChoose": 2,
+      "skillsList": ["Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Survival"],
+      "weapons": ["Simple weapons", "Martial weapons"],
+      "armor": ["Light", "Medium", "Heavy", "Shield"],
+      "tools": []
+    },
+    "spellcasting": null,
+    "features": [
+      { "level": 1, "name": "Fighting Style", "text": "Eliges un estilo de combate." },
+      { "level": 2, "name": "Action Surge", "text": "Tomas una acción adicional en tu turno." }
+    ],
+    "tables": {},
+    "description": "Experto marcial versátil."
   }
 ]

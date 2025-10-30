@@ -1,13 +1,41 @@
 [
   {
-    "pk":"dnd5e:mi-wand-of-sparks",
-    "id":"mi-wand-of-sparks",
-    "system":"dnd5e",
-    "name":"Wand of Sparks",
-    "source":"SRD 5.2.1",
-    "rarity":"Uncommon",
-    "attunement":false,
-    "category":"Wand",
-    "text":"Ejemplo de ítem mágico para pruebas. Ajustá o reemplazá cuando cargues los reales."
+    "id": "ring-of-protection",
+    "name": "Ring of Protection",
+    "rarity": "Rare",
+    "slot": "ring",
+    "attunement": { "required": true, "by": [], "note": "Requires attunement" },
+    "cursed": false,
+    "properties": ["+1 AC", "+1 Saving Throws"],
+    "traits": [{ "name": "Protective Magic", "text": "Mientras estés sintonizado, obtienes +1 a tu CA y TS." }],
+    "description": "Un anillo con runas defensivas."
+  },
+  {
+    "id": "cursed-sword",
+    "name": "Blade of the Dread",
+    "rarity": "Very Rare",
+    "slot": "weapon-hand",
+    "hands": "one-hand",
+    "attunement": { "required": true, "note": "Attunement binds to wielder" },
+    "cursed": true,
+    "curseNote": "No puede soltarse voluntariamente hasta remove curse",
+    "baseItemId": "longsword",
+    "properties": ["+1 weapon", "fear aura"],
+    "traits": [
+      { "name": "Fearful Strike", "text": "En un golpe crítico, el objetivo hace TS de Sabiduría o queda asustado hasta el final de tu próximo turno." }
+    ],
+    "description": "Una espada encantada que susurra en la batalla."
+  },
+  {
+    "id": "cloak-of-elvenkind",
+    "name": "Cloak of Elvenkind",
+    "rarity": "Uncommon",
+    "slot": "back",
+    "attunement": { "required": true },
+    "cursed": false,
+    "traits": [
+      { "name": "Blend", "text": "Tienes ventaja en pruebas de Sigilo para esconderte; las criaturas tienen desventaja en Percepción pasiva para detectarte." }
+    ],
+    "description": "Una capa que distorsiona la luz a tu alrededor."
   }
 ]

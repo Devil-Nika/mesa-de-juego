@@ -1,43 +1,70 @@
 [
   {
-    "pk":"dnd5e:mon-black-bear",
-    "id":"mon-black-bear",
-    "system":"dnd5e",
-    "name":"Black Bear",
-    "source":"SRD 5.2.1",
-    "size":"Medium",
-    "type":"Beast",
-    "alignment":"Unaligned",
-    "ac":"11",
-    "hp":"19 (3d8+6)",
-    "speed":"40 ft., climb 30 ft.",
-    "abilities":{"str":15,"dex":10,"con":14,"int":2,"wis":12,"cha":7},
-    "senses":"passive Perception 13",
-    "languages":"—",
-    "cr":"1/2 (100 XP)",
-    "traits":[],
-    "actions":[
-      {"name":"Multiattack","text":"Hace dos ataques: uno con mordisco y uno con garra."}
-    ]
+    "id": "goblin",
+    "name": "Goblin",
+    "size": "Small",
+    "type": "Humanoid (goblinoid)",
+    "alignment": "NE",
+    "ac": 15,
+    "hp": 7,
+    "hitDice": "2d6",
+    "speeds": { "walk": 30 },
+    "senses": { "passivePerception": 9, "darkvision": 60 },
+    "languages": ["Common", "Goblin"],
+    "cr": "1/4",
+    "abilities": { "Str": 8, "Dex": 14, "Con": 10, "Int": 10, "Wis": 8, "Cha": 8 },
+    "skills": { "Stealth": 6 },
+    "traits": [
+      { "kind": "trait", "name": "Nimble Escape", "text": "Puede usar Esconderse o Desengancharse como acción adicional." }
+    ],
+    "actions": [
+      { "kind": "action", "name": "Scimitar", "text": "+4 a golpear, 1d6+2 cortante." },
+      { "kind": "action", "name": "Shortbow", "text": "+4 a golpear, alcance 80/320, 1d6+2 perforante." }
+    ],
+    "description": "Pequeños humanoides taimados."
   },
   {
-    "pk":"dnd5e:mon-goblin",
-    "id":"mon-goblin",
-    "system":"dnd5e",
-    "name":"Goblin",
-    "source":"SRD 5.2.1",
-    "size":"Small",
-    "type":"Humanoid (goblinoid)",
-    "alignment":"Neutral Evil (sugerido)",
-    "ac":"15 (leather, shield)",
-    "hp":"7 (2d6)",
-    "speed":"30 ft.",
-    "abilities":{"str":8,"dex":14,"con":10,"int":10,"wis":8,"cha":8},
-    "skills":["Stealth +6"],
-    "senses":"darkvision 60 ft., passive Perception 9",
-    "languages":"Common, Goblin",
-    "cr":"1/4 (50 XP)",
-    "traits":[{"name":"Nimble Escape","text":"Puede Disengage o Hide como Bonus Action cada turno."}],
-    "actions":[{"name":"Scimitar","text":"+4 al ataque (5 ft.), 1d6+2 slashing."}]
+    "id": "adult-red-dragon",
+    "name": "Adult Red Dragon",
+    "size": "Huge",
+    "type": "Dragon",
+    "alignment": "CE",
+    "ac": 19,
+    "hp": 256,
+    "hitDice": "19d12+133",
+    "speeds": { "walk": 40, "climb": 40, "fly": 80 },
+    "senses": { "passivePerception": 21, "blindsight": 60, "darkvision": 120 },
+    "languages": ["Common", "Draconic"],
+    "cr": "17",
+    "proficiencyBonus": 6,
+    "abilities": { "Str": 27, "Dex": 10, "Con": 25, "Int": 16, "Wis": 13, "Cha": 21 },
+    "saves": { "Dex": 6, "Con": 13, "Wis": 7, "Cha": 11 },
+    "skills": { "Perception": 12, "Stealth": 6 },
+    "damageMods": {
+      "immunities": ["Fire"]
+    },
+    "traits": [
+      { "kind": "trait", "name": "Legendary Resistance (3/Day)", "text": "Si falla un TS, puede elegir tener éxito en su lugar." }
+    ],
+    "actions": [
+      { "kind": "action", "name": "Multiattack", "text": "Hace tres ataques: uno con mordisco y dos con garras." },
+      { "kind": "action", "name": "Bite", "text": "+14 a golpear, alcance 10 pies, 2d10+8 perforante + 2d6 fuego." },
+      { "kind": "action", "name": "Claw", "text": "+14 a golpear, alcance 5 pies, 2d6+8 cortante." },
+      { "kind": "action", "name": "Fire Breath (Recharge 5–6)", "text": "Línea cónica de 60 pies; 18d6 fuego, TS de Destreza CD 21 mitad." }
+    ],
+    "bonusActions": [],
+    "reactions": [],
+    "legendaryActions": [
+      { "kind": "legendary", "name": "Detect", "text": "Hace una prueba de Sabiduría (Percepción)." },
+      { "kind": "legendary", "name": "Tail Attack", "text": "Hace un ataque de cola." },
+      { "kind": "legendary", "name": "Wing Attack (Costs 2 Actions)", "text": "Bate sus alas; cada criatura a 10 pies TS de DEX o cae prono y sufre 2d6+8 contundente. Luego puede volar la mitad de su velocidad." }
+    ],
+    "lairActions": [
+      { "kind": "legendary", "name": "Lair: Magma Eruption", "text": "El suelo se abre y arroja magma; criaturas cercanas TS de DEX o reciben daño de fuego." }
+    ],
+    "regionalEffects": [
+      { "name": "Heat Haze", "text": "El aire cerca de la guarida ondula con calor; la visibilidad distante se distorsiona." }
+    ],
+    "description": "Un tirano ígneo de alas vastas."
   }
 ]

@@ -1,12 +1,8 @@
-import type { BaseRow } from "./Base";
+import type { RowBase } from "../types";
 
-export interface SubclassFeature {
-    level: number;
-    name: string;
-    text: string;
-}
-
-export interface Subclass extends BaseRow {
-    forClass: string;              // id de la clase base, p.ej. "wizard"
-    features: SubclassFeature[];
+export interface Subclass extends RowBase {
+    system: "dnd5e";
+    parentClassId?: string;   // id o nombre abierto de clase
+    text?: string;
+    srdTag?: string;
 }

@@ -1,27 +1,83 @@
 [
   {
-    "pk":"dnd5e:item-dagger",
-    "id":"item-dagger",
-    "system":"dnd5e",
-    "name":"Dagger",
-    "source":"SRD 5.2.1",
-    "category":"weapon",
-    "subtype":"weapon.melee",
-    "cost":"2 gp",
-    "weight":"1 lb",
-    "properties":["finesse","light","thrown (20/60)"],
-    "text":"Daño 1d4 piercing. Mastery: Nick."
+    "id": "longsword",
+    "name": "Longsword",
+    "category": "weapon",
+    "slot": "weapon-hand",
+    "hands": "versatile",
+    "cost": { "amount": 15, "unit": "GP" },
+    "weight": 3,
+    "weapon": {
+      "category": "Martial",
+      "kind": "Melee",
+      "damage": { "dice": "1d8", "type": "Slashing" },
+      "properties": ["Versatile"],
+      "versatileDice": "1d10"
+    },
+    "description": "Una espada marcial confiable."
   },
   {
-    "pk":"dnd5e:item-shield",
-    "id":"item-shield",
-    "system":"dnd5e",
-    "name":"Shield",
-    "source":"SRD 5.2.1",
-    "category":"armor",
-    "subtype":"shield",
-    "cost":"10 gp",
-    "weight":"6 lb",
-    "properties":["+2 AC (con entrenamiento)"]
+    "id": "shortbow",
+    "name": "Shortbow",
+    "category": "weapon",
+    "slot": "two-hands",
+    "hands": "two-hands",
+    "cost": { "amount": 25, "unit": "GP" },
+    "weight": 2,
+    "weapon": {
+      "category": "Simple",
+      "kind": "Ranged",
+      "damage": { "dice": "1d6", "type": "Piercing" },
+      "properties": ["Ammunition", "Two-Handed"],
+      "ammunitionRange": { "normal": 80, "long": 320 }
+    },
+    "description": "Arco ligero adecuado para exploradores."
+  },
+  {
+    "id": "shield",
+    "name": "Shield",
+    "category": "shield",
+    "slot": "off-hand",
+    "hands": "one-hand",
+    "cost": { "amount": 10, "unit": "GP" },
+    "weight": 6,
+    "armor": {
+      "kind": "Shield",
+      "baseAC": 2,
+      "dexCap": null,
+      "strengthReq": null,
+      "stealthDisadvantage": false
+    },
+    "description": "Proporciona +2 a la CA mientras se empuña."
+  },
+  {
+    "id": "chain-mail",
+    "name": "Chain Mail",
+    "category": "armor",
+    "slot": "chest",
+    "cost": { "amount": 75, "unit": "GP" },
+    "weight": 55,
+    "armor": {
+      "kind": "Heavy",
+      "baseAC": 16,
+      "dexCap": 0,
+      "strengthReq": 13,
+      "stealthDisadvantage": true
+    },
+    "description": "Armadura pesada de anillas metálicas."
+  },
+  {
+    "id": "healers-kit",
+    "name": "Healer's Kit",
+    "category": "gear",
+    "slot": "hands",
+    "hands": "one-hand",
+    "cost": { "amount": 5, "unit": "GP" },
+    "weight": 3,
+    "properties": ["stabilize"],
+    "traits": [{ "name": "Stabilize", "text": "Como acción, estabiliza a una criatura sin necesidad de tirada." }],
+    "consumable": false,
+    "stackable": false,
+    "description": "Provee vendajes y ungüentos para primeros auxilios."
   }
 ]

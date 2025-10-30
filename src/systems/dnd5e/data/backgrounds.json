@@ -1,26 +1,22 @@
 [
   {
-    "pk":"dnd5e:bg-acolyte",
-    "id":"bg-acolyte",
-    "system":"dnd5e",
-    "name":"Acolyte",
-    "source":"SRD 5.2.1",
-    "abilityIncreases":"Int/Wis/Cha (+2/+1 o +1/+1/+1)",
-    "feat":"magic-initiate-cleric",
-    "skillProficiencies":["Insight","Religion"],
-    "toolProficiency":"Calligrapher’s Supplies",
-    "equipment":"Paquete A (prayers, holy symbol, robe, 8 gp) o 50 gp"
+    "id": "acolyte",
+    "name": "Acolyte",
+    "abilityIncreases": { "abilities": ["Wis", "Cha", "Int"], "mode": "2+1" },
+    "feat": "Magic Initiate (Cleric)",
+    "skillProficiencies": ["Insight", "Religion"],
+    "toolProficiency": "One language of your choice",
+    "equipment": "A holy symbol, a prayer book or prayer wheel, 5 sticks of incense, vestments, a set of common clothes, and a pouch containing 15 GP",
+    "description": "Has servido a una institución religiosa y conoces sus ritos."
   },
   {
-    "pk":"dnd5e:bg-criminal",
-    "id":"bg-criminal",
-    "system":"dnd5e",
-    "name":"Criminal",
-    "source":"SRD 5.2.1",
-    "abilityIncreases":"Dex/Con/Int (+2/+1 o +1/+1/+1)",
-    "feat":"alert",
-    "skillProficiencies":["Sleight of Hand","Stealth"],
-    "toolProficiency":"Thieves’ Tools",
-    "equipment":"Paquete A (2 Daggers, Thieves’ Tools, etc.) o 50 gp"
+    "id": "soldier",
+    "name": "Soldier",
+    "abilityIncreases": { "abilities": ["Str", "Con", "Wis"], "mode": "1+1+1" },
+    "feat": "Savage Attacker",
+    "skillProficiencies": ["Athletics", "Intimidation"],
+    "toolProficiency": "Vehicles (land)",
+    "equipment": "An insignia of rank, a trophy from a fallen enemy, a set of bone dice or a deck of cards, a set of common clothes, and a pouch with 10 GP",
+    "description": "Formaste parte de una fuerza militar; sabes de disciplina y jerarquías."
   }
 ]

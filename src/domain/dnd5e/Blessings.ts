@@ -1,5 +1,8 @@
-import type { BaseRow } from "./Base";
+import type { RowBase } from "../types";
 
-export interface Blessing extends BaseRow {
-    text: string;   // qué hace / cómo se obtiene
+export interface Blessing extends RowBase {
+    system: "dnd5e";
+    benefits?: string[];
+    description?: string;
+    srdTag?: string;
 }

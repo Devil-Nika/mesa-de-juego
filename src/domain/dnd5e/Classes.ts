@@ -1,4 +1,23 @@
-import type { BaseRow } from "./Base";
+import type { RowBase } from "../types";
+import type { AbilityAbbr, Skill } from "./Primitives";
+
+export interface SavingThrowProficiencies {
+    saves: AbilityAbbr[]; // p.ej. ["Int", "Wis"]
+}
+
+export interface ClassProficiencies {
+    skillsChoose?: number;
+    skillsList?: Skill[];
+    weapons?: string[];
+    armor?: Array<"Light" | "Medium" | "Heavy" | "Shield">;
+    tools?: string[];
+}
+
+export interface SpellcastingProfile {
+    prepared?: boolean;
+    castingAbility?: AbilityAbbr; // p.ej. "Int"
+    focusAllowed?: string[];      // "Arcane Focus", "Holy Symbol"
+}
 
 export interface ClassFeature {
     level: number;
@@ -6,23 +25,16 @@ export interface ClassFeature {
     text: string;
 }
 
-export interface ClassProgressionRow {
-    level: number;
-    proficiencyBonus: string; // "+2"...
-    cantrips?: number;
-    preparedSpells?: number;
-    slots?: Partial<Record<1|2|3|4|5|6|7|8|9, number>>;
+export interface Classes extends RowBase {
+    system: "dnd5e";
+    primaryAbility?: AbilityAbbr;
+    hitDie?: `d${4|6|8|10|12|20}`;
+    savingThrows?: SavingThrowProficiencies;
+    proficiencies?: ClassProficiencies;
+    spellcasting?: SpellcastingProfile | null;
+    features?: ClassFeature[];
+    tables?: Record<string, number[]>; // ej. slotsHechizo[1..20]
+    description?: string;
+    srdTag?: string;
 }
-
-export interface CharacterClass extends BaseRow {
-    primaryAbility: string;
-    hitDie: string;                 // "d6", "d8"...
-    savingThrowProficiencies: string[];
-    skillProficiencies: string[];   // "choose 2: ..."
-    weaponProficiencies?: string[];
-    armorTraining?: string[];
-    startingEquipment: string;      // paquete A/B
-    features: ClassFeature[];
-    progression: ClassProgressionRow[];
-    subclassAt?: number;           // nivel de elección de subclase
-}
+export type Class = Classes;
