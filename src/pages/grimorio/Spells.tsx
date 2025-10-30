@@ -3,10 +3,8 @@ import type { Spell } from "../../domain/dnd5e/Spells";
 
 export default function Spells() {
     const { system, spells, isLoading, error } = useSpellsDnd5e();
-
     if (isLoading) return <p className="opacity-70">Cargando conjuros…</p>;
     if (error) return <p className="text-red-600">Error cargando conjuros.</p>;
-
     return (
         <>
             <h2 className="text-lg font-semibold mb-3">Conjuros ({system})</h2>

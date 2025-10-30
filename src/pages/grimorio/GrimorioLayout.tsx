@@ -1,6 +1,6 @@
+//*import GrimorioHeader from "./GrimorioHeader";
 import { NavLink, Outlet } from "react-router-dom";
 import { useSystem } from "../../contexts/SystemContext";
-import GrimorioHeader from "./GrimorioHeader";
 
 export default function GrimorioLayout() {
     const { system } = useSystem();
@@ -31,7 +31,6 @@ export default function GrimorioLayout() {
             </aside>
 
             <main>
-                <GrimorioHeader />   {/* header arriba del contenido */}
                 <Outlet />
             </main>
         </div>

@@ -3,7 +3,7 @@ import { db } from "../../services/db";
 import { useSystem } from "../../contexts/SystemContext";
 import type { Class } from "../../domain/dnd5e/Classes";
 
-export function useSubclassesDnd5e() {
+export function useClassesDnd5e() {
     const { system } = useSystem();
     const data = useLiveQuery(
         () => db.classes.where("system").equals(system).toArray() as Promise<Class[]>,
