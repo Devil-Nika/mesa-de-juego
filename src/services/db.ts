@@ -1,6 +1,5 @@
 import Dexie, { type DexieOptions } from "dexie";
-import type { Table } from "dexie"; // 👈 type-only
-import type { SystemId } from "../domain/types";
+import type { Table } from "dexie";
 
 import type { Spell } from "../domain/dnd5e/Spells";
 import type { Species } from "../domain/dnd5e/Species";
