@@ -1,5 +1,3 @@
-// src/systems/registry.ts
-
 // 1) Catálogo base
 export const KNOWN_SYSTEMS = {
     dnd5e: "D&D 5e",
@@ -11,7 +9,7 @@ export const KNOWN_SYSTEMS = {
 
 export type SystemId = keyof typeof KNOWN_SYSTEMS;
 
-// Familias (vendor) → miembros
+// Etiquetas “humanas” para familias
 export const FAMILIES: Record<"paizo" | "wotc" | "darrington" | "paradox", SystemId[]> = {
     paizo: ["pf2e", "sf2e"],
     wotc: ["dnd5e"],
@@ -19,15 +17,27 @@ export const FAMILIES: Record<"paizo" | "wotc" | "darrington" | "paradox", Syste
     paradox: ["vampire5e"],
 };
 
-// 2) Descubrimiento de sistemas disponibles (por carpetas de data)
-const GLOB = import.meta.glob("../systems/*/data/*.json", { eager: true });
-const found = new Set<string>();
+export const FAMILY_LABEL: Record<keyof typeof FAMILIES, string> = {
+    paizo: "Paizo (PF2e + SF2e)",
+    wotc: "Wizards of the Coast",
+    darrington: "Darrington Press",
+    paradox: "Paradox Interactive",
+};
+
+// 2) Descubrimiento de sistemas disponibles (lazy, no cargamos JSON al bundle)
+const GLOB = import.meta.glob("../systems/*/data/*.json", { eager: false });
+
+const found = new Set<SystemId | string>();
 Object.keys(GLOB).forEach((k) => {
+    // k: "../systems/<id>/data/<file>.json"
     const m = k.match(/\.\.\/systems\/([^/]+)\/data\//);
-    if (m?.[1]) found.add(m[1]);
+    if (m?.[1]) found.add(m[1] as SystemId | string);
 });
 
-export const AVAILABLE_SYSTEMS = Array.from(found).filter((id): id is SystemId => id in KNOWN_SYSTEMS);
+// Lista tipada de sistemas realmente presentes en /systems/<id>/data
+export const AVAILABLE_SYSTEMS: SystemId[] = Array.from(found).filter(
+    (id): id is SystemId => id in KNOWN_SYSTEMS
+);
 
 // Utilidad: miembros disponibles de una familia
 export function availableFamilyMembers(familyId: keyof typeof FAMILIES): SystemId[] {
@@ -39,10 +49,15 @@ export type NavEntry =
     | { kind: "system"; id: SystemId; label: string }
     | { kind: "family"; id: keyof typeof FAMILIES; label: string; members: SystemId[] };
 
-// 4) MRU (Most-Recently Used) en localStorage
+// 4) MRU (Most-Recently Used) en localStorage — seguro para SSR
 const LS_KEY = "mdj:last-used-scopes";
 
+function safeHasWindow(): boolean {
+    return typeof window !== "undefined" && typeof localStorage !== "undefined";
+}
+
 function loadMRU(): string[] {
+    if (!safeHasWindow()) return [];
     try {
         const raw = localStorage.getItem(LS_KEY);
         const arr = raw ? JSON.parse(raw) : [];
@@ -53,7 +68,12 @@ function loadMRU(): string[] {
 }
 
 function saveMRU(mru: string[]) {
-    try { localStorage.setItem(LS_KEY, JSON.stringify(mru)); } catch { /* noop */ }
+    if (!safeHasWindow()) return;
+    try {
+        localStorage.setItem(LS_KEY, JSON.stringify(mru));
+    } catch {
+        /* noop */
+    }
 }
 
 // Llamalo cuando el usuario activa un scope (system o family)
@@ -63,7 +83,7 @@ export function markScopeUsed(id: SystemId | keyof typeof FAMILIES) {
     saveMRU(next);
 }
 
-// 5) Entradas navegables y orden por “último usado”
+// 5) Entradas navegables + orden por “último usado”, luego alfabético
 export function getNavEntries(): NavEntry[] {
     const systems: NavEntry[] = AVAILABLE_SYSTEMS.map((id) => ({
         kind: "system",
@@ -77,18 +97,18 @@ export function getNavEntries(): NavEntry[] {
         .map((f) => ({
             kind: "family",
             id: f.id,
-            label: f.id === "paizo" ? "Paizo (PF2e+SF2e)" : String(f.id),
+            label: FAMILY_LABEL[f.id],
             members: f.members,
         }));
 
     const entries = [...families, ...systems];
 
-    // Orden MRU: lo último usado primero, el resto por label asc
     const mru = loadMRU();
     const score = (e: NavEntry) => {
         const idx = mru.indexOf(e.id);
         return idx === -1 ? Number.POSITIVE_INFINITY : idx; // menor = más reciente
     };
+
     return entries
         .slice()
         .sort((a, b) => {
@@ -98,10 +118,11 @@ export function getNavEntries(): NavEntry[] {
         });
 }
 
-// 6) Helpers de validación
+// 6) Helpers de validación (sin index signatures amplios)
 export function isSystemId(x: string): x is SystemId {
-    return (KNOWN_SYSTEMS as Record<string, string>)[x] !== undefined;
+    return (Object.keys(KNOWN_SYSTEMS) as SystemId[]).includes(x as SystemId);
 }
+
 export function isFamilyId(x: string): x is keyof typeof FAMILIES {
-    return (FAMILIES as Record<string, SystemId[]>)[x] !== undefined;
+    return (Object.keys(FAMILIES) as Array<keyof typeof FAMILIES>).includes(x as any);
 }
