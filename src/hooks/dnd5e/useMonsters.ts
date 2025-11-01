@@ -1,13 +1,34 @@
-import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "../../services/db";
-import { useSystem } from "../../contexts/SystemContext";
+import { useEffect, useState } from "react";
+import type { SystemId } from "../../domain/types";
 import type { Monster } from "../../domain/dnd5e/Monsters";
+import { db } from "../../services/db";
 
-export function useMonstersDnd5e() {
-    const { system } = useSystem();
-    const data = useLiveQuery(
-        () => db.monsters.where("system").equals(system).toArray() as Promise<Monster[]>,
-        [system]
-    );
-    return { system, monsters: data ?? [], isLoading: !data, error: null as unknown };
+type UseMonstersState = {
+    system: SystemId;
+    data: Monster[];
+    isLoading: boolean;
+    error: unknown;
+};
+
+export function useMonsters(): UseMonstersState {
+    const system: SystemId = "dnd5e";
+    const [data, setData] = useState<Monster[]>([]);
+    const [isLoading, setLoading] = useState(true);
+    const [error, setError] = useState<unknown>(null);
+
+    useEffect(() => {
+        let cancelled = false;
+        setLoading(true);
+
+        db.monsters.where("system").equals(system).toArray()
+            .then((rows) => { if (!cancelled) setData(rows); })
+            .catch((e) => { if (!cancelled) setError(e); })
+            .finally(() => { if (!cancelled) setLoading(false); });
+
+        return () => { cancelled = true; };
+    }, [system]);
+
+    return { system, data, isLoading, error };
 }
+
+export { useMonsters as useMonstersDnd5e };

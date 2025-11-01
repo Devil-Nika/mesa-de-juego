@@ -1,13 +1,34 @@
-import { useLiveQuery } from "dexie-react-hooks";
+import { useEffect, useState } from "react";
+import type { SystemId } from "../../domain/types";
+import type { Classes } from "../../domain/dnd5e/Classes";
 import { db } from "../../services/db";
-import { useSystem } from "../../contexts/SystemContext";
-import type { Class } from "../../domain/dnd5e/Classes";
 
-export function useClassesDnd5e() {
-    const { system } = useSystem();
-    const data = useLiveQuery(
-        () => db.classes.where("system").equals(system).toArray() as Promise<Class[]>,
-        [system]
-    );
-    return { system, classes: data ?? [], isLoading: !data, error: null as unknown };
+type UseClassesState = {
+    system: SystemId;
+    data: Classes[];
+    isLoading: boolean;
+    error: unknown;
+};
+
+export function useClasses(): UseClassesState {
+    const system: SystemId = "dnd5e";
+    const [data, setData] = useState<Classes[]>([]);
+    const [isLoading, setLoading] = useState(true);
+    const [error, setError] = useState<unknown>(null);
+
+    useEffect(() => {
+        let cancelled = false;
+        setLoading(true);
+
+        db.classes.where("system").equals(system).toArray()
+            .then((rows) => { if (!cancelled) setData(rows); })
+            .catch((e) => { if (!cancelled) setError(e); })
+            .finally(() => { if (!cancelled) setLoading(false); });
+
+        return () => { cancelled = true; };
+    }, [system]);
+
+    return { system, data, isLoading, error };
 }
+
+export { useClasses as useClassesDnd5e };

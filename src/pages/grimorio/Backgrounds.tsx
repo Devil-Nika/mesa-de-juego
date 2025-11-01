@@ -1,27 +1,30 @@
-import { useBackgroundsDnd5e } from "../../hooks/dnd5e/useBackgrounds";
-import type { Background } from "../../domain/dnd5e/Backgrounds";
+import { useBackgrounds } from "../../hooks";
+import type { Background } from "../../domain/dnd5e";
 
 export default function Backgrounds() {
-    const { system, backgrounds, isLoading, error } = useBackgroundsDnd5e();
+    const { system, data, isLoading, error } = useBackgrounds();
+
     if (isLoading) return <p className="opacity-70">Cargando trasfondos…</p>;
     if (error) return <p className="text-red-600">Error cargando trasfondos.</p>;
 
+    const backgrounds = data as Background[];
+
     return (
-        <>
-            <h2 className="text-lg font-semibold mb-3">Trasfondos ({system})</h2>
+        <div className="space-y-4">
+            <h2 className="text-lg font-semibold">Trasfondos ({system})</h2>
             {backgrounds.length === 0 ? (
                 <p className="opacity-70">No hay trasfondos cargados.</p>
             ) : (
-                <ul className="space-y-2">
-                    {backgrounds.map((b: Background) => (
-                        <li key={b.pk} className="p-3 rounded bg-neutral-100">
-                            <div className="font-semibold">{b.name}</div>
-                            {b.feat && <div className="text-sm opacity-80">Otorga: {b.feat}</div>}
-                            {b.description && <p className="text-sm mt-1">{b.description}</p>}
+                <ul className="space-y-3">
+                    {backgrounds.map(b => (
+                        <li key={b.pk} className="border rounded p-3">
+                            <div className="font-medium">{b.name}</div>
+                            {b.feat && <div className="text-sm opacity-80">Dote: {b.feat}</div>}
+                            {b.description && <p className="text-sm mt-2">{b.description}</p>}
                         </li>
                     ))}
                 </ul>
             )}
-        </>
+        </div>
     );
 }

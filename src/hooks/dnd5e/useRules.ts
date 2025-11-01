@@ -3,8 +3,6 @@ import type { SystemId } from "../../domain/types";
 import type { Rule } from "../../domain/dnd5e/Rules";
 import { db } from "../../services/db";
 
-const SYSTEM: SystemId = "dnd5e";
-
 type UseRulesState = {
     system: SystemId;
     data: Rule[];
@@ -13,7 +11,7 @@ type UseRulesState = {
 };
 
 export function useRules(): UseRulesState {
-    const system = SYSTEM;
+    const system: SystemId = "dnd5e";
     const [data, setData] = useState<Rule[]>([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState<unknown>(null);
@@ -22,10 +20,7 @@ export function useRules(): UseRulesState {
         let cancelled = false;
         setLoading(true);
 
-        db.rules
-            .where("system")
-            .equals(system)
-            .toArray()
+        db.rules.where("system").equals(system).toArray()
             .then((rows) => { if (!cancelled) setData(rows); })
             .catch((e) => { if (!cancelled) setError(e); })
             .finally(() => { if (!cancelled) setLoading(false); });
@@ -35,3 +30,5 @@ export function useRules(): UseRulesState {
 
     return { system, data, isLoading, error };
 }
+
+export { useRules as useRulesDnd5e };

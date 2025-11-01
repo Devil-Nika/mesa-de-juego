@@ -1,11 +1,11 @@
-// src/main.tsx
 import React from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import App from "./App";
 import { SystemProvider } from "./contexts/SystemContext";
-import { seedSystem } from "./services/seed";
+import "./index.css"; // tu hoja global
 
+// Montaje seguro del root
 const container = document.getElementById("root");
 if (!container) {
     throw new Error("No se encontró el elemento #root en index.html");
@@ -13,7 +13,7 @@ if (!container) {
 
 const root = createRoot(container);
 
-// 1️⃣ Renderiza la app inmediatamente
+// Render principal
 root.render(
     <React.StrictMode>
         <BrowserRouter>
@@ -23,17 +23,3 @@ root.render(
         </BrowserRouter>
     </React.StrictMode>
 );
-
-// 2️⃣ Ejecuta el seed en segundo plano
-(async () => {
-    try {
-        console.time("seedSystem(dnd5e)");
-        console.log("%c[seed] Iniciando seed de D&D 5e...", "color: #3af");
-        await seedSystem("dnd5e");
-        console.log("%c[seed] Seed de D&D 5e completado correctamente", "color: #3fa");
-    } catch (err) {
-        console.error("[seed] Falló el seed:", err);
-    } finally {
-        console.timeEnd("seedSystem(dnd5e)");
-    }
-})();

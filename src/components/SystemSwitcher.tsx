@@ -1,31 +1,38 @@
-import { useNavigate } from "react-router-dom";
+// src/components/SystemSwitcher.tsx
+import { useMemo } from "react";
 import { useSystem } from "../contexts/SystemContext";
-import { getNavEntries, markScopeUsed, type SystemId } from "../systems";
+import { AVAILABLE_SYSTEMS, KNOWN_SYSTEMS, markScopeUsed } from "../systems/registry";
 
-export function SystemSwitcher() {
+export default function SystemSwitcher() {
     const { system, setSystem } = useSystem();
-    const navigate = useNavigate();
 
-    const entries = getNavEntries().filter(e => e.kind === "system"); // dnd5e, pf2e, sf2e…
+    const options = useMemo(
+        () => AVAILABLE_SYSTEMS.map((id) => ({ id, label: KNOWN_SYSTEMS[id] })),
+        []
+    );
 
-    const handleChange = (s: SystemId) => {
-        setSystem(s);
-        markScopeUsed(s);         // 👈 registra MRU antes de navegar
-        navigate(`/${s}`);
-    };
+    function onChange(e: React.ChangeEvent<HTMLSelectElement>) {
+        const next = e.target.value as typeof system;
+        if (next !== system) {
+            setSystem(next);
+            markScopeUsed(next); // MRU para ordenar entradas, opcional
+        }
+    }
 
     return (
-        <div className="flex gap-2">
-            {entries.map((e) => (
-                <button
-                    key={e.id}
-                    onClick={() => handleChange(e.id as SystemId)}
-                    className={`px-3 py-1 rounded ${system === e.id ? "bg-black text-white" : "bg-neutral-200"}`}
-                    title={e.label}
-                >
-                    {e.label}
-                </button>
-            ))}
-        </div>
+        <label className="inline-flex items-center gap-2">
+            <span className="text-sm opacity-75">Sistema</span>
+            <select
+                value={system}
+                onChange={onChange}
+                className="border rounded px-2 py-1 text-sm bg-white"
+            >
+                {options.map((o) => (
+                    <option key={o.id} value={o.id}>
+                        {o.label}
+                    </option>
+                ))}
+            </select>
+        </label>
     );
 }
