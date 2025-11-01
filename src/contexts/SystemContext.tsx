@@ -1,3 +1,4 @@
+//*Tengo que ver que hago contigo
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState } from "react";
 import type { SystemId } from "../domain/types";
