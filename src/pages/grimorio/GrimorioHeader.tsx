@@ -1,6 +1,6 @@
 // src/pages/grimorio/GrimorioHeader.tsx
 import { NavLink } from "react-router-dom";
-import { useSystem } from "../../contexts/SystemContext";
+import { useSystem } from "../../contexts/useSystem";
 
 export default function GrimorioHeader() {
     const { system } = useSystem();

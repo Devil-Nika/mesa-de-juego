@@ -2,7 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { SystemProvider } from "./contexts/SystemContext";
+import { SystemProvider } from "./contexts/SystemProvider";
 import "./index.css"; // tu hoja global
 
 // Montaje seguro del root

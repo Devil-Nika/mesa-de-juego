@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { useSystem } from "../../contexts/SystemContext";
+import { useSystem } from "../../contexts/useSystem";
 
 const links = [
     { to: "actions", label: "Acciones" },

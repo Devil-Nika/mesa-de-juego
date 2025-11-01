@@ -1,11 +1,10 @@
 import { Navigate, Outlet, useParams } from "react-router-dom";
-import { isSystemId, markScopeUsed, type SystemId } from "../systems";
-import { useSystem } from "../contexts/SystemContext";
+import { isSystemId, markScopeUsed, type SystemId } from "../systems/registry";
+import { useSystem } from "../contexts/useSystem";
 
 export default function SystemGuard() {
     const params = useParams();
     const routeSystem = (params.system ?? "") as string;
-
     const { system, setSystem } = useSystem();
 
     if (!isSystemId(routeSystem)) {
@@ -13,7 +12,7 @@ export default function SystemGuard() {
     }
 
     if (system !== routeSystem) {
-        setSystem(routeSystem as SystemId); // 👈 ahora el tipo admite pf2e/sf2e
+        setSystem(routeSystem as SystemId);
         markScopeUsed(routeSystem as SystemId);
     }
 
