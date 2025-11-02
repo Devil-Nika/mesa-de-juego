@@ -1,10 +1,7 @@
 import Dexie, { type DexieOptions } from "dexie";
 import type { Table } from "dexie";
 
-import type {
-    Spell, Species, Items, Monster, Actions, MagicItem,
-    Background, Feat, Classes, Subclass, Rule
-} from "../domain/dnd5e";
+import type { Spell, Species, Items, Monster, Actions, MagicItem, Background, Feat, Classes, Subclass, Rule } from "@domain/dnd5e";
 
 export class GameDB extends Dexie {
     spells!: Table<Spell, string>;

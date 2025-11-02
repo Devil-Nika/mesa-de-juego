@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type { SystemId } from "../../domain/types";
-import type { Background } from "../../domain/dnd5e/Backgrounds";
-import { db } from "../../services/db";
+import type { SystemId } from "@domain/types";
+import type { Background } from "@domain/dnd5e";     // si tu barrel re-exporta Actions
+import { db } from "@services/db";
 
 type UseBackgroundsState = {
     system: SystemId;

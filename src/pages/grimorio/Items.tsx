@@ -1,59 +1,74 @@
 import { useMemo } from "react";
-import { useItems } from "../../hooks";
-import type { Items } from "../../domain/dnd5e/Items";
-import { useLocale } from "../../contexts/useLocale";
-import { sortByLocale } from "../../utils/sort";
+import { useItems } from "@hooks/dnd5e/useItems";
+import type { Items as Item } from "@domain/dnd5e";
+import SearchBar from "@components/SearchBar";
+import SortMenu from "@components/SortMenu";
+import EntryCard from "@components/EntryCard";
+import { sortByLocale } from "@utils/sort";
+import { useLocale } from "@contexts/useLocale";
+import { useSystem } from "@contexts/useSystem";
+import { useListControls } from "@hooks/useListControls";
 
 export default function ItemsPage() {
-    const { system, data, isLoading, error } = useItems();
+    const { system } = useSystem();
     const { locale, t } = useLocale();
+    const { data, isLoading, error } = useItems();
+    const { query, setQuery, sort, setSort } = useListControls("name-asc");
 
-    const items = useMemo(
-        () => sortByLocale(data as Items[], (i) => i.name ?? "", locale),
-        [data, locale]
-    );
+    const options = [
+        { value: "name-asc", label: t("sort.nameAsc") },
+        { value: "cat-asc",  label: t("sort.categoryAsc") },
+    ];
+
+    const filtered = useMemo(() => {
+        const base = (data as Item[]) ?? [];
+        const byName = query
+            ? base.filter((i) =>
+                (i.name ?? "").toLowerCase().includes(query.toLowerCase())
+            )
+            : base;
+
+        if (sort === "name-asc") {
+            return sortByLocale(byName, (i) => i.name ?? "", locale);
+        }
+        if (sort === "cat-asc") {
+            return [...byName].sort((a, b) => (a.category ?? "").localeCompare(b.category ?? ""));
+        }
+        return byName;
+    }, [data, query, sort, locale]);
 
     if (isLoading) return <p className="opacity-70">{t("loading.items")}</p>;
     if (error) return <p className="text-red-600">{t("error.items")}</p>;
 
     return (
         <div className="space-y-4">
-            <h2 className="text-lg font-semibold">{t("grimorio.items")} ({system})</h2>
+            <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between">
+                <h2 className="text-lg font-semibold">
+                    {t("grimorio.items")} <span className="opacity-60">({system})</span>
+                </h2>
+                <div className="flex items-center gap-3">
+                    <SearchBar value={query} onChange={setQuery} placeholder={t("search.items")} />
+                    <SortMenu value={sort} onChange={setSort} options={options} label={t("common.sort")} />
+                </div>
+            </div>
 
-            {items.length === 0 ? (
+            {filtered.length === 0 ? (
                 <p className="opacity-70">{t("empty.items")}</p>
             ) : (
                 <ul className="space-y-3">
-                    {items.map((it) => (
-                        <li key={it.pk} className="border rounded p-3">
-                            <div className="font-medium">{it.name}</div>
-                            <div className="text-sm opacity-80">
-                                {it.category ?? "—"}
-                                {it.weight !== undefined ? ` • ${t("item.weight")} ${it.weight}` : ""}
-                                {it.cost ? ` • ${t("item.cost")} ${typeof it.cost === "string" ? it.cost : `${it.cost.amount} ${it.cost.unit}`}` : ""}
-                            </div>
-
-                            {/* Bloques estructurados */}
-                            {it.weapon ? (
-                                <div className="text-xs mt-2 opacity-80">
-                                    {t("item.weapon")}: {it.weapon.kind} {it.weapon.category}
-                                    {it.weapon.damage ? ` • ${t("item.damage")} ${it.weapon.damage.dice} ${it.weapon.damage.type}` : ""}
-                                    {it.weapon.mastery ? ` • ${t("item.mastery")} ${it.weapon.mastery}` : ""}
-                                </div>
-                            ) : null}
-
-                            {it.armor ? (
-                                <div className="text-xs mt-2 opacity-80">
-                                    {t("item.armor")}: {it.armor.kind}
-                                    {it.armor.baseAC !== undefined ? ` • AC ${it.armor.baseAC}` : ""}
-                                    {it.armor.dexCap !== undefined ? ` • DexCap ${it.armor.dexCap ?? "-"}` : ""}
-                                    {it.armor.strengthReq ? ` • STR ${it.armor.strengthReq}+` : ""}
-                                    {it.armor.stealthDisadvantage ? ` • ${t("item.stealthDisadvantage")}` : ""}
-                                </div>
-                            ) : null}
-
-                            {it.description && <p className="text-sm mt-2 whitespace-pre-wrap">{it.description}</p>}
-                        </li>
+                    {filtered.map((i) => (
+                        <EntryCard
+                            key={i.pk}
+                            title={i.name}
+                            subtitle={[
+                                i.category ?? "",
+                                i.cost ? `• ${i.cost.amount} ${i.cost.unit}` : "",
+                                i.weight !== undefined ? `• ${i.weight} lb` : "",
+                            ].join(" ").trim()}
+                            footer={i.source ? `${t("common.source")}: ${i.source}` : undefined}
+                        >
+                            {i.description}
+                        </EntryCard>
                     ))}
                 </ul>
             )}

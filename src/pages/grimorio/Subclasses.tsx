@@ -1,47 +1,72 @@
-// src/pages/grimorio/Subclasses.tsx
 import { useMemo } from "react";
-import { useSubclasses } from "../../hooks";
-import type { Subclass } from "../../domain/dnd5e/Subclasses";
-import { useLocale } from "../../contexts/useLocale";
-import { sortByLocale } from "../../utils/sort";
+import { useSubclasses } from "@hooks/dnd5e/useSubclasses";
+import SearchBar from "@components/SearchBar";
+import SortMenu from "@components/SortMenu";
+import EntryCard from "@components/EntryCard";
+import { sortByLocale } from "@utils/sort";
+import { useLocale } from "@contexts/useLocale";
+import { useSystem } from "@contexts/useSystem";
+import { useListControls } from "@hooks/useListControls";
 
 export default function SubclassesPage() {
-    const { system, data, isLoading, error } = useSubclasses();
+    const { system } = useSystem();
     const { locale, t } = useLocale();
+    const { data, isLoading, error } = useSubclasses();
+    const { query, setQuery, sort, setSort } = useListControls("name-asc");
 
-    const subclasses: Subclass[] = useMemo(
-        () => sortByLocale(data as Subclass[], (sc) => sc.name ?? "", locale),
-        [data, locale]
-    );
+    const options = [
+        { value: "name-asc",  label: t("sort.nameAsc") },
+        { value: "class-asc", label: t("sort.classAsc") },
+    ];
+
+    const filtered = useMemo(() => {
+        const base = (data ?? []) as Array<{
+            pk: string; name?: string; parentClassId?: string; description?: string; source?: string;
+        }>;
+        const byQuery = query
+            ? base.filter((sc) =>
+                (sc.name ?? "").toLowerCase().includes(query.toLowerCase()) ||
+                (sc.parentClassId ?? "").toLowerCase().includes(query.toLowerCase()),
+            )
+            : base;
+
+        if (sort === "name-asc") {
+            return sortByLocale(byQuery, (sc) => sc.name ?? "", locale);
+        }
+        if (sort === "class-asc") {
+            return [...byQuery].sort((a, b) => (a.parentClassId ?? "").localeCompare(b.parentClassId ?? ""));
+        }
+        return byQuery;
+    }, [data, query, sort, locale]);
 
     if (isLoading) return <p className="opacity-70">{t("loading.subclasses")}</p>;
     if (error) return <p className="text-red-600">{t("error.subclasses")}</p>;
 
     return (
         <div className="space-y-4">
-            <h2 className="text-lg font-semibold">
-                {t("grimorio.subclasses")} ({system})
-            </h2>
+            <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between">
+                <h2 className="text-lg font-semibold">
+                    {t("grimorio.subclasses")} <span className="opacity-60">({system})</span>
+                </h2>
+                <div className="flex items-center gap-3">
+                    <SearchBar value={query} onChange={setQuery} placeholder={t("search.subclasses")} />
+                    <SortMenu value={sort} onChange={setSort} options={options} label={t("common.sort")} />
+                </div>
+            </div>
 
-            {subclasses.length === 0 ? (
+            {filtered.length === 0 ? (
                 <p className="opacity-70">{t("empty.subclasses")}</p>
             ) : (
                 <ul className="space-y-3">
-                    {subclasses.map((sc) => (
-                        <li key={sc.pk} className="border rounded p-3">
-                            <div className="font-medium">{sc.name}</div>
-                            <div className="text-sm opacity-80">
-                                {sc.parentClassId ? `${t("subclass.parent")}: ${sc.parentClassId}` : ""}
-                            </div>
-                            {sc.description ? (
-                                <p className="text-sm mt-2 whitespace-pre-wrap">{sc.description}</p>
-                            ) : null}
-                            {sc.source ? (
-                                <div className="text-xs mt-1 opacity-70">
-                                    {t("common.source")}: {sc.source}
-                                </div>
-                            ) : null}
-                        </li>
+                    {filtered.map((sc) => (
+                        <EntryCard
+                            key={sc.pk}
+                            title={sc.name ?? "—"}
+                            subtitle={sc.parentClassId ? `${t("subclass.parent")}: ${sc.parentClassId}` : undefined}
+                            footer={sc.source ? `${t("common.source")}: ${sc.source}` : undefined}
+                        >
+                            {sc.description}
+                        </EntryCard>
                     ))}
                 </ul>
             )}

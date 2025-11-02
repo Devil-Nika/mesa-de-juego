@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import type { SystemId } from "../../domain/types";
-import type { Species } from "../../domain/dnd5e/Species";
-import { db } from "../../services/db";
+import type { SystemId } from "@domain/types";
+import type { Species } from "@domain/dnd5e";
+import { db } from "@services/db";
+
 
 type UseSpeciesState = {
     system: SystemId;

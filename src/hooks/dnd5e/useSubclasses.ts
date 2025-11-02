@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import type { SystemId } from "../../domain/types";
-import type { Subclass } from "../../domain/dnd5e/Subclasses";
-import { db } from "../../services/db";
+import type { SystemId } from "@domain/types";
+import type { Subclass } from "@domain/dnd5e";
+import { db } from "@services/db";
+
 
 type UseSubclassesState = {
     system: SystemId;

@@ -1,11 +1,8 @@
 // src/services/seed.ts
 import { db } from "./db";
-import type { SystemId, RowBase } from "../domain/types";
+import type { SystemId, RowBase } from "@domain/types";
 
-import type {
-    Spell, Species, Items, Monster, Actions, MagicItem,
-    Background, Feat, Classes, Subclass, Rule
-} from "../domain/dnd5e";
+import type { Spell, Species, Items, Monster, Actions, MagicItem, Background, Feat, Classes, Subclass, Rule } from "@domain/dnd5e";
 
 // ===== Carga de JSONs =====
 import spellsDataRaw from "../systems/dnd5e/data/spells.json";

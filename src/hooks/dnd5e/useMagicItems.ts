@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type { SystemId } from "../../domain/types";
-import type { MagicItem } from "../../domain/dnd5e/MagicItems";
-import { db } from "../../services/db";
+import type { SystemId } from "@domain/types";
+import type { MagicItem } from "@domain/dnd5e";
+import { db } from "@services/db";
 
 type UseMagicItemsState = {
     system: SystemId;

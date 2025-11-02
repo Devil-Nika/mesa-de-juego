@@ -1,41 +1,98 @@
-import { useMemo } from "react";
-import { useClasses } from "../../hooks";
-import type { Classes } from "../../domain/dnd5e/Classes";
-import { useLocale } from "../../contexts/useLocale";
-import { sortByLocale } from "../../utils/sort";
+import { useMemo, useState } from "react";
+import { useClasses } from "@hooks/dnd5e/useClasses";
+import { useSubclasses } from "@hooks/dnd5e/useSubclasses";
+import { useSystem } from "@contexts/useSystem";
+import { useLocale } from "@contexts/useLocale";
+import type { Classes as ClassRow, Subclass } from "@domain/dnd5e";
+import { matchAnyLocale } from "@utils/i18nSearch";
+import { localeName } from "@utils/i18nSort";
 
 export default function ClassesPage() {
-    const { system, data, isLoading, error } = useClasses();
+    const { system } = useSystem();
     const { locale, t } = useLocale();
+    const { data: classData, isLoading, error } = useClasses();
+    const { data: subclassData } = useSubclasses();
+    const [query, setQuery] = useState("");
+    const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
-    const classes = useMemo(
-        () => sortByLocale(data as Classes[], (c) => c.name ?? "", locale),
-        [data, locale]
-    );
+    const classes = useMemo(() => {
+        const rows = (classData ?? []) as ClassRow[];
+        return rows
+            .filter((r) => matchAnyLocale(r, query))
+            .sort((a, b) =>
+                localeName(a, locale).localeCompare(localeName(b, locale), locale, { sensitivity: "base" })
+            );
+    }, [classData, query, locale]);
 
-    if (isLoading) return <p className="opacity-70">{t("loading.classes")}</p>;
+    const subclassesByClass = useMemo(() => {
+        const map: Record<string, Subclass[]> = {};
+        (subclassData ?? []).forEach((sc) => {
+            if (sc.parentClassId) (map[sc.parentClassId] ??= []).push(sc);
+        });
+        for (const list of Object.values(map)) {
+            list.sort((a, b) =>
+                localeName(a, locale).localeCompare(localeName(b, locale), locale, { sensitivity: "base" })
+            );
+        }
+        return map;
+    }, [subclassData, locale]);
+
+    if (isLoading) return <p>{t("loading.classes")}</p>;
     if (error) return <p className="text-red-600">{t("error.classes")}</p>;
 
     return (
-        <div className="space-y-4">
-            <h2 className="text-lg font-semibold">{t("grimorio.classes")} ({system})</h2>
+        <section className="space-y-4">
+            <header className="flex justify-between items-center">
+                <h2 className="text-lg font-semibold">{t("grimorio.classes")} ({system})</h2>
+                <input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder={t("search.classes")}
+                    className="border rounded px-2 py-1"
+                />
+            </header>
 
-            {classes.length === 0 ? (
-                <p className="opacity-70">{t("empty.classes")}</p>
-            ) : (
-                <ul className="space-y-3">
-                    {classes.map((c) => (
-                        <li key={c.pk} className="border rounded p-3">
-                            <div className="font-medium">{c.name}</div>
-                            <div className="text-sm opacity-80">
-                                {c.primaryAbility ? `${t("class.primaryAbility")}: ${c.primaryAbility}` : ""}
-                                {c.hitDie ? ` • ${t("class.hitDie")}: ${c.hitDie}` : ""}
-                            </div>
-                            {c.description && <p className="text-sm mt-2 whitespace-pre-wrap">{c.description}</p>}
+            <ul className="space-y-3">
+                {classes.map((c) => {
+                    const open = expanded[c.pk];
+                    const subList = subclassesByClass[c.id] ?? [];
+                    return (
+                        <li key={c.pk} className="border rounded-xl bg-white shadow-sm">
+                            <button
+                                onClick={() => setExpanded((s) => ({ ...s, [c.pk]: !open }))}
+                                className="w-full text-left p-3 flex justify-between items-center hover:bg-indigo-50"
+                            >
+                                <div>
+                                    <div className="font-medium">{localeName(c, locale)}</div>
+                                    {c.hitDie && <div className="text-sm opacity-70">Hit Die: {c.hitDie}</div>}
+                                </div>
+                                <span className="text-indigo-600 text-sm">
+                  {open ? t("common.hideDetails") : t("common.showDetails")}
+                </span>
+                            </button>
+
+                            {open && (
+                                <div className="px-3 pb-3">
+                                    {c.description && <p className="text-sm mt-2">{c.description}</p>}
+                                    {subList.length > 0 && (
+                                        <>
+                                            <div className="text-xs uppercase mt-3 mb-1 opacity-60">{t("grimorio.subclasses")}</div>
+                                            <ul className="grid sm:grid-cols-2 gap-2">
+                                                {subList.map((sc) => (
+                                                    <li key={sc.pk} className="border rounded p-2">
+                                                        <div className="font-medium">{localeName(sc, locale)}</div>
+                                                        {sc.description && <p className="text-sm opacity-80 mt-1">{sc.description}</p>}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </>
+                                    )}
+                                </div>
+                            )}
                         </li>
-                    ))}
-                </ul>
-            )}
-        </div>
+                    );
+                })}
+            </ul>
+        </section>
     );
 }

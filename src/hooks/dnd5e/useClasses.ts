@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type { SystemId } from "../../domain/types";
-import type { Classes } from "../../domain/dnd5e/Classes";
-import { db } from "../../services/db";
+import type { SystemId } from "@domain/types";
+import type { Classes } from "@domain/dnd5e";     // si tu barrel re-exporta Actions
+import { db } from "@services/db";
 
 type UseClassesState = {
     system: SystemId;

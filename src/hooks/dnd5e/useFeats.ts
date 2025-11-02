@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type { SystemId } from "../../domain/types";
-import type { Feat } from "../../domain/dnd5e/Feats";
-import { db } from "../../services/db";
+import type { SystemId } from "@domain/types";
+import type { Feat } from "@domain/dnd5e";
+import { db } from "@services/db";
 
 type UseFeatsState = {
     system: SystemId;
