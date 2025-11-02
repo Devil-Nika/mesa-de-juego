@@ -1,0 +1,20 @@
+{
+  "grimoire.title": "Grimoire",
+  "menu.actions": "Actions",
+  "menu.backgrounds": "Backgrounds",
+  "menu.classes": "Classes",
+  "menu.feats": "Feats",
+  "menu.items": "Items",
+  "menu.magicItems": "Magic Items",
+  "menu.monsters": "Monsters",
+  "menu.rules": "Rules",
+  "menu.species": "Species",
+  "menu.spells": "Spells",
+  "menu.subclasses": "Subclasses",
+  "menu.options": "Options",
+  "options.title": "Options",
+  "options.language": "Language",
+  "options.language_hint": "Changes the UI language and sorting order.",
+  "locales.en": "English",
+  "locales.es": "Spanish"
+}

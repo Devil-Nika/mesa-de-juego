@@ -1,5 +1,80 @@
 {
-  "app": { "title": "Mesa de Juego" },
-  "nav": { "grimoire": "Grimoire", "characters": "Characters", "encounters": "Encounters", "config": "Config" },
-  "language": { "en": "English", "es": "Spanish" }
+  "grimorio.spells": "Spells",
+  "grimorio.species": "Species",
+  "grimorio.items": "Items",
+  "grimorio.monsters": "Monsters",
+  "grimorio.actions": "Actions",
+  "grimorio.classes": "Classes",
+  "grimorio.subclasses": "Subclasses",
+  "grimorio.backgrounds": "Backgrounds",
+  "grimorio.feats": "Feats",
+  "grimorio.magicItems": "Magic Items",
+  "grimorio.rules": "Rules",
+
+  "loading.spells": "Loading spells…",
+  "loading.species": "Loading species…",
+  "loading.items": "Loading items…",
+  "loading.monsters": "Loading monsters…",
+  "loading.actions": "Loading actions…",
+  "loading.classes": "Loading classes…",
+  "loading.subclasses": "Loading subclasses…",
+  "loading.backgrounds": "Loading backgrounds…",
+  "loading.feats": "Loading feats…",
+  "loading.magicItems": "Loading magic items…",
+  "loading.rules": "Loading rules…",
+
+  "error.spells": "Error loading spells.",
+  "error.species": "Error loading species.",
+  "error.items": "Error loading items.",
+  "error.monsters": "Error loading monsters.",
+  "error.actions": "Error loading actions.",
+  "error.classes": "Error loading classes.",
+  "error.subclasses": "Error loading subclasses.",
+  "error.backgrounds": "Error loading backgrounds.",
+  "error.feats": "Error loading feats.",
+  "error.magicItems": "Error loading magic items.",
+  "error.rules": "Error loading rules.",
+
+  "empty.spells": "No spells available.",
+  "empty.species": "No species available.",
+  "empty.items": "No items available.",
+  "empty.monsters": "No monsters available.",
+  "empty.actions": "No actions available.",
+  "empty.classes": "No classes available.",
+  "empty.subclasses": "No subclasses available.",
+  "empty.backgrounds": "No backgrounds available.",
+  "empty.feats": "No feats available.",
+  "empty.magicItems": "No magic items available.",
+  "empty.rules": "No rules available.",
+
+  "spell.level": "Level",
+  "species.speed": "Speed",
+  "item.weight": "Weight",
+  "item.cost": "Cost",
+  "item.weapon": "Weapon",
+  "item.armor": "Armor",
+  "item.damage": "Damage",
+  "item.mastery": "Mastery",
+  "item.stealthDisadvantage": "Stealth Disadvantage",
+
+  "monster.traits": "Traits",
+  "monster.legendary": "Legendary actions",
+  "monster.lairActions": "Lair actions",
+
+  "class.primaryAbility": "Primary Ability",
+  "class.hitDie": "Hit Die",
+
+  "subclass.parent": "Parent class",
+
+  "background.feat": "Feat",
+
+  "feat.category": "Category",
+  "feat.prerequisite": "Prerequisite",
+  "feat.repeatable": "Repeatable",
+
+  "magicItem.rarity": "Rarity",
+  "magicItem.attunement": "Requires attunement",
+  "magicItem.type": "Type",
+
+  "common.source": "Source"
 }

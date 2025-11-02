@@ -124,5 +124,5 @@ export function isSystemId(x: string): x is SystemId {
 }
 
 export function isFamilyId(x: string): x is keyof typeof FAMILIES {
-    return (Object.keys(FAMILIES) as Array<keyof typeof FAMILIES>).includes(x as any);
+    return Object.hasOwn(FAMILIES, x);
 }

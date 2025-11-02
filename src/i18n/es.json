@@ -1,5 +1,80 @@
 {
-  "app": { "title": "Mesa de Juego" },
-  "nav": { "grimoire": "Grimorio", "characters": "Personajes", "encounters": "Encuentros", "config": "Config" },
-  "language": { "en": "Inglés", "es": "Español" }
+  "grimorio.spells": "Conjuros",
+  "grimorio.species": "Especies",
+  "grimorio.items": "Objetos",
+  "grimorio.monsters": "Monstruos",
+  "grimorio.actions": "Acciones",
+  "grimorio.classes": "Clases",
+  "grimorio.subclasses": "Subclases",
+  "grimorio.backgrounds": "Trasfondos",
+  "grimorio.feats": "Dotes",
+  "grimorio.magicItems": "Objetos mágicos",
+  "grimorio.rules": "Reglas",
+
+  "loading.spells": "Cargando conjuros…",
+  "loading.species": "Cargando especies…",
+  "loading.items": "Cargando objetos…",
+  "loading.monsters": "Cargando monstruos…",
+  "loading.actions": "Cargando acciones…",
+  "loading.classes": "Cargando clases…",
+  "loading.subclasses": "Cargando subclases…",
+  "loading.backgrounds": "Cargando trasfondos…",
+  "loading.feats": "Cargando dotes…",
+  "loading.magicItems": "Cargando objetos mágicos…",
+  "loading.rules": "Cargando reglas…",
+
+  "error.spells": "Error cargando conjuros.",
+  "error.species": "Error cargando especies.",
+  "error.items": "Error cargando objetos.",
+  "error.monsters": "Error cargando monstruos.",
+  "error.actions": "Error cargando acciones.",
+  "error.classes": "Error cargando clases.",
+  "error.subclasses": "Error cargando subclases.",
+  "error.backgrounds": "Error cargando trasfondos.",
+  "error.feats": "Error cargando dotes.",
+  "error.magicItems": "Error cargando objetos mágicos.",
+  "error.rules": "Error cargando reglas.",
+
+  "empty.spells": "No hay conjuros cargados.",
+  "empty.species": "No hay especies cargadas.",
+  "empty.items": "No hay objetos cargados.",
+  "empty.monsters": "No hay monstruos cargados.",
+  "empty.actions": "No hay acciones cargadas.",
+  "empty.classes": "No hay clases cargadas.",
+  "empty.subclasses": "No hay subclases cargadas.",
+  "empty.backgrounds": "No hay trasfondos cargados.",
+  "empty.feats": "No hay dotes cargadas.",
+  "empty.magicItems": "No hay objetos mágicos cargados.",
+  "empty.rules": "No hay reglas cargadas.",
+
+  "spell.level": "Nivel",
+  "species.speed": "Vel.",
+  "item.weight": "Peso",
+  "item.cost": "Costo",
+  "item.weapon": "Arma",
+  "item.armor": "Armadura",
+  "item.damage": "Daño",
+  "item.mastery": "Maestría",
+  "item.stealthDisadvantage": "Desventaja en Sigilo",
+
+  "monster.traits": "Rasgos",
+  "monster.legendary": "Acciones legendarias",
+  "monster.lairActions": "Acciones de guarida",
+
+  "class.primaryAbility": "Habilidad primaria",
+  "class.hitDie": "Dado de golpe",
+
+  "subclass.parent": "Clase base",
+
+  "background.feat": "Dote",
+
+  "feat.category": "Categoría",
+  "feat.prerequisite": "Requisito",
+  "feat.repeatable": "Repetible",
+
+  "magicItem.rarity": "Rareza",
+  "magicItem.attunement": "Requiere sintonización",
+  "magicItem.type": "Tipo",
+
+  "common.source": "Fuente"
 }

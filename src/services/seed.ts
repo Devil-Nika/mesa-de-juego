@@ -51,22 +51,18 @@ type SpellInput = Omit<Spell, "system" | "pk" | "components"> & {
 };
 
 /** Normaliza componentes: string → string[] */
-function normalizeSpells(
-    rows: ReadonlyArray<SpellInput>
-): Array<Omit<Spell, "system" | "pk">> {
+function normalizeSpells(rows: ReadonlyArray<SpellInput>): Array<Omit<Spell, "system" | "pk">> {
     return rows.map((r) => {
         const comps = r.components;
         const components =
             typeof comps === "string"
-                ? comps
-                    .split(",")
-                    .map((s) => s.trim())
-                    .filter(Boolean)
+                ? comps.split(",").map((s) => s.trim()).filter(Boolean)
                 : Array.isArray(comps)
                     ? comps.slice()
                     : [];
-        const { components: _omit, ...rest } = r;
-        return { ...rest, components };
+
+        // sobrescribe components sin declarar _omit
+        return { ...r, components };
     });
 }
 

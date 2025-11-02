@@ -7,4 +7,5 @@ export type SystemContextValue = {
     setSystem: (id: SystemId) => void;
 };
 
-export const SystemContext = createContext<SystemContextValue | null>(null);
+const SystemContext = createContext<SystemContextValue | null>(null);
+export default SystemContext;

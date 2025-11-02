@@ -1,33 +1,38 @@
+import { useMemo } from "react";
 import { useFeats } from "../../hooks";
 import type { Feat } from "../../domain/dnd5e/Feats";
+import { useLocale } from "../../contexts/useLocale";
+import { sortByLocale } from "../../utils/sort";
 
-export default function Feats() {
+export default function FeatsPage() {
     const { system, data, isLoading, error } = useFeats();
+    const { locale, t } = useLocale();
 
-    if (isLoading) return <p className="opacity-70">Cargando dotes…</p>;
-    if (error) return <p className="text-red-600">Error cargando dotes.</p>;
+    const feats = useMemo(
+        () => sortByLocale(data as Feat[], (f) => f.name ?? "", locale),
+        [data, locale]
+    );
 
-    const feats = data as Feat[];
+    if (isLoading) return <p className="opacity-70">{t("loading.feats")}</p>;
+    if (error) return <p className="text-red-600">{t("error.feats")}</p>;
 
     return (
         <div className="space-y-4">
-            <h2 className="text-lg font-semibold">Dotes ({system})</h2>
+            <h2 className="text-lg font-semibold">{t("grimorio.feats")} ({system})</h2>
+
             {feats.length === 0 ? (
-                <p className="opacity-70">No hay dotes cargadas.</p>
+                <p className="opacity-70">{t("empty.feats")}</p>
             ) : (
                 <ul className="space-y-3">
-                    {feats.map(f => (
+                    {feats.map((f) => (
                         <li key={f.pk} className="border rounded p-3">
                             <div className="font-medium">{f.name}</div>
-                            {f.category && (
-                                <div className="text-xs inline-block mt-1 px-2 py-0.5 rounded bg-neutral-200">
-                                    {f.category}
-                                </div>
-                            )}
-                            {f.prerequisite && (
-                                <div className="text-sm mt-1 opacity-80">Requisito: {f.prerequisite}</div>
-                            )}
-                            {f.description && <p className="text-sm mt-2">{f.description}</p>}
+                            <div className="text-sm opacity-80">
+                                {f.category ? `${t("feat.category")}: ${f.category}` : ""}
+                                {f.prerequisite ? ` • ${t("feat.prerequisite")}: ${f.prerequisite}` : ""}
+                                {f.repeatable ? ` • ${t("feat.repeatable")}` : ""}
+                            </div>
+                            {f.description && <p className="text-sm mt-2 whitespace-pre-wrap">{f.description}</p>}
                         </li>
                     ))}
                 </ul>
