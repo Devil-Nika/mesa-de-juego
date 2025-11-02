@@ -1,9 +1,8 @@
-// src/main.tsx
+import "./index.css";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-
 import SystemProvider from "./contexts/SystemProvider";
 import LocaleProvider from "./contexts/LocaleProvider";
 import { seedSystem } from "./services/seed";
@@ -15,11 +14,11 @@ const root = createRoot(container);
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            <SystemProvider>
-                <LocaleProvider>
+            <LocaleProvider>         {/* 👈 primero Locale */}
+                <SystemProvider>       {/* 👈 luego System */}
                     <App />
-                </LocaleProvider>
-            </SystemProvider>
+                </SystemProvider>
+            </LocaleProvider>
         </BrowserRouter>
     </React.StrictMode>
 );

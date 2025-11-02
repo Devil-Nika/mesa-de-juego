@@ -1,3 +1,4 @@
+// eslint.config.mjs
 import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
@@ -7,6 +8,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
     globalIgnores(['dist']),
+
     {
         files: ['**/*.{ts,tsx}'],
         extends: [
@@ -17,17 +19,25 @@ export default defineConfig([
         ],
         languageOptions: {
             ecmaVersion: 2020,
+            sourceType: 'module',
             globals: globals.browser,
         },
-
-        // 👇 Añadí esto para que ESLint entienda los alias del tsconfig
         settings: {
+            // Para que ESLint entienda los alias del tsconfig
             'import/resolver': {
                 typescript: {
-                    // opcional: usa automáticamente tsconfig.app.json
-                    project: './tsconfig.app.json'
-                }
-            }
+                    project: './tsconfig.app.json',
+                },
+            },
+        },
+    },
+
+    // Overrides para archivos CJS o configs en CommonJS
+    {
+        files: ['**/*.cjs', '**/*.config.{js,cjs,ts}'],
+        languageOptions: { sourceType: 'commonjs' },
+        rules: {
+            'react-refresh/only-export-components': 'off',
         },
     },
 ])

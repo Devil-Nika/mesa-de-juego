@@ -1,6 +1,9 @@
+// src/contexts/useLocale.ts
 import { useContext } from "react";
-import { LocaleContext } from "./LocaleContext";
-import type { LocaleContextValue } from "./locale.types";
+import { LocaleContext, type LocaleContextValue } from "./LocaleContext";
+
+export type { LocaleContextValue } from "./LocaleContext";
+export { default as LocaleProvider } from "./LocaleProvider";
 
 export function useLocale(): LocaleContextValue {
     const ctx = useContext(LocaleContext);

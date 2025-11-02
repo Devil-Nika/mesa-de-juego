@@ -1,46 +1,58 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import SystemGuard from "./routes/SystemGuard";
-import GrimorioLayout from "./pages/grimorio/GrimorioLayout";
-import OptionsPage from "./pages/Options";
+import ShellLayout from "@components/ShellLayout";
+import Home from "@pages/Home";
+import ComingSoon from "@pages/ComingSoon";
 
-import Spells from "./pages/grimorio/Spells";
-import Species from "./pages/grimorio/Species";
-import Items from "./pages/grimorio/Items";
-import Monsters from "./pages/grimorio/Monsters";
-import Actions from "./pages/grimorio/Actions";
-import Classes from "./pages/grimorio/Classes";
-// ❌ import Subclasses from "./pages/grimorio/Subclasses";
-import Backgrounds from "./pages/grimorio/Backgrounds";
-import Feats from "./pages/grimorio/Feats";
-import MagicItems from "./pages/grimorio/MagicItems";
-import Rules from "./pages/grimorio/Rules";
+// Grimorio (ya existente)
+import GrimorioLayout from "@pages/grimorio/GrimorioLayout";
+import GrimorioHub from "@pages/grimorio/GrimorioHub";
+import ClassesIndex from "@pages/grimorio/classes/ClassesIndex";
+import OriginsIndex from "@pages/grimorio/origins/OriginsIndex";
+import FeatsIndex from "@pages/grimorio/feats/FeatsIndex";
+import EquipmentIndex from "@pages/grimorio/equipment/EquipmentIndex";
+import Spells from "@pages/grimorio/Spells";
+import Monsters from "@pages/grimorio/Monsters";
+import ToolboxIndex from "@pages/grimorio/toolbox/ToolboxIndex";
+import Rules from "@pages/grimorio/Rules";
+
+import OptionsPage from "@pages/Options";
 
 export default function App() {
     return (
         <Routes>
-            <Route path="/" element={<Navigate to="/dnd5e/grimoire/spells" replace />} />
+            {/* Arranque general → al sistema por defecto */}
+            <Route path="/" element={<Navigate to="/dnd5e" replace />} />
 
+            {/* Guard por sistema + layout con header */}
             <Route path=":system" element={<SystemGuard />}>
-                <Route path="grimoire" element={<GrimorioLayout />}>
-                    <Route index element={<Navigate to="spells" replace />} />
-                    <Route path="spells" element={<Spells />} />
-                    <Route path="species" element={<Species />} />
-                    <Route path="items" element={<Items />} />
-                    <Route path="monsters" element={<Monsters />} />
-                    <Route path="actions" element={<Actions />} />
-                    <Route path="classes" element={<Classes />} /> {/* 👈 subclases van dentro */}
-                    {/* ❌ <Route path="subclasses" element={<Subclasses />} /> */}
-                    <Route path="backgrounds" element={<Backgrounds />} />
-                    <Route path="feats" element={<Feats />} />
-                    <Route path="magic-items" element={<MagicItems />} />
-                    <Route path="rules" element={<Rules />} />
-                </Route>
+                <Route element={<ShellLayout />}>
+                    {/* Home vacía con solo el header visible */}
+                    <Route index element={<Home />} />
 
-                {/* ⚙️ Opciones (cambiar idioma) */}
-                <Route path="options" element={<OptionsPage />} />
+                    {/* En desarrollo */}
+                    <Route path="encounter" element={<ComingSoon labelKey="nav.encounter" />} />
+                    <Route path="builder" element={<ComingSoon labelKey="nav.builder" />} />
+
+                    {/* Grimorio (hub + secciones) */}
+                    <Route path="grimoire" element={<GrimorioLayout />}>
+                        <Route index element={<GrimorioHub />} />
+                        <Route path="class" element={<ClassesIndex />} />
+                        <Route path="origins" element={<OriginsIndex />} />
+                        <Route path="feats" element={<FeatsIndex />} />
+                        <Route path="equipment" element={<EquipmentIndex />} />
+                        <Route path="spells" element={<Spells />} />
+                        <Route path="monsters" element={<Monsters />} />
+                        <Route path="toolbox" element={<ToolboxIndex />} />
+                        <Route path="rules" element={<Rules />} />
+                    </Route>
+
+                    {/* Opciones */}
+                    <Route path="options" element={<OptionsPage />} />
+                </Route>
             </Route>
 
-            <Route path="*" element={<Navigate to="/dnd5e/grimoire/spells" replace />} />
+            <Route path="*" element={<Navigate to="/dnd5e" replace />} />
         </Routes>
     );
 }
