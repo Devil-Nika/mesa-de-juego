@@ -1,58 +1,69 @@
+// src/App.tsx
 import { Routes, Route, Navigate } from "react-router-dom";
+import Header from "@components/Header";
 import SystemGuard from "./routes/SystemGuard";
-import ShellLayout from "@components/ShellLayout";
-import Home from "@pages/Home";
-import ComingSoon from "@pages/ComingSoon";
-
-// Grimorio (ya existente)
 import GrimorioLayout from "@pages/grimorio/GrimorioLayout";
-import GrimorioHub from "@pages/grimorio/GrimorioHub";
-import ClassesIndex from "@pages/grimorio/classes/ClassesIndex";
-import OriginsIndex from "@pages/grimorio/origins/OriginsIndex";
-import FeatsIndex from "@pages/grimorio/feats/FeatsIndex";
-import EquipmentIndex from "@pages/grimorio/equipment/EquipmentIndex";
-import Spells from "@pages/grimorio/Spells";
-import Monsters from "@pages/grimorio/Monsters";
-import ToolboxIndex from "@pages/grimorio/toolbox/ToolboxIndex";
-import Rules from "@pages/grimorio/Rules";
-
 import OptionsPage from "@pages/Options";
+import Home from "@pages/Home";
+
+// ⬇️ TUS nombres de componentes/páginas
+import GrimoireHub from "@pages/grimorio/GrimorioHub";
+import EquipmentIndex from "@pages/grimorio/EquipmentIndex";
+import ToolboxIndex from "@pages/grimorio/ToolboxIndex";
+import OriginsIndex from "@pages/grimorio/OriginsIndex";
+
+// hojas existentes
+import Spells from "@pages/grimorio/Spells";
+import Species from "@pages/grimorio/Species";
+import Items from "@pages/grimorio/Items";
+import Monsters from "@pages/grimorio/Monsters";
+import Actions from "@pages/grimorio/Actions";
+import Classes from "@pages/grimorio/Classes";
+import Backgrounds from "@pages/grimorio/Backgrounds";
+import Feats from "@pages/grimorio/Feats";
+import MagicItems from "@pages/grimorio/MagicItems";
+import Rules from "@pages/grimorio/Rules";
 
 export default function App() {
     return (
-        <Routes>
-            {/* Arranque general → al sistema por defecto */}
-            <Route path="/" element={<Navigate to="/dnd5e" replace />} />
+        <>
+            <Header />
+            <Routes>
+                <Route path="/" element={<Navigate to="/dnd5e" replace />} />
 
-            {/* Guard por sistema + layout con header */}
-            <Route path=":system" element={<SystemGuard />}>
-                <Route element={<ShellLayout />}>
-                    {/* Home vacía con solo el header visible */}
+                <Route path=":system" element={<SystemGuard />}>
                     <Route index element={<Home />} />
 
-                    {/* En desarrollo */}
-                    <Route path="encounter" element={<ComingSoon labelKey="nav.encounter" />} />
-                    <Route path="builder" element={<ComingSoon labelKey="nav.builder" />} />
+                    <Route path="encounter" element={<div className="p-6 opacity-60">WIP: Encounter</div>} />
+                    <Route path="builder" element={<div className="p-6 opacity-60">WIP: Builder</div>} />
 
-                    {/* Grimorio (hub + secciones) */}
                     <Route path="grimoire" element={<GrimorioLayout />}>
-                        <Route index element={<GrimorioHub />} />
-                        <Route path="class" element={<ClassesIndex />} />
+                        <Route index element={<GrimoireHub />} />
+                        <Route path="overview" element={<GrimoireHub />} />
+
+                        {/* hubs/categorías */}
+                        <Route path="class" element={<Classes />} />
                         <Route path="origins" element={<OriginsIndex />} />
-                        <Route path="feats" element={<FeatsIndex />} />
                         <Route path="equipment" element={<EquipmentIndex />} />
-                        <Route path="spells" element={<Spells />} />
-                        <Route path="monsters" element={<Monsters />} />
                         <Route path="toolbox" element={<ToolboxIndex />} />
+
+                        {/* hojas */}
+                        <Route path="spells" element={<Spells />} />
+                        <Route path="species" element={<Species />} />
+                        <Route path="items" element={<Items />} />
+                        <Route path="monsters" element={<Monsters />} />
+                        <Route path="actions" element={<Actions />} />
+                        <Route path="backgrounds" element={<Backgrounds />} />
+                        <Route path="feats" element={<Feats />} />
+                        <Route path="magic-items" element={<MagicItems />} />
                         <Route path="rules" element={<Rules />} />
                     </Route>
 
-                    {/* Opciones */}
                     <Route path="options" element={<OptionsPage />} />
                 </Route>
-            </Route>
 
-            <Route path="*" element={<Navigate to="/dnd5e" replace />} />
-        </Routes>
+                <Route path="*" element={<Navigate to="/dnd5e" replace />} />
+            </Routes>
+        </>
     );
 }

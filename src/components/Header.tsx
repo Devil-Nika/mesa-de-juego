@@ -1,31 +1,50 @@
-import { NavLink } from "react-router-dom";
-import { useSystem } from "@contexts/useSystem";
+import { Link, NavLink, useParams } from "react-router-dom";
+import SystemSwitcher from "./SystemSwitcher";
 import { useLocale } from "@contexts/useLocale";
 
-export default function Header() {
-    const { system } = useSystem();
-    const { t } = useLocale();
+function navCls({ isActive }: { isActive: boolean }) {
+    return [
+        "px-3 py-1.5 rounded-md text-sm whitespace-nowrap",
+        isActive ? "bg-black text-white" : "bg-neutral-200 hover:bg-neutral-300"
+    ].join(" ");
+}
 
-    const linkCls = ({ isActive }: { isActive: boolean }) =>
-        `px-3 py-2 rounded ${isActive ? "bg-black text-white" : "bg-neutral-200 hover:bg-neutral-300"}`;
+export default function Header() {
+    const { t } = useLocale();
+    const params = useParams();
+    const system = (params.system ?? "dnd5e") as string;
 
     return (
-        <header className="p-4 border-b bg-white">
-            <div className="max-w-6xl mx-auto flex items-center gap-4">
-                <NavLink to="/" className={linkCls}>
-                    {t("app.home")}
-                </NavLink>
+        <header className="w-full border-b bg-white">
+            <div className="mx-auto max-w-7xl px-4 py-3 flex items-center gap-4">
+                {/* Logo -> actúa como Home, así evitamos el botón de Inicio */}
+                <Link to={`/${system}`} className="shrink-0 font-semibold text-lg">
+                    Mesa de Juego
+                </Link>
 
-                {/* Estos cambian según el sistema seleccionado */}
-                <NavLink to={`/${system}/grimoire`} className={linkCls}>
-                    {t("menu.grimoire")}
-                </NavLink>
-                <NavLink to={`/${system}/options`} className={linkCls}>
-                    {t("menu.options")}
-                </NavLink>
+                {/* Nav IZQUIERDA: scroll horizontal en pantallas chicas */}
+                <nav className="flex items-center gap-2 overflow-x-auto hide-scrollbar">
+                    <NavLink to={`/${system}/encounter`} className={navCls}>
+                        {t("nav.encounter")}
+                    </NavLink>
+                    <NavLink to={`/${system}/builder`} className={navCls}>
+                        {t("nav.builder")}
+                    </NavLink>
+                    <NavLink to={`/${system}/grimoire`} end className={navCls}>
+                        {t("nav.grimoire")}
+                    </NavLink>
+                    <NavLink to={`/${system}/options`} className={navCls}>
+                        {t("nav.options")}
+                    </NavLink>
+                </nav>
 
-                {/* Placeholders (en desarrollo) */}
-                <span className="ml-auto opacity-60">{t("app.brand") ?? "Mesa de Juego"}</span>
+                {/* Separador flexible */}
+                <div className="flex-1" />
+
+                {/* Controles DERECHA */}
+                <div className="flex items-center gap-3">
+                    <SystemSwitcher />
+                </div>
             </div>
         </header>
     );

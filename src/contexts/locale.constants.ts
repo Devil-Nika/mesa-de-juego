@@ -1,8 +1,6 @@
-// src/contexts/locale.constants.ts
 import type { LocaleId, LocaleDict } from "./locale.types";
 
-// Idiomas disponibles (orden también define el “default” visual)
-export const LOCALES: LocaleId[] = ["en", "es"] as const;
+export const LOCALES: readonly LocaleId[] = ["en", "es"] as const;
 
 // Diccionarios
 export const DICTS: Record<LocaleId, LocaleDict> = {
@@ -336,4 +334,7 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "options.theme": "Tema",
         "options.save": "Guardar",
     },
-};
+}as const;
+
+// (opcional) Tipo de clave
+export type DictKey = keyof LocaleDict;

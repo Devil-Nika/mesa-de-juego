@@ -1,13 +1,11 @@
-export function matchAnyLocale<T extends { name?: string; name_i18n?: Record<string, string> }>(
-    entry: T,
-    q: string
+// src/utils/i18nSearch.ts
+export function matchAnyLocale(
+    row: { name?: string; name_en?: string; name_es?: string },
+    query: string
 ): boolean {
-    if (!entry) return false;
-    const needle = q.trim().toLowerCase();
-    if (!needle) return true;
-
-    const values: string[] = [];
-    if (entry.name) values.push(entry.name);
-    if (entry.name_i18n) values.push(...Object.values(entry.name_i18n));
-    return values.some((s) => s.toLowerCase().includes(needle));
+    if (!query) return true;
+    const q = query.toLowerCase();
+    return [row.name, (row as any).name_en, (row as any).name_es]
+        .filter(Boolean)
+        .some((v) => String(v).toLowerCase().includes(q));
 }
