@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
-import { useFeats } from "@hooks/dnd5e/useFeats";
-import { useSystem } from "@contexts/useSystem";
-import { useLocale } from "@contexts/useLocale";
+import { useFeats } from "@hooks/dnd5e/useFeats.ts";
+import { useSystem } from "@contexts/useSystem.ts";
+import { useLocale } from "@contexts/useLocale.ts";
 import type { Feat } from "@domain/dnd5e";
-import { matchAnyLocale } from "@utils/i18nSearch";
-import { localeName } from "@utils/i18nSort";
+import { matchAnyLocale } from "@utils/i18nSearch.ts";
+import { localeName } from "@utils/i18nSort.ts";
 
 const ORDER = ["Origin", "General", "Fighting Style", "Epic Boon"] as const;
 type KnownCat = (typeof ORDER)[number];

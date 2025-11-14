@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import SystemProvider from "./contexts/SystemProvider";
-import LocaleProvider from "./contexts/LocaleProvider";
+import LocaleProvider from "@contexts/LocaleProvider";
 import { seedSystem } from "./services/seed";
 
 const container = document.getElementById("root");

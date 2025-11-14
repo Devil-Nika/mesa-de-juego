@@ -1,9 +1,13 @@
+// src/contexts/locale.constants.ts
 import type { LocaleId, LocaleDict } from "./locale.types";
 
-export const LOCALES: readonly LocaleId[] = ["en", "es"] as const;
+export const LOCALES = ["en", "es"] as const satisfies readonly LocaleId[];
 
-// Diccionarios
-export const DICTS: Record<LocaleId, LocaleDict> = {
+/**
+ * DICTS_RAW conserva los *literal types* de las claves.
+ * Luego lo "bajamos" a Record<LocaleId, LocaleDict> para poder indexar por string sin errores.
+ */
+const DICTS_RAW = {
     en: {
         // ====== NAV / HEADER ======
         "nav.home": "Home",
@@ -29,7 +33,7 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "menu.rules": "Rules",
         "menu.options": "Options",
 
-        // ====== HUB (overview del grimorio) ======
+        // ====== HUB ======
         "hub.title": "Browse the Grimoire",
         "hub.class.desc": "Classes with embedded subclasses selection.",
         "hub.origins.desc": "Backgrounds and Species together.",
@@ -40,7 +44,7 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "hub.toolbox.desc": "Travel, Curses, Environment, Fear/Stress, Poisons, Traps.",
         "hub.rules.desc": "General rules and tags.",
 
-        // ====== CLASSES (con subclases embebidas) ======
+        // ====== CLASSES ======
         "search.classes": "Search classes…",
         "classes.list": "Classes",
         "classes.details": "Details",
@@ -49,7 +53,7 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "subclasses.none": "No subclasses available.",
         "subclass.selected": "Selected Subclass",
 
-        // ====== ORIGINS (backgrounds + species) ======
+        // ====== ORIGINS ======
         "grimorio.origins": "Origins",
         "search.origins": "Search backgrounds or species…",
         "loading.origins": "Loading origins…",
@@ -71,7 +75,6 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "equipment.services": "Services",
         "equipment.magicItems": "Magic Items",
         "equipment.crafting": "Crafting",
-
         "equipment.hint.coins": "Currency and conversions",
         "equipment.hint.weapons": "Simple/Martial, properties and mastery",
         "equipment.hint.armors": "Light/Medium/Heavy, shields",
@@ -89,7 +92,6 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "toolbox.fearStress": "Fear & Mental Stress",
         "toolbox.poisons": "Poisons",
         "toolbox.traps": "Traps",
-
         "toolbox.hint.travelPlaces": "Journeys, landmarks and regions",
         "toolbox.hint.cursesContagions": "Curses, magical diseases",
         "toolbox.hint.environmentalEffects": "Weather, terrain and hazards",
@@ -97,15 +99,14 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "toolbox.hint.poisons": "Poison types and effects",
         "toolbox.hint.traps": "Trap design and examples",
 
-        // ====== LISTAS BÁSICAS POR TIPO ======
+        // ====== LISTAS BÁSICAS ======
         "grimorio.classes": "Classes",
         "grimorio.feats": "Feats",
         "grimorio.spells": "Spells",
         "grimorio.monsters": "Monsters",
-        // (alias en español usa "grimorio.*" — dejamos ambos por compat)
         "grimorio.rules": "Rules",
 
-        // ====== SEARCH PLACEHOLDERS ======
+        // ====== SEARCH ======
         "search.actions": "Search actions…",
         "search.species": "Search species…",
         "search.spells": "Search spells…",
@@ -114,48 +115,39 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "search.rules": "Search rules…",
         "search.magicItems": "Search magic items…",
 
-        // ====== ESTADOS (loading / error / empty) ======
+        // ====== ESTADOS ======
         "loading.actions": "Loading actions…",
         "error.actions": "Error loading actions.",
         "empty.actions": "No actions found.",
-
         "loading.species": "Loading species…",
         "error.species": "Error loading species.",
         "empty.species": "No species found.",
-
         "loading.spells": "Loading spells…",
         "error.spells": "Error loading spells.",
         "empty.spells": "No spells found.",
-
         "loading.monsters": "Loading monsters…",
         "error.monsters": "Error loading monsters.",
         "empty.monsters": "No monsters found.",
-
         "loading.items": "Loading items…",
         "error.items": "Error loading items.",
         "empty.items": "No items found.",
-
         "loading.magicItems": "Loading magic items…",
         "error.magicItems": "Error loading magic items.",
         "empty.magicItems": "No magic items found.",
-
         "loading.backgrounds": "Loading backgrounds…",
         "error.backgrounds": "Error loading backgrounds.",
         "empty.backgrounds": "No backgrounds found.",
-
         "loading.classes": "Loading classes…",
         "error.classes": "Error loading classes.",
         "empty.classes": "No classes found.",
-
         "loading.subclasses": "Loading subclasses…",
         "error.subclasses": "Error loading subclasses.",
         "empty.subclasses": "No subclasses found.",
-
         "loading.rules": "Loading rules…",
         "error.rules": "Error loading rules.",
         "empty.rules": "No rules found.",
 
-        // ====== CAMPOS / LABELS COMUNES ======
+        // ====== COMUNES ======
         "spell.level": "Level",
         "common.source": "Source",
         "common.showDetails": "Show details",
@@ -171,18 +163,18 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
     },
 
     es: {
-        // ====== NAV / HEADER ======
+        // NAV / HEADER
         "nav.home": "Inicio",
         "nav.encounter": "Encuentro",
         "nav.builder": "Constructor",
         "nav.grimoire": "Grimorio",
         "nav.options": "Opciones",
 
-        // ====== HOME ======
+        // HOME
         "home.title": "Bienvenido",
         "home.subtitle": "Selecciona una sección desde la navegación superior",
 
-        // ====== GRIMOIRE LAYOUT / MENU ======
+        // GRIMOIRE LAYOUT / MENU
         "grimoire.title": "Grimorio",
         "menu.grimoireHome": "Resumen",
         "menu.class": "Clases",
@@ -195,7 +187,7 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "menu.rules": "Reglas",
         "menu.options": "Opciones",
 
-        // ====== HUB ======
+        // HUB
         "hub.title": "Explorar el Grimorio",
         "hub.class.desc": "Clases con selección de subclase embebida.",
         "hub.origins.desc": "Trasfondos y Especies juntos.",
@@ -206,7 +198,7 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "hub.toolbox.desc": "Viajes, Maldiciones, Entorno, Miedo/Estrés, Venenos, Trampas.",
         "hub.rules.desc": "Reglas generales y etiquetas.",
 
-        // ====== CLASES ======
+        // CLASES
         "search.classes": "Buscar clases…",
         "classes.list": "Clases",
         "classes.details": "Detalle",
@@ -215,19 +207,19 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "subclasses.none": "No hay subclases disponibles.",
         "subclass.selected": "Subclase seleccionada",
 
-        // ====== ORÍGENES ======
+        // ORÍGENES
         "grimorio.origins": "Orígenes",
         "search.origins": "Buscar trasfondos o especies…",
         "loading.origins": "Cargando orígenes…",
         "error.origins": "Error cargando orígenes.",
 
-        // ====== DOTES ======
+        // DOTES
         "search.feats": "Buscar dotes…",
         "loading.feats": "Cargando dotes…",
         "error.feats": "Error cargando dotes.",
         "empty.feats": "No hay dotes.",
 
-        // ====== EQUIPO ======
+        // EQUIPO
         "grimorio.equipment": "Equipo",
         "equipment.coins": "Monedas",
         "equipment.weapons": "Armas",
@@ -237,7 +229,6 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "equipment.services": "Servicios",
         "equipment.magicItems": "Objetos mágicos",
         "equipment.crafting": "Fabricación",
-
         "equipment.hint.coins": "Monedas y conversiones",
         "equipment.hint.weapons": "Simple/Marcial, propiedades y maestría",
         "equipment.hint.armors": "Ligera/Media/Pesada, escudos",
@@ -247,7 +238,7 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "equipment.hint.magicItems": "Sintonización, objetos malditos",
         "equipment.hint.crafting": "Reglas y costes de fabricación",
 
-        // ====== TOOLBOX ======
+        // TOOLBOX
         "grimorio.toolbox": "Caja de herramientas",
         "toolbox.travelPlaces": "Viajes y Lugares",
         "toolbox.cursesContagions": "Maldiciones y Contagios mágicos",
@@ -255,7 +246,6 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "toolbox.fearStress": "Miedo y Estrés mental",
         "toolbox.poisons": "Venenos",
         "toolbox.traps": "Trampas",
-
         "toolbox.hint.travelPlaces": "Viajes, regiones y lugares",
         "toolbox.hint.cursesContagions": "Maldiciones, enfermedades mágicas",
         "toolbox.hint.environmentalEffects": "Clima, terreno y peligros",
@@ -263,14 +253,14 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "toolbox.hint.poisons": "Tipos de veneno y efectos",
         "toolbox.hint.traps": "Diseño y ejemplos de trampas",
 
-        // ====== LISTAS BÁSICAS POR TIPO ======
+        // LISTAS BÁSICAS
         "grimorio.classes": "Clases",
         "grimorio.feats": "Dotes",
         "grimorio.spells": "Conjuros",
         "grimorio.monsters": "Monstruos",
         "grimorio.rules": "Reglas",
 
-        // ====== SEARCH PLACEHOLDERS ======
+        // SEARCH
         "search.actions": "Buscar acciones…",
         "search.species": "Buscar especies…",
         "search.spells": "Buscar conjuros…",
@@ -279,62 +269,57 @@ export const DICTS: Record<LocaleId, LocaleDict> = {
         "search.rules": "Buscar reglas…",
         "search.magicItems": "Buscar objetos mágicos…",
 
-        // ====== ESTADOS (loading / error / empty) ======
+        // ESTADOS
         "loading.actions": "Cargando acciones…",
         "error.actions": "Error cargando acciones.",
         "empty.actions": "No hay acciones.",
-
         "loading.species": "Cargando especies…",
         "error.species": "Error cargando especies.",
         "empty.species": "No hay especies.",
-
         "loading.spells": "Cargando conjuros…",
         "error.spells": "Error cargando conjuros.",
         "empty.spells": "No hay conjuros.",
-
         "loading.monsters": "Cargando monstruos…",
         "error.monsters": "Error cargando monstruos.",
         "empty.monsters": "No hay monstruos.",
-
         "loading.items": "Cargando objetos…",
         "error.items": "Error cargando objetos.",
         "empty.items": "No hay objetos.",
-
         "loading.magicItems": "Cargando objetos mágicos…",
         "error.magicItems": "Error cargando objetos mágicos.",
         "empty.magicItems": "No hay objetos mágicos.",
-
         "loading.backgrounds": "Cargando trasfondos…",
         "error.backgrounds": "Error cargando trasfondos.",
         "empty.backgrounds": "No hay trasfondos.",
-
         "loading.classes": "Cargando clases…",
         "error.classes": "Error cargando clases.",
         "empty.classes": "No hay clases.",
-
         "loading.subclasses": "Cargando subclases…",
         "error.subclasses": "Error cargando subclases.",
         "empty.subclasses": "No hay subclases.",
-
         "loading.rules": "Cargando reglas…",
         "error.rules": "Error cargando reglas.",
         "empty.rules": "No hay reglas.",
 
-        // ====== CAMPOS / LABELS COMUNES ======
+        // COMUNES
         "spell.level": "Nivel",
         "common.source": "Fuente",
         "common.showDetails": "Mostrar detalles",
         "common.hideDetails": "Ocultar detalles",
         "common.comingSoon": "Sección en desarrollo.",
 
-        // ====== OPTIONS ======
+        // OPTIONS
         "options.title": "Opciones",
         "options.language": "Idioma",
         "options.system": "Sistema",
         "options.theme": "Tema",
         "options.save": "Guardar",
     },
-}as const;
+} as const;
 
-// (opcional) Tipo de clave
-export type DictKey = keyof LocaleDict;
+/** Unión de claves (útil si querés autocomplete en algunos lugares) */
+export type DictKey = keyof typeof DICTS_RAW.en;
+
+/** Versión indexable por string (lo que usan los componentes) */
+export const DICTS: Record<LocaleId, LocaleDict> =
+    DICTS_RAW as unknown as Record<LocaleId, LocaleDict>;

@@ -1,11 +1,11 @@
 import { useMemo, useState } from "react";
-import { useBackgrounds } from "@hooks/dnd5e/useBackgrounds";
-import { useSpecies } from "@hooks/dnd5e/useSpecies";
-import { useSystem } from "@contexts/useSystem";
-import { useLocale } from "@contexts/useLocale";
+import { useBackgrounds } from "@hooks/dnd5e/useBackgrounds.ts";
+import { useSpecies } from "@hooks/dnd5e/useSpecies.ts";
+import { useSystem } from "@contexts/useSystem.ts";
+import { useLocale } from "@contexts/useLocale.ts";
 import type { Background, Species } from "@domain/dnd5e";
-import { matchAnyLocale } from "@utils/i18nSearch";
-import { localeName } from "@utils/i18nSort";
+import { matchAnyLocale } from "@utils/i18nSearch.ts";
+import { localeName } from "@utils/i18nSort.ts";
 
 type TabId = "backgrounds" | "species";
 

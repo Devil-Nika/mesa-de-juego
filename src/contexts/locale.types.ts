@@ -1,37 +1,35 @@
 export type LocaleId = "en" | "es";
 
 export type LocaleDict = {
-    // 🔑 todas tus claves i18n (keys) -> string
-    // p.ej. "grimoire.title": string; "menu.class": string; ...
-    // (ya las tenés definidas en el proyecto)
-    [K in
-        | "grimoire.title"
-        | "menu.grimoireHome"
-        | "menu.class"
-        | "menu.origins"
-        | "menu.feats"
-        | "menu.equipment"
-        | "menu.spells"
-        | "menu.monsters"
-        | "menu.toolbox"
-        | "menu.rules"
-        | "menu.options"
-        | "hub.title"
-        | "hub.class.desc"
-        | "hub.origins.desc"
-        | "hub.feats.desc"
-        | "hub.equipment.desc"
-        | "hub.spells.desc"
-        | "hub.monsters.desc"
-        | "hub.toolbox.desc"
-        | "hub.rules.desc"
-        | "nav.home"
-        | "nav.encounter"
-        | "nav.builder"
-        | "nav.grimoire"
-        | "nav.options"
-        | "home.title"
-        | "home.subtitle"
-    // ... añade aquí el resto de keys que ya usas …
-    ]: string;
+    "grimoire.title": string;
+    "menu.grimoireHome": string;
+    "menu.class": string;
+    "menu.origins": string;
+    "menu.feats": string;
+    "menu.equipment": string;
+    "menu.spells": string;
+    "menu.monsters": string;
+    "menu.toolbox": string;
+    "menu.rules": string;
+    "menu.options": string;
+    "hub.title": string;
+    "hub.class.desc": string;
+    "hub.origins.desc": string;
+    "hub.feats.desc": string;
+    "hub.equipment.desc": string;
+    "hub.spells.desc": string;
+    "hub.monsters.desc": string;
+    "hub.toolbox.desc": string;
+    "hub.rules.desc": string;
+    "nav.home": string;
+    "nav.encounter": string;
+    "nav.builder": string;
+    "nav.grimoire": string;
+    "nav.options": string;
+    "home.title": string;
+    "home.subtitle": string;
+    // 🔽 añade aquí cualquier otra, por ejemplo:
+    "search.classes"?: string;
+    "search.spells"?: string;
+    "common.comingSoon"?: string;
 };

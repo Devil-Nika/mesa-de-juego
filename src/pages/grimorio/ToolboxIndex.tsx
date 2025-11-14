@@ -1,4 +1,4 @@
-import { useLocale } from "@contexts/useLocale";
+import { useLocale } from "@contexts/useLocale.ts";
 
 const TOOLS: Array<{ id: string; i18n: string; hint: string }> = [
     { id: "travel-places", i18n: "toolbox.travelPlaces", hint: "toolbox.hint.travelPlaces" },

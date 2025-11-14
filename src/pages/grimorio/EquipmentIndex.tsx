@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useLocale } from "@contexts/useLocale";
+import { useLocale } from "@contexts/useLocale.ts";
 
 const SECTIONS: Array<{ id: string; i18n: string; hint: string }> = [
     { id: "coins", i18n: "equipment.coins", hint: "equipment.hint.coins" },

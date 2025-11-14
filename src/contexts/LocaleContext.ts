@@ -1,6 +1,5 @@
-// src/contexts/LocaleContext.ts
 import { createContext } from "react";
-import type { LocaleId } from "./locale.constants";
+import type { LocaleId } from "./locale.types";
 
 export type LocaleContextValue = {
     locale: LocaleId;
@@ -10,3 +9,4 @@ export type LocaleContextValue = {
 };
 
 export const LocaleContext = createContext<LocaleContextValue | null>(null);
+export default LocaleContext;
