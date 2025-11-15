@@ -20,14 +20,14 @@ export default function Home() {
                     to={`/${sys}/grimoire`}
                     className="px-4 py-2 rounded-md bg-neutral-900 text-white hover:bg-black"
                 >
-                    {t("home.openGrimoire")}
+                    {t("nav.grimoire")}
                 </Link>
 
                 <Link
                     to={`/${sys}/options`}
                     className="px-4 py-2 rounded-md bg-neutral-200 hover:bg-neutral-300"
                 >
-                    {t("home.openOptions")}
+                    {t("nav.options")}
                 </Link>
             </div>
         </section>

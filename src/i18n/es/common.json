@@ -11,10 +11,12 @@
   "menu.species": "Especies",
   "menu.spells": "Conjuros",
   "menu.subclasses": "Subclases",
-  "menu.options": "Opciones",
   "options.title": "Opciones",
   "options.language": "Idioma",
-  "options.language_hint": "Cambia el idioma de la interfaz y el orden alfabético.",
+  "options.system": "Sistema",
+  "options.theme": "Tema",
+  "options.save": "Guardar",
+  "options.language_hint": "Solo cambia el idioma de la interfaz, no las reglas.",
   "locales.en": "Inglés",
   "locales.es": "Español"
 }

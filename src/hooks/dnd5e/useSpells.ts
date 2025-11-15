@@ -4,14 +4,14 @@ import type { Spell } from "@domain/dnd5e";
 import { db } from "@services/db";
 
 
-type UseSpellsState = {
+type UseSpellsDnd5eState = {
     system: SystemId;
     data: Spell[];
     isLoading: boolean;
     error: unknown;
 };
 
-export function useSpells(): UseSpellsState {
+export function useSpellsDnd5e(): UseSpellsDnd5eState {
     const system: SystemId = "dnd5e";
     const [data, setData] = useState<Spell[]>([]);
     const [isLoading, setLoading] = useState(true);
@@ -31,6 +31,3 @@ export function useSpells(): UseSpellsState {
 
     return { system, data, isLoading, error };
 }
-
-// alias de compatibilidad
-export { useSpells as useSpellsDnd5e };

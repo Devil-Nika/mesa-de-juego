@@ -14,7 +14,10 @@
   "menu.options": "Options",
   "options.title": "Options",
   "options.language": "Language",
-  "options.language_hint": "Changes the UI language and sorting order.",
+  "options.system": "System",
+  "options.theme": "Theme",
+  "options.save": "Save",
+  "options.language_hint": "Only changes the interface language, not system rules.",
   "locales.en": "English",
   "locales.es": "Spanish"
 }
