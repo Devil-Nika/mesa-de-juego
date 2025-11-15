@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useFeats } from "@hooks/dnd5e/useFeats.ts";
+import { useFeatsDnd5e } from "@hooks/dnd5e/useFeatsDnd5e.ts";
 import { useSystem } from "@contexts/useSystem.ts";
 import { useLocale } from "@contexts/useLocale.ts";
 import type { Feat } from "@domain/dnd5e";
@@ -12,7 +12,7 @@ type KnownCat = (typeof ORDER)[number];
 export default function FeatsIndex() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
-    const { data, isLoading, error } = useFeats();
+    const { data, isLoading, error } = useFeatsDnd5e();
 
     const [query, setQuery] = useState("");
     const [cat, setCat] = useState<KnownCat | "All">("All");

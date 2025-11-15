@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import type { SystemId } from "@domain/types";
-import type { Rule } from "@domain/dnd5e";
+import type { MagicItem } from "@domain/dnd5e";
 import { db } from "@services/db";
 
-
-type UseRulesState = {
+type UseMagicItemsDnd5eState = {
     system: SystemId;
-    data: Rule[];
+    data: MagicItem[];
     isLoading: boolean;
     error: unknown;
 };
 
-export function useRules(): UseRulesState {
+export function useMagicItemsDnd5e(): UseMagicItemsDnd5eState {
     const system: SystemId = "dnd5e";
-    const [data, setData] = useState<Rule[]>([]);
+    const [data, setData] = useState<MagicItem[]>([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState<unknown>(null);
 
@@ -21,7 +20,7 @@ export function useRules(): UseRulesState {
         let cancelled = false;
         setLoading(true);
 
-        db.rules.where("system").equals(system).toArray()
+        db.magicItems.where("system").equals(system).toArray()
             .then((rows) => { if (!cancelled) setData(rows); })
             .catch((e) => { if (!cancelled) setError(e); })
             .finally(() => { if (!cancelled) setLoading(false); });
@@ -31,5 +30,3 @@ export function useRules(): UseRulesState {
 
     return { system, data, isLoading, error };
 }
-
-export { useRules as useRulesDnd5e };

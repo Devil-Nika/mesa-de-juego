@@ -1,6 +1,6 @@
 // src/pages/grimorio/Feats.tsx
 import { useMemo } from "react";
-import { useFeats } from "@hooks/dnd5e/useFeats";
+import { useFeatsDnd5e } from "@hooks/dnd5e/useFeatsDnd5e.ts";
 import type { Feat } from "@domain/dnd5e";
 import SearchBar from "@components/SearchBar";
 import SortMenu from "@components/SortMenu";
@@ -13,7 +13,7 @@ import { useListControls } from "@hooks/useListControls";
 export default function FeatsPage() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
-    const { data, isLoading, error } = useFeats();
+    const { data, isLoading, error } = useFeatsDnd5e();
     const { query, setQuery, sort, setSort } = useListControls("name-asc");
 
     const options = [

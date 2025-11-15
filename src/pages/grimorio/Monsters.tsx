@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useMonsters } from "@hooks/dnd5e/useMonsters";
+import { useMonstersDnd5e } from "@hooks/dnd5e/useMonstersDnd5e.ts";
 import type { Monster } from "@domain/dnd5e";
 import SearchBar from "@components/SearchBar";
 import SortMenu from "@components/SortMenu";
@@ -12,7 +12,7 @@ import { useListControls } from "@hooks/useListControls";
 export default function MonstersPage() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
-    const { data, isLoading, error } = useMonsters();
+    const { data, isLoading, error } = useMonstersDnd5e();
     const { query, setQuery, sort, setSort } = useListControls("name-asc");
 
     const options = [

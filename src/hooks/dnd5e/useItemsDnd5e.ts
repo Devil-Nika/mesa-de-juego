@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import type { SystemId } from "@domain/types";
-import type { Feat } from "@domain/dnd5e";
+import type { Items } from "@domain/dnd5e";
 import { db } from "@services/db";
 
-type UseFeatsState = {
+type UseItemsDnd5eState = {
     system: SystemId;
-    data: Feat[];
+    data: Items[];
     isLoading: boolean;
     error: unknown;
 };
 
-export function useFeats(): UseFeatsState {
+export function useItemsDnd5e(): UseItemsDnd5eState {
     const system: SystemId = "dnd5e";
-    const [data, setData] = useState<Feat[]>([]);
+    const [data, setData] = useState<Items[]>([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState<unknown>(null);
 
@@ -20,7 +20,7 @@ export function useFeats(): UseFeatsState {
         let cancelled = false;
         setLoading(true);
 
-        db.feats.where("system").equals(system).toArray()
+        db.items.where("system").equals(system).toArray()
             .then((rows) => { if (!cancelled) setData(rows); })
             .catch((e) => { if (!cancelled) setError(e); })
             .finally(() => { if (!cancelled) setLoading(false); });
@@ -30,5 +30,3 @@ export function useFeats(): UseFeatsState {
 
     return { system, data, isLoading, error };
 }
-
-export { useFeats as useFeatsDnd5e };

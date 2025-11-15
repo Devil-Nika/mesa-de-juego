@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useRules } from "@hooks/dnd5e/useRules";
+import { useRulesDnd5e } from "@hooks/dnd5e/useRulesDnd5e.ts";
 import SearchBar from "@components/SearchBar";
 import SortMenu from "@components/SortMenu";
 import EntryCard from "@components/EntryCard";
@@ -11,7 +11,7 @@ import { useListControls } from "@hooks/useListControls";
 export default function RulesPage() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
-    const { data, isLoading, error } = useRules();
+    const { data, isLoading, error } = useRulesDnd5e();
     const { query, setQuery, sort, setSort } = useListControls("name-asc");
 
     const options = [

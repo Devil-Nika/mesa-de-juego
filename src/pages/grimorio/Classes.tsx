@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { useClasses } from "@hooks/dnd5e/useClasses";
-import { useSubclasses } from "@hooks/dnd5e/useSubclasses";
+import { useClassesDnd5e } from "@hooks/dnd5e/useClassesDnd5e.ts";
+import { useSubclassesDnd5e } from "@hooks/dnd5e/useSubclassesDnd5e.ts";
 import { useSystem } from "@contexts/useSystem";
 import { useLocale } from "@contexts/useLocale";
 import type { Classes as ClassRow, Subclass } from "@domain/dnd5e";
@@ -10,8 +10,8 @@ import { localeName } from "@utils/i18nSort";
 export default function ClassesPage() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
-    const { data: classData, isLoading, error } = useClasses();
-    const { data: subclassData } = useSubclasses();
+    const { data: classData, isLoading, error } = useClassesDnd5e();
+    const { data: subclassData } = useSubclassesDnd5e();
     const [query, setQuery] = useState("");
     const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useSpells } from "@hooks/dnd5e/useSpells";
+import { useSpellsDnd5e } from "@hooks/dnd5e/useSpellsDnd5e.ts";
 import type { Spell } from "@domain/dnd5e";
 import SearchBar from "@components/SearchBar";
 import SortMenu from "@components/SortMenu";
@@ -12,7 +12,7 @@ import { useListControls } from "@hooks/useListControls";
 export default function SpellsPage() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
-    const { data, isLoading, error } = useSpells();
+    const { data, isLoading, error } = useSpellsDnd5e();
     const { query, setQuery, sort, setSort } = useListControls("name-asc");
 
     const options = [

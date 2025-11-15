@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useItems } from "@hooks/dnd5e/useItems";
+import { useItemsDnd5e } from "@hooks/dnd5e/useItemsDnd5e.ts";
 import type { Items as Item } from "@domain/dnd5e";
 import SearchBar from "@components/SearchBar";
 import SortMenu from "@components/SortMenu";
@@ -12,7 +12,7 @@ import { useListControls } from "@hooks/useListControls";
 export default function ItemsPage() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
-    const { data, isLoading, error } = useItems();
+    const { data, isLoading, error } = useItemsDnd5e();
     const { query, setQuery, sort, setSort } = useListControls("name-asc");
 
     const options = [

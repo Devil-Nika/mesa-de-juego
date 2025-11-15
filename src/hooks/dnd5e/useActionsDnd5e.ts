@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import type { SystemId } from "@domain/types";
-import type { Items } from "@domain/dnd5e";
+import type { Actions } from "@domain/dnd5e";     // si tu barrel re-exporta Actions
 import { db } from "@services/db";
 
-type UseItemsState = {
+type UseActionsDnd5eState = {
     system: SystemId;
-    data: Items[];
+    data: Actions[];
     isLoading: boolean;
     error: unknown;
 };
 
-export function useItems(): UseItemsState {
+export function useActionsDnd5e(): UseActionsDnd5eState {
     const system: SystemId = "dnd5e";
-    const [data, setData] = useState<Items[]>([]);
+    const [data, setData] = useState<Actions[]>([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState<unknown>(null);
 
@@ -20,7 +20,7 @@ export function useItems(): UseItemsState {
         let cancelled = false;
         setLoading(true);
 
-        db.items.where("system").equals(system).toArray()
+        db.actions.where("system").equals(system).toArray()
             .then((rows) => { if (!cancelled) setData(rows); })
             .catch((e) => { if (!cancelled) setError(e); })
             .finally(() => { if (!cancelled) setLoading(false); });
@@ -30,5 +30,3 @@ export function useItems(): UseItemsState {
 
     return { system, data, isLoading, error };
 }
-
-export { useItems as useItemsDnd5e };

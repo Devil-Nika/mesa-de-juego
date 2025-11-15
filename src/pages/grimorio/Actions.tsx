@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useActions } from "@hooks/dnd5e/useActions";
+import { useActionsDnd5e } from "@hooks/dnd5e/useActionsDnd5e.ts";
 import { useSystem } from "@contexts/useSystem";
 import { useLocale } from "@contexts/useLocale";
 import type { Actions as ActionRow } from "@domain/dnd5e";
@@ -9,7 +9,7 @@ import { localeName } from "@utils/i18nSort";
 export default function ActionsPage() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
-    const { data, isLoading, error } = useActions();
+    const { data, isLoading, error } = useActionsDnd5e();
     const [query, setQuery] = useState("");
 
     const actions = useMemo(() => {

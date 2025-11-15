@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useMagicItems } from "@hooks/dnd5e/useMagicItems";
+import { useMagicItemsDnd5e } from "@hooks/dnd5e/useMagicItemsDnd5e.ts";
 import SearchBar from "@components/SearchBar";
 import SortMenu from "@components/SortMenu";
 import EntryCard from "@components/EntryCard";
@@ -11,7 +11,7 @@ import { useListControls } from "@hooks/useListControls";
 export default function MagicItemsPage() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
-    const { data, isLoading, error } = useMagicItems();
+    const { data, isLoading, error } = useMagicItemsDnd5e();
     const { query, setQuery, sort, setSort } = useListControls("name-asc");
 
     const options = [

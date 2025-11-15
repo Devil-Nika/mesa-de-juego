@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import type { SystemId } from "@domain/types";
-import type { Species } from "@domain/dnd5e";
+import type { Feat } from "@domain/dnd5e";
 import { db } from "@services/db";
 
-
-type UseSpeciesState = {
+type UseFeatsDnd5eState = {
     system: SystemId;
-    data: Species[];
+    data: Feat[];
     isLoading: boolean;
     error: unknown;
 };
 
-export function useSpecies(): UseSpeciesState {
+export function useFeatsDnd5e(): UseFeatsDnd5eState {
     const system: SystemId = "dnd5e";
-    const [data, setData] = useState<Species[]>([]);
+    const [data, setData] = useState<Feat[]>([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState<unknown>(null);
 
@@ -21,7 +20,7 @@ export function useSpecies(): UseSpeciesState {
         let cancelled = false;
         setLoading(true);
 
-        db.species.where("system").equals(system).toArray()
+        db.feats.where("system").equals(system).toArray()
             .then((rows) => { if (!cancelled) setData(rows); })
             .catch((e) => { if (!cancelled) setError(e); })
             .finally(() => { if (!cancelled) setLoading(false); });
@@ -31,5 +30,3 @@ export function useSpecies(): UseSpeciesState {
 
     return { system, data, isLoading, error };
 }
-
-export { useSpecies as useSpeciesDnd5e };

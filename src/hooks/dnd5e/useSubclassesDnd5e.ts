@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import type { SystemId } from "@domain/types";
-import type { Background } from "@domain/dnd5e";     // si tu barrel re-exporta Actions
+import type { Subclass } from "@domain/dnd5e";
 import { db } from "@services/db";
 
-type UseBackgroundsState = {
+
+type UseSubclassesDnd5eState = {
     system: SystemId;
-    data: Background[];
+    data: Subclass[];
     isLoading: boolean;
     error: unknown;
 };
 
-export function useBackgrounds(): UseBackgroundsState {
+export function useSubclassesDnd5e(): UseSubclassesDnd5eState {
     const system: SystemId = "dnd5e";
-    const [data, setData] = useState<Background[]>([]);
+    const [data, setData] = useState<Subclass[]>([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState<unknown>(null);
 
@@ -20,7 +21,7 @@ export function useBackgrounds(): UseBackgroundsState {
         let cancelled = false;
         setLoading(true);
 
-        db.backgrounds.where("system").equals(system).toArray()
+        db.subclasses.where("system").equals(system).toArray()
             .then((rows) => { if (!cancelled) setData(rows); })
             .catch((e) => { if (!cancelled) setError(e); })
             .finally(() => { if (!cancelled) setLoading(false); });
@@ -30,5 +31,3 @@ export function useBackgrounds(): UseBackgroundsState {
 
     return { system, data, isLoading, error };
 }
-
-export { useBackgrounds as useBackgroundsDnd5e };

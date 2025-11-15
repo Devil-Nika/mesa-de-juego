@@ -3,14 +3,14 @@ import type { SystemId } from "@domain/types";
 import type { Monster } from "@domain/dnd5e";
 import { db } from "@services/db";
 
-type UseMonstersState = {
+type UseMonstersDnd5eState = {
     system: SystemId;
     data: Monster[];
     isLoading: boolean;
     error: unknown;
 };
 
-export function useMonsters(): UseMonstersState {
+export function useMonstersDnd5e(): UseMonstersDnd5eState {
     const system: SystemId = "dnd5e";
     const [data, setData] = useState<Monster[]>([]);
     const [isLoading, setLoading] = useState(true);
@@ -30,5 +30,3 @@ export function useMonsters(): UseMonstersState {
 
     return { system, data, isLoading, error };
 }
-
-export { useMonsters as useMonstersDnd5e };

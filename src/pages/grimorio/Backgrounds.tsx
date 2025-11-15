@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useBackgrounds } from "@hooks/dnd5e/useBackgrounds";
+import { useBackgroundsDnd5e } from "@hooks/dnd5e/useBackgroundsDnd5e.ts";
 import SearchBar from "@components/SearchBar";
 import SortMenu from "@components/SortMenu";
 import EntryCard from "@components/EntryCard";
@@ -11,7 +11,7 @@ import { useListControls } from "@hooks/useListControls";
 export default function BackgroundsPage() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
-    const { data, isLoading, error } = useBackgrounds();
+    const { data, isLoading, error } = useBackgroundsDnd5e();
     const { query, setQuery, sort, setSort } = useListControls("name-asc");
 
     const options = [

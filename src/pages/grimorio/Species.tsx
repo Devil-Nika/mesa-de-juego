@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useSpecies } from "@hooks/dnd5e/useSpecies";
+import { useSpeciesDnd5e } from "@hooks/dnd5e/useSpeciesDnd5e.ts";
 import { useSystem } from "@contexts/useSystem";
 import { useLocale } from "@contexts/useLocale";
 import type { Species } from "@domain/dnd5e";
@@ -9,7 +9,7 @@ import { localeName } from "@utils/i18nSort";
 export default function SpeciesPage() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
-    const { data, isLoading, error } = useSpecies();
+    const { data, isLoading, error } = useSpeciesDnd5e();
     const [query, setQuery] = useState("");
 
     const species = useMemo(() => {

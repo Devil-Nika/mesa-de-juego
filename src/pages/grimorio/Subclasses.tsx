@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useSubclasses } from "@hooks/dnd5e/useSubclasses";
+import { useSubclassesDnd5e } from "@hooks/dnd5e/useSubclassesDnd5e.ts";
 import SearchBar from "@components/SearchBar";
 import SortMenu from "@components/SortMenu";
 import EntryCard from "@components/EntryCard";
@@ -11,7 +11,7 @@ import { useListControls } from "@hooks/useListControls";
 export default function SubclassesPage() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
-    const { data, isLoading, error } = useSubclasses();
+    const { data, isLoading, error } = useSubclassesDnd5e();
     const { query, setQuery, sort, setSort } = useListControls("name-asc");
 
     const options = [

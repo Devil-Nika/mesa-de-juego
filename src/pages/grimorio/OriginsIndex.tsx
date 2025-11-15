@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
-import { useBackgrounds } from "@hooks/dnd5e/useBackgrounds.ts";
-import { useSpecies } from "@hooks/dnd5e/useSpecies.ts";
+import { useBackgroundsDnd5e } from "@hooks/dnd5e/useBackgroundsDnd5e.ts";
+import { useSpeciesDnd5e } from "@hooks/dnd5e/useSpeciesDnd5e.ts";
 import { useSystem } from "@contexts/useSystem.ts";
 import { useLocale } from "@contexts/useLocale.ts";
 import type { Background, Species } from "@domain/dnd5e";
@@ -12,8 +12,8 @@ type TabId = "backgrounds" | "species";
 export default function OriginsIndex() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
-    const { data: bgData, isLoading: lbg, error: ebg } = useBackgrounds();
-    const { data: spData, isLoading: lsp, error: esp } = useSpecies();
+    const { data: bgData, isLoading: lbg, error: ebg } = useBackgroundsDnd5e();
+    const { data: spData, isLoading: lsp, error: esp } = useSpeciesDnd5e();
 
     const [tab, setTab] = useState<TabId>("backgrounds");
     const [query, setQuery] = useState("");

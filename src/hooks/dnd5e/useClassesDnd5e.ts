@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import type { SystemId } from "@domain/types";
-import type { Subclass } from "@domain/dnd5e";
+import type { Classes } from "@domain/dnd5e";     // si tu barrel re-exporta Actions
 import { db } from "@services/db";
 
-
-type UseSubclassesState = {
+type UseClassesDnd5eState = {
     system: SystemId;
-    data: Subclass[];
+    data: Classes[];
     isLoading: boolean;
     error: unknown;
 };
 
-export function useSubclasses(): UseSubclassesState {
+export function useClassesDnd5e(): UseClassesDnd5eState {
     const system: SystemId = "dnd5e";
-    const [data, setData] = useState<Subclass[]>([]);
+    const [data, setData] = useState<Classes[]>([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState<unknown>(null);
 
@@ -21,7 +20,7 @@ export function useSubclasses(): UseSubclassesState {
         let cancelled = false;
         setLoading(true);
 
-        db.subclasses.where("system").equals(system).toArray()
+        db.classes.where("system").equals(system).toArray()
             .then((rows) => { if (!cancelled) setData(rows); })
             .catch((e) => { if (!cancelled) setError(e); })
             .finally(() => { if (!cancelled) setLoading(false); });
@@ -31,5 +30,3 @@ export function useSubclasses(): UseSubclassesState {
 
     return { system, data, isLoading, error };
 }
-
-export { useSubclasses as useSubclassesDnd5e };
