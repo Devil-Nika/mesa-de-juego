@@ -9,6 +9,7 @@ import Home from "@pages/Home";
 // ⬇️ TUS nombres de componentes/páginas
 import GrimoireHub from "@pages/grimorio/GrimorioHub";
 import EquipmentIndex from "@pages/grimorio/EquipmentIndex";
+import EquipmentSection from "@pages/grimorio/EquipmentSection";
 import ToolboxIndex from "@pages/grimorio/ToolboxIndex";
 import OriginsIndex from "@pages/grimorio/OriginsIndex";
 
@@ -44,7 +45,9 @@ export default function App() {
                         {/* hubs/categorías */}
                         <Route path="class" element={<Classes />} />
                         <Route path="origins" element={<OriginsIndex />} />
-                        <Route path="equipment" element={<EquipmentIndex />} />
+                        <Route path="equipment" element={<EquipmentIndex />}>
+                            <Route path=":sectionId" element={<EquipmentSection />} />
+                        </Route>
                         <Route path="toolbox" element={<ToolboxIndex />} />
 
                         {/* hojas */}

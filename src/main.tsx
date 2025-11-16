@@ -1,3 +1,4 @@
+// main.tsx
 import "./index.css";
 import React from "react";
 import { createRoot } from "react-dom/client";
@@ -5,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import SystemProvider from "./contexts/SystemProvider";
 import LocaleProvider from "@contexts/LocaleProvider";
+import ThemeProvider from "@contexts/ThemeProvider";  // 👈 import nuevo
 import { seedSystem } from "./services/seed";
 
 const container = document.getElementById("root");
@@ -14,16 +16,18 @@ const root = createRoot(container);
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            <LocaleProvider>         {/* 👈 primero Locale */}
-                <SystemProvider>       {/* 👈 luego System */}
-                    <App />
-                </SystemProvider>
-            </LocaleProvider>
+            <ThemeProvider>
+                <LocaleProvider>
+                    <SystemProvider>
+                        <App />
+                    </SystemProvider>
+                </LocaleProvider>
+            </ThemeProvider>
         </BrowserRouter>
     </React.StrictMode>
 );
 
-// Seed en segundo plano
+// Seed en segundo plano (lo podés dejar así por ahora)
 (async () => {
     try {
         console.time("seedSystem(dnd5e)");

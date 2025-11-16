@@ -1,9 +1,11 @@
 import { useLocale } from "../contexts/useLocale";
 import { useSystem } from "../contexts/useSystem";
+import { useTheme } from "../contexts/useTheme"; // 👈 nuevo
 
 export default function OptionsPage() {
     const { locale, setLocale, t, availableLocales } = useLocale();
     const { system } = useSystem();
+    const { theme, setTheme } = useTheme(); // 👈 nuevo
 
     return (
         <div className="max-w-xl space-y-6">
@@ -11,8 +13,11 @@ export default function OptionsPage() {
                 {t("options.title")} ({system})
             </h2>
 
+            {/* Idioma */}
             <section className="space-y-2">
-                <label className="block text-sm font-medium">{t("options.language")}</label>
+                <label className="block text-sm font-medium">
+                    {t("options.language")}
+                </label>
                 <select
                     value={locale}
                     onChange={(e) => setLocale(e.target.value as typeof locale)}
@@ -20,11 +25,28 @@ export default function OptionsPage() {
                 >
                     {availableLocales.map((id: "en" | "es") => (
                         <option key={id} value={id}>
-                            {t(`locales.${id}`, id)}{/* <- usa fallback, no rompe TS2554 */}
+                            {t(`locales.${id}`, id)}
                         </option>
                     ))}
                 </select>
-                <p className="text-xs opacity-70">{t("options.language_hint")}</p>
+                <p className="text-xs opacity-70">
+                    {t("options.language_hint")}
+                </p>
+            </section>
+
+            {/* Tema */}
+            <section className="space-y-2">
+                <label className="block text-sm font-medium">
+                    {t("options.theme")}
+                </label>
+                <select
+                    value={theme}
+                    onChange={(e) => setTheme(e.target.value as "light" | "dark")}
+                    className="border rounded px-3 py-2 bg-white"
+                >
+                    <option value="light">{t("options.theme_light")}</option>
+                    <option value="dark">{t("options.theme_dark")}</option>
+                </select>
             </section>
         </div>
     );

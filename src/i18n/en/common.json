@@ -16,6 +16,8 @@
   "options.language": "Language",
   "options.system": "System",
   "options.theme": "Theme",
+  "options.theme_light": "Light",
+  "options.theme_dark": "Dark",
   "options.save": "Save",
   "options.language_hint": "Only changes the interface language, not system rules.",
   "locales.en": "English",

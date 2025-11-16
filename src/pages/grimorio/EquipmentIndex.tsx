@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+// src/pages/grimorio/EquipmentIndex.tsx
+import { Link, Outlet, useParams } from "react-router-dom";
 import { useLocale } from "@contexts/useLocale.ts";
 
 const SECTIONS: Array<{ id: string; i18n: string; hint: string }> = [
@@ -14,17 +15,34 @@ const SECTIONS: Array<{ id: string; i18n: string; hint: string }> = [
 
 export default function EquipmentIndex() {
     const { t } = useLocale();
+    const { sectionId } = useParams();
+
     return (
-        <section>
-            <h2 className="text-lg font-semibold mb-4">{t("grimorio.equipment")}</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {SECTIONS.map((s) => (
-                    <Link key={s.id} to={s.id} className="border rounded-xl p-4 bg-white hover:shadow-md shadow-sm block">
-                        <div className="font-medium text-indigo-700">{t(s.i18n)}</div>
-                        <p className="text-sm opacity-80 mt-1">{t(s.hint)}</p>
-                    </Link>
-                ))}
-            </div>
+        <section className="space-y-6">
+            <header>
+                <h2 className="text-lg font-semibold mb-4">
+                    {t("grimorio.equipment")}
+                </h2>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {SECTIONS.map((s) => (
+                        <Link
+                            key={s.id}
+                            to={s.id}
+                            className={`border rounded-xl p-4 bg-white hover:shadow-md shadow-sm block ${
+                                sectionId === s.id ? "ring-2 ring-indigo-500" : ""
+                            }`}
+                        >
+                            <div className="font-medium text-indigo-700">
+                                {t(s.i18n)}
+                            </div>
+                            <p className="text-sm opacity-80 mt-1">{t(s.hint)}</p>
+                        </Link>
+                    ))}
+                </div>
+            </header>
+
+            {/* contenido de la sección elegida */}
+            <Outlet />
         </section>
     );
 }
