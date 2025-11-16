@@ -20,7 +20,10 @@ export default function SearchBar({ value, onChange, placeholder }: Props) {
 
     return (
         <input
-            className="w-full md:w-72 border rounded px-3 py-2 bg-white"
+            className="w-full md:w-72 border rounded px-3 py-2 bg-white text-sm shadow-sm outline-none
+                       border-neutral-300 text-neutral-900
+                       focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500
+                       dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-50 dark:placeholder-neutral-500"
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={placeholder ?? "Search…"}

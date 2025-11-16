@@ -1,77 +1,74 @@
-import { useMemo } from "react";
-import { useItemsDnd5e } from "@hooks/dnd5e/useItemsDnd5e.ts";
+import { useItemsDnd5e } from "@hooks/dnd5e/useItemsDnd5e";
 import type { Items as Item } from "@domain/dnd5e";
-import SearchBar from "@components/SearchBar";
-import SortMenu from "@components/SortMenu";
-import EntryCard from "@components/EntryCard";
-import { sortByLocale } from "@utils/sort";
 import { useLocale } from "@contexts/useLocale";
 import { useSystem } from "@contexts/useSystem";
-import { useListControls } from "@hooks/useListControls";
+import EntryCard from "@components/EntryCard";
+import ListPage, { type SortOption } from "@components/list/ListPage";
 
 export default function ItemsPage() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
     const { data, isLoading, error } = useItemsDnd5e();
-    const { query, setQuery, sort, setSort } = useListControls("name-asc");
 
-    const options = [
+    const sortOptions: SortOption[] = [
         { value: "name-asc", label: t("sort.nameAsc") },
-        { value: "cat-asc",  label: t("sort.categoryAsc") },
+        { value: "cat-asc", label: t("sort.categoryAsc") },
     ];
 
-    const filtered = useMemo(() => {
-        const base = (data as Item[]) ?? [];
-        const byName = query
-            ? base.filter((i) =>
-                (i.name ?? "").toLowerCase().includes(query.toLowerCase())
-            )
-            : base;
-
-        if (sort === "name-asc") {
-            return sortByLocale(byName, (i) => i.name ?? "", locale);
+    const sortFn = (items: Item[], sortId: string): Item[] => {
+        if (sortId === "name-asc") {
+            return [...items].sort((a, b) =>
+                (a.name ?? "").localeCompare(b.name ?? "", locale)
+            );
         }
-        if (sort === "cat-asc") {
-            return [...byName].sort((a, b) => (a.category ?? "").localeCompare(b.category ?? ""));
+        if (sortId === "cat-asc") {
+            return [...items].sort((a, b) =>
+                (a.category ?? "").localeCompare(b.category ?? "", locale)
+            );
         }
-        return byName;
-    }, [data, query, sort, locale]);
+        return items;
+    };
 
-    if (isLoading) return <p className="opacity-70">{t("loading.items")}</p>;
-    if (error) return <p className="text-red-600">{t("error.items")}</p>;
+    const searchPredicate = (i: Item, term: string): boolean => {
+        return (
+            (i.name ?? "").toLowerCase().includes(term) ||
+            (i.category ?? "").toLowerCase().includes(term)
+        );
+    };
 
     return (
-        <div className="space-y-4">
-            <div className="flex flex-col md:flex-row md:items-center gap-3 justify-between">
-                <h2 className="text-lg font-semibold">
-                    {t("grimorio.items")} <span className="opacity-60">({system})</span>
-                </h2>
-                <div className="flex items-center gap-3">
-                    <SearchBar value={query} onChange={setQuery} placeholder={t("search.items")} />
-                    <SortMenu value={sort} onChange={setSort} options={options} label={t("common.sort")} />
-                </div>
-            </div>
-
-            {filtered.length === 0 ? (
-                <p className="opacity-70">{t("empty.items")}</p>
-            ) : (
-                <ul className="space-y-3">
-                    {filtered.map((i) => (
-                        <EntryCard
-                            key={i.pk}
-                            title={i.name}
-                            subtitle={[
-                                i.category ?? "",
-                                i.cost ? `• ${i.cost.amount} ${i.cost.unit}` : "",
-                                i.weight !== undefined ? `• ${i.weight} lb` : "",
-                            ].join(" ").trim()}
-                            footer={i.source ? `${t("common.source")}: ${i.source}` : undefined}
-                        >
-                            {i.description}
-                        </EntryCard>
-                    ))}
-                </ul>
+        <ListPage<Item>
+            title={t("grimorio.items")}
+            systemLabel={system}
+            data={(data as Item[]) ?? []}
+            isLoading={isLoading}
+            error={error}
+            searchPlaceholder={t("search.items")}
+            emptyMessage={t("empty.items")}
+            loadingLabel={t("loading.items")}
+            errorLabel={t("error.items")}
+            sortOptions={sortOptions}
+            initialSort="name-asc"
+            searchPredicate={searchPredicate}
+            sortFn={sortFn}
+            getKey={(i: Item) => i.pk}
+            renderItem={(i: Item) => (
+                <EntryCard
+                    title={i.name}
+                    subtitle={[
+                        i.category ?? "",
+                        i.cost ? `• ${i.cost.amount} ${i.cost.unit}` : "",
+                        i.weight !== undefined ? `• ${i.weight} lb` : "",
+                    ]
+                        .join(" ")
+                        .trim()}
+                    footer={
+                        i.source ? `${t("common.source")}: ${i.source}` : undefined
+                    }
+                >
+                    {i.description}
+                </EntryCard>
             )}
-        </div>
+        />
     );
 }

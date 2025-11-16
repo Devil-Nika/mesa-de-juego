@@ -1,50 +1,61 @@
-import { useMemo, useState } from "react";
-import { useActionsDnd5e } from "@hooks/dnd5e/useActionsDnd5e.ts";
-import { useSystem } from "@contexts/useSystem";
+// src/pages/grimorio/Actions.tsx
+import { useActionsDnd5e } from "@hooks/dnd5e/useActionsDnd5e";
+import type { Actions as Action } from "@domain/dnd5e";
 import { useLocale } from "@contexts/useLocale";
-import type { Actions as ActionRow } from "@domain/dnd5e";
-import { matchAnyLocale } from "@utils/i18nSearch";
-import { localeName } from "@utils/i18nSort";
+import { useSystem } from "@contexts/useSystem";
+import EntryCard from "@components/EntryCard";
+import ListPage, { type SortOption } from "@components/list/ListPage";
 
 export default function ActionsPage() {
     const { system } = useSystem();
     const { locale, t } = useLocale();
     const { data, isLoading, error } = useActionsDnd5e();
-    const [query, setQuery] = useState("");
 
-    const actions = useMemo(() => {
-        const rows = (data ?? []) as ActionRow[];
-        return rows
-            .filter((r) => matchAnyLocale(r, query))
-            .sort((a, b) =>
-                localeName(a, locale).localeCompare(localeName(b, locale), locale, { sensitivity: "base" })
+    const sortOptions: SortOption[] = [
+        { value: "name-asc", label: t("sort.nameAsc") },
+    ];
+
+    const sortFn = (items: Action[], sortId: string): Action[] => {
+        if (sortId === "name-asc") {
+            return [...items].sort((a, b) =>
+                (a.name ?? "").localeCompare(b.name ?? "", locale)
             );
-    }, [data, query, locale]);
+        }
+        return items;
+    };
 
-    if (isLoading) return <p>{t("loading.actions")}</p>;
-    if (error) return <p className="text-red-600">{t("error.actions")}</p>;
+    const searchPredicate = (a: Action, term: string): boolean =>
+        (a.name ?? "").toLowerCase().includes(term);
 
     return (
-        <section className="space-y-4">
-            <header className="flex justify-between items-center">
-                <h2 className="text-lg font-semibold">{t("grimorio.actions")} ({system})</h2>
-                <input
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder={t("search.actions")}
-                    className="border rounded px-2 py-1"
+        <ListPage<Action>
+            title={t("grimorio.actions")}
+            systemLabel={system}
+            data={(data as Action[]) ?? []}
+            isLoading={isLoading}
+            error={error}
+            searchPlaceholder={t("search.actions")}
+            emptyMessage={t("empty.actions")}
+            loadingLabel={t("loading.actions")}
+            errorLabel={t("error.actions")}
+            sortOptions={sortOptions}
+            initialSort="name-asc"
+            searchPredicate={searchPredicate}
+            sortFn={sortFn}
+            // si no tenés pk en Actions, podés usar el índice de forma segura
+            getKey={(_a: Action, index) => index}
+            renderItem={(a: Action) => (
+                <EntryCard
+                    title={a.name}
+                    // si tengas algún otro campo útil, podés usarlo de subtitle/meta
+                    // subtitle={a.type ?? undefined}
+                    footer={
+                        a.source
+                            ? `${t("common.source")}: ${a.source}`
+                            : undefined
+                    }
                 />
-            </header>
-
-            <ul className="grid sm:grid-cols-2 gap-3">
-                {actions.map((a) => (
-                    <li key={a.pk} className="border rounded p-3 bg-white shadow-sm">
-                        <div className="font-medium">{localeName(a, locale)}</div>
-                        {a.tag && <div className="text-xs mt-1 opacity-70">{a.tag}</div>}
-                        {a.text && <p className="text-sm mt-2 whitespace-pre-wrap">{a.text}</p>}
-                    </li>
-                ))}
-            </ul>
-        </section>
+            )}
+        />
     );
 }

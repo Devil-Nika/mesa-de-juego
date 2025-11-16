@@ -36,60 +36,78 @@ export default function EquipmentSection() {
     );
 }
 
-// ---------- Sección monedas + calculadora ----------
 function CoinsSection() {
     const { t } = useLocale();
-
-    // calculadora simple: convertir desde una moneda a todas las demás
     const [fromCoin, setFromCoin] = useState("gp");
     const [amount, setAmount] = useState(1);
 
-    const base = COINS.find((c) => c.id === fromCoin) ?? COINS[3]; // gp por defecto
+    const base = COINS.find((c) => c.id === fromCoin) ?? COINS[3];
     const baseInCp = amount * base.factor;
 
     return (
-        <div className="border rounded-xl p-4 bg-white space-y-4">
-            <h3 className="text-md font-semibold mb-2">
+        <div className="space-y-4 rounded-xl border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+            <h3 className="text-md font-semibold text-neutral-900 dark:text-neutral-50 mb-1">
                 {t("equipment.coins")}
             </h3>
 
-            {/* tabla de monedas */}
-            <table className="w-full text-sm border-collapse">
-                <thead>
-                <tr className="border-b">
-                    <th className="text-left py-1">{t("coins.name")}</th>
-                    <th className="text-left py-1">{t("coins.abbr")}</th>
-                    <th className="text-left py-1">{t("coins.value_vs_cp")}</th>
-                </tr>
-                </thead>
-                <tbody>
-                {COINS.map((c) => (
-                    <tr key={c.id} className="border-b last:border-none">
-                        <td className="py-1">{t(c.nameKey)}</td>
-                        <td className="py-1">{c.short}</td>
-                        <td className="py-1">
-                            {c.factor} {t("coins.cp_equiv")}
-                        </td>
+            {/* tabla */}
+            <div className="overflow-x-auto">
+                <table className="w-full border-collapse text-sm">
+                    <thead>
+                    <tr className="border-b border-neutral-200 dark:border-neutral-800">
+                        <th className="py-1 text-left text-xs font-semibold uppercase text-neutral-600 dark:text-neutral-300">
+                            {t("coins.name")}
+                        </th>
+                        <th className="py-1 text-left text-xs font-semibold uppercase text-neutral-600 dark:text-neutral-300">
+                            {t("coins.abbr")}
+                        </th>
+                        <th className="py-1 text-left text-xs font-semibold uppercase text-neutral-600 dark:text-neutral-300">
+                            {t("coins.value_vs_cp")}
+                        </th>
                     </tr>
-                ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {COINS.map((c) => (
+                        <tr
+                            key={c.id}
+                            className="border-b border-neutral-100 last:border-none dark:border-neutral-800"
+                        >
+                            <td className="py-1 text-neutral-800 dark:text-neutral-100">
+                                {t(c.nameKey)}
+                            </td>
+                            <td className="py-1 text-neutral-700 dark:text-neutral-200">
+                                {c.short}
+                            </td>
+                            <td className="py-1 text-neutral-700 dark:text-neutral-200">
+                                {c.factor} {t("coins.cp_equiv")}
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
 
             {/* calculadora */}
-            <div className="space-y-2">
-                <h4 className="font-medium">{t("coins.converter_title")}</h4>
-                <div className="flex flex-wrap gap-2 items-center text-sm">
+            <div className="space-y-2 rounded-lg bg-neutral-50 p-3 text-sm dark:bg-neutral-950/40">
+                <h4 className="font-medium text-neutral-800 dark:text-neutral-100">
+                    {t("coins.converter_title")}
+                </h4>
+                <div className="flex flex-wrap items-center gap-2">
                     <input
                         type="number"
                         min={0}
                         value={amount}
                         onChange={(e) => setAmount(Number(e.target.value) || 0)}
-                        className="border rounded px-2 py-1 w-24"
+                        className="w-24 rounded-md border border-neutral-300 bg-white px-2 py-1 text-sm text-neutral-900 shadow-sm outline-none
+                                   focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500
+                                   dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
                     />
                     <select
                         value={fromCoin}
                         onChange={(e) => setFromCoin(e.target.value)}
-                        className="border rounded px-2 py-1"
+                        className="rounded-md border border-neutral-300 bg-white px-2 py-1 text-sm text-neutral-900 shadow-sm outline-none
+                                   focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500
+                                   dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
                     >
                         {COINS.map((c) => (
                             <option key={c.id} value={c.id}>
@@ -98,12 +116,14 @@ function CoinsSection() {
                         ))}
                     </select>
                 </div>
-
-                <ul className="text-sm space-y-1 mt-2">
+                <ul className="mt-2 space-y-1">
                     {COINS.map((c) => {
                         const value = baseInCp / c.factor;
                         return (
-                            <li key={c.id}>
+                            <li
+                                key={c.id}
+                                className="text-xs text-neutral-800 dark:text-neutral-200"
+                            >
                                 ≈ {value.toFixed(2)} {c.short}
                             </li>
                         );
@@ -114,7 +134,8 @@ function CoinsSection() {
     );
 }
 
-// ---------- Sección armas ----------
+
+
 import { useState } from "react";
 
 function WeaponsSection() {
@@ -122,60 +143,74 @@ function WeaponsSection() {
     const { data, isLoading, error } = useItemsDnd5e();
 
     if (isLoading) {
-        return <p className="opacity-70">{t("loading.weapons")}</p>;
+        return <p className="opacity-70 text-sm">{t("loading.weapons")}</p>;
     }
     if (error) {
-        return <p className="text-red-600">{t("error.weapons")}</p>;
+        return <p className="text-sm text-red-600">{t("error.weapons")}</p>;
     }
 
     const weapons = (data as Item[]).filter((item) => item.category === "weapon");
 
     if (weapons.length === 0) {
         return (
-            <p className="opacity-70">
+            <p className="opacity-70 text-sm">
                 {t("empty.weapons")}
             </p>
         );
     }
 
     return (
-        <div className="border rounded-xl p-4 bg-white space-y-3">
-            <h3 className="text-md font-semibold mb-2">
+        <div className="space-y-3 rounded-xl border border-neutral-200 bg-white p-4 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+            <h3 className="text-md font-semibold text-neutral-900 dark:text-neutral-50">
                 {t("equipment.weapons")}
             </h3>
 
             <ul className="space-y-2 text-sm">
                 {weapons.map((w) => (
-                    <li key={w.id} className="border rounded p-3">
-                        <div className="font-medium">
+                    <li
+                        key={w.id}
+                        className="rounded-lg border border-neutral-200 bg-neutral-50 p-3 dark:border-neutral-700 dark:bg-neutral-950/40"
+                    >
+                        <div className="font-medium text-neutral-900 dark:text-neutral-50">
                             {w.name}{" "}
                             {w.weapon?.kind && (
-                                <span className="text-xs uppercase opacity-70 ml-2">
-                  {w.weapon.kind} {w.weapon.category}
-                </span>
+                                <span className="ml-2 text-xs uppercase text-neutral-500 dark:text-neutral-400">
+                                    {w.weapon.kind} {w.weapon.category}
+                                </span>
                             )}
                         </div>
+
                         {w.weapon?.damage && (
-                            <div className="text-xs mt-1">
-                                {t("weapon.damage")}: {w.weapon.damage.dice}{" "}
-                                ({w.weapon.damage.type})
+                            <div className="mt-1 text-xs text-neutral-700 dark:text-neutral-200">
+                                {t("weapon.damage")}: {w.weapon.damage.dice} (
+                                {w.weapon.damage.type})
                                 {w.weapon.versatileDice && (
-                                    <> · {t("weapon.versatile")}: {w.weapon.versatileDice}</>
+                                    <>
+                                        {" "}
+                                        · {t("weapon.versatile")}:{" "}
+                                        {w.weapon.versatileDice}
+                                    </>
                                 )}
                             </div>
                         )}
+
                         {w.cost && (
-                            <div className="text-xs mt-1">
+                            <div className="mt-1 text-xs text-neutral-700 dark:text-neutral-200">
                                 {t("common.cost")}: {w.cost.amount} {w.cost.unit}
                             </div>
                         )}
+
                         {w.weight && (
-                            <div className="text-xs mt-1">
-                                {t("common.weight")}: {w.weight} {t("common.weight_unit")}
+                            <div className="mt-1 text-xs text-neutral-700 dark:text-neutral-200">
+                                {t("common.weight")}: {w.weight}{" "}
+                                {t("common.weight_unit")}
                             </div>
                         )}
+
                         {w.description && (
-                            <p className="text-xs mt-1 opacity-80">{w.description}</p>
+                            <p className="mt-1 text-xs text-neutral-700 dark:text-neutral-200">
+                                {w.description}
+                            </p>
                         )}
                     </li>
                 ))}
