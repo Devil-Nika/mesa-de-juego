@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
 import type { SystemId } from "@domain/types";
 import type { Actions } from "@domain/dnd5e";     // si tu barrel re-exporta Actions
 import { db } from "@services/db";
+import { useDexieDnd5eList } from "./useDexieDnd5eList";
 
 type UseActionsDnd5eState = {
     system: SystemId;
@@ -11,22 +11,7 @@ type UseActionsDnd5eState = {
 };
 
 export function useActionsDnd5e(): UseActionsDnd5eState {
-    const system: SystemId = "dnd5e";
-    const [data, setData] = useState<Actions[]>([]);
-    const [isLoading, setLoading] = useState(true);
-    const [error, setError] = useState<unknown>(null);
-
-    useEffect(() => {
-        let cancelled = false;
-        setLoading(true);
-
+    return useDexieDnd5eList<Actions>((system) =>
         db.actions.where("system").equals(system).toArray()
-            .then((rows) => { if (!cancelled) setData(rows); })
-            .catch((e) => { if (!cancelled) setError(e); })
-            .finally(() => { if (!cancelled) setLoading(false); });
-
-        return () => { cancelled = true; };
-    }, [system]);
-
-    return { system, data, isLoading, error };
+    );
 }
