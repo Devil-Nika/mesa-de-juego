@@ -6,14 +6,12 @@ import GrimorioLayout from "@pages/grimorio/GrimorioLayout";
 import OptionsPage from "@pages/Options";
 import Home from "@pages/Home";
 
-// ⬇️ TUS nombres de componentes/páginas
 import GrimoireHub from "@pages/grimorio/GrimorioHub";
 import EquipmentIndex from "@pages/grimorio/EquipmentIndex";
 import EquipmentSection from "@pages/grimorio/EquipmentSection";
 import ToolboxIndex from "@pages/grimorio/ToolboxIndex";
 import OriginsIndex from "@pages/grimorio/OriginsIndex";
 
-// hojas existentes
 import Spells from "@pages/grimorio/Spells";
 import Species from "@pages/grimorio/Species";
 import Items from "@pages/grimorio/Items";
@@ -27,7 +25,7 @@ import Rules from "@pages/grimorio/Rules";
 
 export default function App() {
     return (
-        <>
+        <div className="min-h-screen bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-50">
             <Header />
             <Routes>
                 <Route path="/" element={<Navigate to="/dnd5e" replace />} />
@@ -35,8 +33,14 @@ export default function App() {
                 <Route path=":system" element={<SystemGuard />}>
                     <Route index element={<Home />} />
 
-                    <Route path="encounter" element={<div className="p-6 opacity-60">WIP: Encounter</div>} />
-                    <Route path="builder" element={<div className="p-6 opacity-60">WIP: Builder</div>} />
+                    <Route
+                        path="encounter"
+                        element={<div className="p-6 opacity-60">WIP: Encounter</div>}
+                    />
+                    <Route
+                        path="builder"
+                        element={<div className="p-6 opacity-60">WIP: Builder</div>}
+                    />
 
                     <Route path="grimoire" element={<GrimorioLayout />}>
                         <Route index element={<GrimoireHub />} />
@@ -67,6 +71,6 @@ export default function App() {
 
                 <Route path="*" element={<Navigate to="/dnd5e" replace />} />
             </Routes>
-        </>
+        </div>
     );
 }

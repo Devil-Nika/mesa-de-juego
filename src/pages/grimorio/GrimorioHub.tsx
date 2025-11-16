@@ -25,9 +25,11 @@ export default function GrimorioHub() {
                         <Link
                             key={tile.to}
                             to={tile.to}
-                            className="block rounded-xl border bg-white p-4 hover:shadow-md shadow-sm"
+                            className="block rounded-xl border border-neutral-200 bg-white p-4 shadow-sm hover:shadow-md hover:bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900 dark:hover:bg-neutral-800"
                         >
-                            <div className="font-medium text-indigo-700">{tile.label}</div>
+                            <div className="font-medium text-indigo-700 dark:text-indigo-300">
+                                {tile.label}
+                            </div>
                             <p className="text-sm opacity-80 mt-1">{tile.desc}</p>
                         </Link>
                     ))}

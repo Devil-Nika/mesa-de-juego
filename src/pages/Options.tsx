@@ -21,7 +21,7 @@ export default function OptionsPage() {
                 <select
                     value={locale}
                     onChange={(e) => setLocale(e.target.value as typeof locale)}
-                    className="border rounded px-3 py-2 bg-white"
+                    className="border border-neutral-300 rounded px-3 py-2 bg-white text-neutral-900 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
                 >
                     {availableLocales.map((id: "en" | "es") => (
                         <option key={id} value={id}>
@@ -42,7 +42,7 @@ export default function OptionsPage() {
                 <select
                     value={theme}
                     onChange={(e) => setTheme(e.target.value as "light" | "dark")}
-                    className="border rounded px-3 py-2 bg-white"
+                    className="border border-neutral-300 rounded px-3 py-2 bg-white text-neutral-900 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-50"
                 >
                     <option value="light">{t("options.theme_light")}</option>
                     <option value="dark">{t("options.theme_dark")}</option>

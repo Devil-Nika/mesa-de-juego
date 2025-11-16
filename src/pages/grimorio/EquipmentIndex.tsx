@@ -28,11 +28,14 @@ export default function EquipmentIndex() {
                         <Link
                             key={s.id}
                             to={s.id}
-                            className={`border rounded-xl p-4 bg-white hover:shadow-md shadow-sm block ${
-                                sectionId === s.id ? "ring-2 ring-indigo-500" : ""
-                            }`}
+                            className={[
+                                "block rounded-xl p-4 shadow-sm border transition-colors",
+                                "bg-white border-neutral-200 hover:bg-neutral-50 hover:shadow-md",
+                                "dark:bg-neutral-900 dark:border-neutral-800 dark:hover:bg-neutral-800",
+                                sectionId === s.id ? "ring-2 ring-indigo-500" : "",
+                            ].join(" ")}
                         >
-                            <div className="font-medium text-indigo-700">
+                            <div className="font-medium text-indigo-700 dark:text-indigo-300">
                                 {t(s.i18n)}
                             </div>
                             <p className="text-sm opacity-80 mt-1">{t(s.hint)}</p>

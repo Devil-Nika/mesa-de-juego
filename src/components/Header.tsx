@@ -3,9 +3,22 @@ import SystemSwitcher from "./SystemSwitcher";
 import { useLocale } from "@contexts/useLocale";
 
 function navCls({ isActive }: { isActive: boolean }) {
+    const base =
+        "px-3 py-1.5 rounded-md text-sm whitespace-nowrap transition-colors border";
+
+    if (isActive) {
+        return [
+            base,
+            // activo: fuerte en ambos temas
+            "border-transparent bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900"
+        ].join(" ");
+    }
+
     return [
-        "px-3 py-1.5 rounded-md text-sm whitespace-nowrap",
-        isActive ? "bg-black text-white" : "bg-neutral-200 hover:bg-neutral-300"
+        base,
+        // inactivo: chip neutro que respeta claro/oscuro
+        "border-neutral-300 bg-neutral-200 text-neutral-900 hover:bg-neutral-300 " +
+        "dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-50 dark:hover:bg-neutral-700"
     ].join(" ");
 }
 
@@ -15,10 +28,13 @@ export default function Header() {
     const system = (params.system ?? "dnd5e") as string;
 
     return (
-        <header className="w-full border-b bg-white">
-            <div className="mx-auto max-w-7xl px-4 py-3 flex items-center gap-4">
+        <header className="w-full border-b border-neutral-200 bg-white text-neutral-900 shadow-sm dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-50">
+            <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3">
                 {/* Logo -> actúa como Home, así evitamos el botón de Inicio */}
-                <Link to={`/${system}`} className="shrink-0 font-semibold text-lg">
+                <Link
+                    to={`/${system}`}
+                    className="shrink-0 text-lg font-semibold"
+                >
                     Mesa de Juego
                 </Link>
 
